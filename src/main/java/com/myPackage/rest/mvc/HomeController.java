@@ -14,6 +14,7 @@ import com.myPackage.core.services.HomeService;
 import com.myPackage.rest.resources.HomeResource;
 import com.myPackage.rest.resources.asm.HomeResourceAsm;
 
+
 @RestController
 @RequestMapping(value = "/rest/home")
 public class HomeController {
@@ -39,5 +40,32 @@ public class HomeController {
 
 		}
 	}
+	
+	@RequestMapping(value = "/{homeId}", method = RequestMethod.DELETE)
+	public ResponseEntity<HomeResource> deleteHome(@PathVariable Long homeId) {
+		Home home = service.delete(homeId);
+		if (home != null) {
+			HomeResource resource = new HomeResourceAsm().toResource(home);
+			return new ResponseEntity<HomeResource>(resource, HttpStatus.OK);
+
+		}else{
+			return new ResponseEntity<HomeResource>( HttpStatus.NOT_FOUND);
+
+		}
+	}
+	@RequestMapping(value = "/{homeId}", method = RequestMethod.PUT)
+	public ResponseEntity<HomeResource> updateHome(@PathVariable Long homeId,
+			@RequestBody HomeResource sentHome) {
+		Home home = service.update(homeId, sentHome.toHome());
+		if (home != null) {
+			HomeResource resource = new HomeResourceAsm().toResource(home);
+			return new ResponseEntity<HomeResource>(resource, HttpStatus.OK);
+
+		}else{
+			return new ResponseEntity<HomeResource>( HttpStatus.NOT_FOUND);
+
+		}
+	}
+
 
 }
