@@ -20,8 +20,7 @@ public class PlaneTicketListResourceAsm extends ResourceAssemblerSupport<PlaneTi
 
 	@Override
 	public PlaneTicketListResource toResource(PlaneTicketList planeTicketList) {
-		List<PlaneTicketResource> resources = new PlaneTicketResourceAsm()
-				.toResources(planeTicketList.getPlaneTickets());
+		List<PlaneTicketResource> resources = new PlaneTicketResourceAsm().toResources(planeTicketList.getPlaneTickets());
 		PlaneTicketListResource listResource = new PlaneTicketListResource();
 		listResource.setPlaneTickets(resources);
 		listResource.add(linkTo(methodOn(PlaneTicketController.class).findAllPlaneTickets()).withSelfRel());

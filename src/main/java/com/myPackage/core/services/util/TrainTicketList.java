@@ -8,11 +8,11 @@ import com.myPackage.core.entities.TrainTicket;
 public class TrainTicketList {
 	private List<TrainTicket> trainTicketList = new ArrayList<TrainTicket>();
 
-	public List<TrainTicket> getTrainTicketList() {
+	public List<TrainTicket> getTrainTickets() {
 		return trainTicketList;
 	}
 
-	public void setTrainTicketList(List<TrainTicket> trainTicketList) {
+	public void setTrainTickets(List<TrainTicket> trainTicketList) {
 		this.trainTicketList = trainTicketList;
 	}
 	

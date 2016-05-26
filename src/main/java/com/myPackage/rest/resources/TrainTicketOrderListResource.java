@@ -8,11 +8,11 @@ import org.springframework.hateoas.ResourceSupport;
 public class TrainTicketOrderListResource extends ResourceSupport{
 	 private List<TrainTicketOrderResource> trainTicketOrderResource = new ArrayList<TrainTicketOrderResource>();
 
-	public List<TrainTicketOrderResource> getTrainTicketOrderResource() {
+	public List<TrainTicketOrderResource> getTrainTicketOrders() {
 		return trainTicketOrderResource;
 	}
 
-	public void setTrainTicketOrderResource(List<TrainTicketOrderResource> trainTicketOrderResource) {
+	public void setTrainTicketOrders(List<TrainTicketOrderResource> trainTicketOrderResource) {
 		this.trainTicketOrderResource = trainTicketOrderResource;
 	}
 

@@ -1,8 +1,8 @@
 package com.myPackage.rest.resources.asm;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
 import com.myPackage.core.entities.TrainTicket;
@@ -27,8 +27,8 @@ public class TrainTicketResourceAsm  extends ResourceAssemblerSupport<TrainTicke
 		res.setTransitDateStop(trainTicket.getTransitDateStop());
 		res.setTransitHourStop(trainTicket.getTransitHourStop());
 		res.setTransitPrice(trainTicket.getTransitPrice());
-		Link link = linkTo(TrainTicketController.class).slash(trainTicket.getId()).withSelfRel();
-		res.add(link);
+		res.add(linkTo(methodOn(TrainTicketController.class).getTrainTicket(trainTicket.getId())).withSelfRel());
+
 		return res;
 	}
 }

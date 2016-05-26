@@ -12,7 +12,7 @@ public class TrainTicketOrderList {
 		return trainTicketOrderList;
 	}
 
-	public void setPlaneTicketOrders(List<TrainTicketOrder> trainTicketOrderList) {
+	public void setTrainTicketOrders(List<TrainTicketOrder> trainTicketOrderList) {
 		this.trainTicketOrderList = trainTicketOrderList;
 	}
 }

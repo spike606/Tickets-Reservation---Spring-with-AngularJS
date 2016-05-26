@@ -1,5 +1,8 @@
 package com.myPackage.rest.resources.asm;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
@@ -18,9 +21,9 @@ public class TrainTicketOrderListResourceAsm extends ResourceAssemblerSupport<Tr
 	public TrainTicketOrderListResource toResource(TrainTicketOrderList trainTicketOrderList) {
         List<TrainTicketOrderResource> resources = new TrainTicketOrderResourceAsm().toResources(trainTicketOrderList.getTrainTicketOrders());
         TrainTicketOrderListResource listResource = new TrainTicketOrderListResource();
-        listResource.setTrainTicketOrderResource(resources);
-//		Link link = linkTo(PlaneTicketController.class).slash.framedump(planeTicketList.getPlaneTickets()).withSelfRel();
-//TODO: LINK
+        listResource.setTrainTicketOrders(resources);
+        listResource.add(linkTo(methodOn(TrainTicketOrderController.class).findAllTrainTicketOrders()).withSelfRel());
+
         return listResource;
 	}
 }

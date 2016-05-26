@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.hateoas.ResourceSupport;
 
 public class TrainTicketListResource extends ResourceSupport{
-	 private List<TrainTicketResource> trainTicketResource = new ArrayList<TrainTicketResource>();
+	 private List<TrainTicketResource> trainTickets = new ArrayList<TrainTicketResource>();
 
-	public List<TrainTicketResource> getTrainTicketResource() {
-		return trainTicketResource;
+	public List<TrainTicketResource> getTrainTickets() {
+		return trainTickets;
 	}
 
-	public void setTrainTicketResource(List<TrainTicketResource> trainTicketResource) {
-		this.trainTicketResource = trainTicketResource;
+	public void setTrainTickets(List<TrainTicketResource> trainTickets) {
+		this.trainTickets = trainTickets;
 	}
 
 }

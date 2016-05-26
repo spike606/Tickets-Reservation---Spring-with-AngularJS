@@ -6,6 +6,7 @@ import com.myPackage.core.services.util.TrainTicketOrderList;
 public interface TrainTicketOrderService {
 	
     public TrainTicketOrder createTrainTicketOrder(Long id);
+    public TrainTicketOrder createTrainTicketOrder(TrainTicketOrder data);
     public TrainTicketOrderList findAllTrainTicketOrders();
     public TrainTicketOrder findTrainTicketOrder(Long id);
     public TrainTicketOrder deleteTrainTicketOrder(Long id);

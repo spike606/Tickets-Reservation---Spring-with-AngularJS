@@ -1,11 +1,9 @@
 package com.myPackage.rest.mvc;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -71,6 +69,7 @@ public class PlaneTicketControllerTest {
         when(service.findAllPlaneTickets()).thenReturn(allTickets);
 
         mockMvc.perform(get("/rest/planeTickets"))
+        		.andDo(print())	
                 .andExpect(jsonPath("$.planeTickets[*].flightFrom",
                         hasItems(endsWith("Berlin"))))
                 .andExpect(status().isOk());
