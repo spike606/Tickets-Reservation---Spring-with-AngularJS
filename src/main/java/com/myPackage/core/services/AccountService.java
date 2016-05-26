@@ -17,6 +17,8 @@ public interface AccountService {
     public PlaneTicketOrderList findAllPlaneTicketOrdersForAccount(Long accountId);
     public TrainTicketOrderList findAllTrainTicketOrdersForAccount(Long accountId);
     public Account createAccount(Account data);
+    public Account deleteAccount(Long id);
+
 //    public PlaneTicketOrder createPlaneticketOrder(Long )
 
 

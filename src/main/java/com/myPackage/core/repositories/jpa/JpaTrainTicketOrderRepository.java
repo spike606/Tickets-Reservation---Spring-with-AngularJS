@@ -25,7 +25,7 @@ public class JpaTrainTicketOrderRepository implements TrainTicketOrderRepository
 
 	@Override
 	public List<TrainTicketOrder> findAllTrainTicketOrders() {
-        Query query = entityManager.createQuery("SELECT o FROM TrainTicket o order by id");
+        Query query = entityManager.createQuery("SELECT o FROM TrainTicketOrder o order by id");
         return query.getResultList();
 	}
 
@@ -43,14 +43,14 @@ public class JpaTrainTicketOrderRepository implements TrainTicketOrderRepository
 	}
 	@Override
 	public List<TrainTicketOrder> findAllTrainTicketOrdersForAccount(Long accountId) {
-        Query query = entityManager.createQuery("SELECT o FROM TrainTicket o where a.owner.id=?1 order by id");
+        Query query = entityManager.createQuery("SELECT o FROM TrainTicketOrder o where owner.id=?1 order by id");
         query.setParameter(1, accountId);
         List<TrainTicketOrder> trainTicketOrder = query.getResultList();
-        if(trainTicketOrder.size() == 0) {
-            return null;
-        } else {
+//        if(trainTicketOrder.size() == 0) {
+//            return null;
+//        } else {
             return trainTicketOrder;
-        }
+//        }
 	}
 
 }

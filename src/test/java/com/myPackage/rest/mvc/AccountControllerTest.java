@@ -127,94 +127,94 @@ public class AccountControllerTest {
         		.andDo(print())
                 .andExpect(status().isConflict());
     }
-    @Test
-    public void createPlaneTicketOrderExistingAccount() throws Exception {
-        PlaneTicketOrder createdPlaneTicketOrder = new PlaneTicketOrder();
-        createdPlaneTicketOrder.setId(1L);
-        createdPlaneTicketOrder.setFirstname("johnny");
-
-        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenReturn(createdPlaneTicketOrder);
-
-        mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
-                .content("{\"firstname\":\"johnny\"}")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(jsonPath("$.firstname", is("johnny")))
-                .andExpect(jsonPath("$.links[*].href", hasItem(endsWith("/planeTicketOrders/1"))))
-                .andExpect(header().string("Location", endsWith("/planeTicketOrders/1")))
-                .andExpect(status().isCreated());
-    }
-
-    @Test
-    public void createPlaneTicketOrderNotExistingAccount() throws Exception {
-        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenThrow(new AccountDoesNotExistException());
-
-        mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
-                .content("{\"firstname\":\"johnny\"}")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-    }
-    @Test
-    public void createPlaneTicketOrderExistingPlaneTicketOrder() throws Exception {
-        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenThrow(new PlaneTicketOrderAlreadyExistsException());
-
-        mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
-                .content("{\"firstname\":\"johnny\"}")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isConflict());
-    }
-    @Test
-    public void findAllPlaneTicketOrdersForExistingAccount() throws Exception {
-        List<PlaneTicketOrder> list = new ArrayList<PlaneTicketOrder>();
-
-        
-        PlaneTicket ticket1 = new PlaneTicket();
-        ticket1.setId(1L);
-        ticket1.setFlightFrom("Berlin");     
-
-        Account ownerTicketOrder1 = new Account();
-        ownerTicketOrder1.setId(1L);
-        ownerTicketOrder1.setPassword("testpassword");
-        ownerTicketOrder1.setFirstname("johnny");
-        ownerTicketOrder1.setLastname("bravo");
-        
-        PlaneTicketOrder ticketOrder1 = new PlaneTicketOrder();
-        ticketOrder1.setPlaneTicket(ticket1);
-        ticketOrder1.setOwner(ownerTicketOrder1);
-
-        
-        
-        PlaneTicket ticket2 = new PlaneTicket();
-        ticket2.setId(2L);
-        ticket2.setFlightFrom("Warsaw");
-
-        
-        PlaneTicketOrder ticketOrder2 = new PlaneTicketOrder();
-        ticketOrder2.setPlaneTicket(ticket2);
-        ticketOrder2.setFirstname("john");
-        ticketOrder2.setLastname("smith");
-
-        list.add(ticketOrder1);
-        list.add(ticketOrder2);
-        PlaneTicketOrderList allTicketOrders = new PlaneTicketOrderList();
-        allTicketOrders.setPlaneTicketOrders(list);
-
-        when(service.findAllPlaneTicketOrdersForAccount(1L)).thenReturn(allTicketOrders);
-
-        mockMvc.perform(get("/rest/accounts/1/planeTicketOrders"))
-				.andDo(print())
-                .andExpect(jsonPath("$.planeTicketOrders[*].firstname",
-                        hasItems(endsWith("john"))))
-                .andExpect(jsonPath("$.planeTicketOrders[*].lastname",
-                        hasItems(endsWith("smith"))))
-                .andExpect(jsonPath("$.planeTicketOrders[0].owner.firstname",
-                		is(ownerTicketOrder1.getFirstname())))
-                .andExpect(jsonPath("$.planeTicketOrders[0].owner.lastname",
-                		is(ownerTicketOrder1.getLastname())))
-                .andExpect(jsonPath("$.planeTicketOrders[*].planeTicket.flightFrom",
-                        hasItems(endsWith("Berlin"),endsWith("Warsaw"))))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    public void createPlaneTicketOrderExistingAccount() throws Exception {
+//        PlaneTicketOrder createdPlaneTicketOrder = new PlaneTicketOrder();
+//        createdPlaneTicketOrder.setId(1L);
+//        createdPlaneTicketOrder.setFirstname("johnny");
+//
+//        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenReturn(createdPlaneTicketOrder);
+//
+//        mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
+//                .content("{\"firstname\":\"johnny\"}")
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andDo(print())
+//                .andExpect(jsonPath("$.firstname", is("johnny")))
+//                .andExpect(jsonPath("$.links[*].href", hasItem(endsWith("/planeTicketOrders/1"))))
+//                .andExpect(header().string("Location", endsWith("/planeTicketOrders/1")))
+//                .andExpect(status().isCreated());
+//    }
+//
+//    @Test
+//    public void createPlaneTicketOrderNotExistingAccount() throws Exception {
+//        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenThrow(new AccountDoesNotExistException());
+//
+//        mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
+//                .content("{\"firstname\":\"johnny\"}")
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isBadRequest());
+//    }
+//    @Test
+//    public void createPlaneTicketOrderExistingPlaneTicketOrder() throws Exception {
+//        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenThrow(new PlaneTicketOrderAlreadyExistsException());
+//
+//        mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
+//                .content("{\"firstname\":\"johnny\"}")
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isConflict());
+//    }
+//    @Test
+//    public void findAllPlaneTicketOrdersForExistingAccount() throws Exception {
+//        List<PlaneTicketOrder> list = new ArrayList<PlaneTicketOrder>();
+//
+//        
+//        PlaneTicket ticket1 = new PlaneTicket();
+//        ticket1.setId(1L);
+//        ticket1.setFlightFrom("Berlin");     
+//
+//        Account ownerTicketOrder1 = new Account();
+//        ownerTicketOrder1.setId(1L);
+//        ownerTicketOrder1.setPassword("testpassword");
+//        ownerTicketOrder1.setFirstname("johnny");
+//        ownerTicketOrder1.setLastname("bravo");
+//        
+//        PlaneTicketOrder ticketOrder1 = new PlaneTicketOrder();
+//        ticketOrder1.setPlaneTicket(ticket1);
+//        ticketOrder1.setOwner(ownerTicketOrder1);
+//
+//        
+//        
+//        PlaneTicket ticket2 = new PlaneTicket();
+//        ticket2.setId(2L);
+//        ticket2.setFlightFrom("Warsaw");
+//
+//        
+//        PlaneTicketOrder ticketOrder2 = new PlaneTicketOrder();
+//        ticketOrder2.setPlaneTicket(ticket2);
+//        ticketOrder2.setFirstname("john");
+//        ticketOrder2.setLastname("smith");
+//
+//        list.add(ticketOrder1);
+//        list.add(ticketOrder2);
+//        PlaneTicketOrderList allTicketOrders = new PlaneTicketOrderList();
+//        allTicketOrders.setPlaneTicketOrders(list);
+//
+//        when(service.findAllPlaneTicketOrdersForAccount(1L)).thenReturn(allTicketOrders);
+//
+//        mockMvc.perform(get("/rest/accounts/1/planeTicketOrders"))
+//				.andDo(print())
+//                .andExpect(jsonPath("$.planeTicketOrders[*].firstname",
+//                        hasItems(endsWith("john"))))
+//                .andExpect(jsonPath("$.planeTicketOrders[*].lastname",
+//                        hasItems(endsWith("smith"))))
+//                .andExpect(jsonPath("$.planeTicketOrders[0].owner.firstname",
+//                		is(ownerTicketOrder1.getFirstname())))
+//                .andExpect(jsonPath("$.planeTicketOrders[0].owner.lastname",
+//                		is(ownerTicketOrder1.getLastname())))
+//                .andExpect(jsonPath("$.planeTicketOrders[*].planeTicket.flightFrom",
+//                        hasItems(endsWith("Berlin"),endsWith("Warsaw"))))
+//                .andExpect(status().isOk());
+//    }
     @Test
     public void findAllPlaneTicketOrdersForNotExistingAccount() throws Exception {
         when(service.findAllPlaneTicketOrdersForAccount(eq(1L))).thenThrow(new AccountDoesNotExistException());

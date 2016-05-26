@@ -13,7 +13,6 @@ import com.myPackage.core.repositories.TrainTicketOrderRepository;
 import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.exceptions.AccountAlreadyExistsException;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
-import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
 import com.myPackage.core.services.util.AccountList;
 import com.myPackage.core.services.util.PlaneTicketOrderList;
 import com.myPackage.core.services.util.TrainTicketOrderList;
@@ -42,12 +41,12 @@ public class AccountServiceImplementation implements AccountService{
 
 	@Override
 	public PlaneTicketOrder createPlaneTicketOrderForAccount(Long accountId, PlaneTicketOrder data) {
-		PlaneTicketOrder order = planeTicketOrderRepository.findPlaneTicketOrder(data.getId());
-		
-        if(order != null)
-        {
-            throw new PlaneTicketOrderAlreadyExistsException();
-        }
+//		PlaneTicketOrder order = planeTicketOrderRepository.findPlaneTicketOrder(data.getId());
+//		
+//        if(order != null)
+//        {
+//            throw new PlaneTicketOrderAlreadyExistsException();
+//        }
 
         Account account = accountRepository.findAccount(accountId);
         if(account == null)
@@ -64,12 +63,12 @@ public class AccountServiceImplementation implements AccountService{
 
 	@Override
 	public TrainTicketOrder createTrainTicketOrderForAccount(Long accountId, TrainTicketOrder data) {
-		TrainTicketOrder order = trainTicketOrderRepository.findTrainTicketOrder(data.getId());
-		
-        if(order != null)
-        {
-            throw new PlaneTicketOrderAlreadyExistsException();
-        }
+//		TrainTicketOrder order = trainTicketOrderRepository.findTrainTicketOrder(data.getId());
+//		
+//        if(order != null)
+//        {
+//            throw new PlaneTicketOrderAlreadyExistsException();
+//        }
 
         Account account = accountRepository.findAccount(accountId);
         if(account == null)
@@ -118,6 +117,11 @@ public class AccountServiceImplementation implements AccountService{
 	@Override
 	public Account findAccountByLogin(String login) {
 		 return accountRepository.findAccountByLogin(login);
+	}
+
+	@Override
+	public Account deleteAccount(Long id) {
+		return accountRepository.deleteAccount(id);
 	}
 
 }

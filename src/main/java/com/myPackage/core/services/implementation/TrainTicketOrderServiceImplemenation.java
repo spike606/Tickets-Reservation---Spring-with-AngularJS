@@ -23,11 +23,11 @@ public class TrainTicketOrderServiceImplemenation  implements TrainTicketOrderSe
 	
 	@Override
 	public TrainTicketOrder createTrainTicketOrder(TrainTicketOrder data) {
-		TrainTicketOrder trainTicketOrder = trainTicketOrderRepository.findTrainTicketOrder(data.getId());
-        if(trainTicketOrder != null)
-        {
-            throw new TrainTicketOrderAlreadyExistsException();
-        }
+//		TrainTicketOrder trainTicketOrder = trainTicketOrderRepository.findTrainTicketOrder(data.getId());
+//        if(trainTicketOrder != null)
+//        {
+//            throw new TrainTicketOrderAlreadyExistsException();
+//        }
         return trainTicketOrderRepository.createTrainTicketOrder(data);
 
 	}

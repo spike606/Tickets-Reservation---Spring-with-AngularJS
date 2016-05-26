@@ -19,11 +19,11 @@ public class PlaneTicketServiceImplementation implements PlaneTicketService{
 	
 	@Override
 	public PlaneTicket createPlaneTicket(PlaneTicket data) {
-		PlaneTicket planeTicket = planeTicketRepository.findPlaneTicket(data.getId());
-        if(planeTicket != null)
-        {
-            throw new PlaneTicketAlreadyExistsException();
-        }
+//		PlaneTicket planeTicket = planeTicketRepository.findPlaneTicket(data.getId());
+//        if(planeTicket != null)
+//        {
+//            throw new PlaneTicketAlreadyExistsException();
+//        }
         return planeTicketRepository.createPlaneTicket(data);
 	}
 

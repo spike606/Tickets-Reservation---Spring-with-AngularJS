@@ -19,10 +19,13 @@ public class PlaneTicketOrderListResourceAsm extends ResourceAssemblerSupport<Pl
 
 	@Override
 	public PlaneTicketOrderListResource toResource(PlaneTicketOrderList planeTicketOrderList) {
-        List<PlaneTicketOrderResource> resources = new PlaneTicketOrderResourceAsm().toResources(planeTicketOrderList.getPlaneTicketOrders());
         PlaneTicketOrderListResource listResource = new PlaneTicketOrderListResource();
-        listResource.setPlaneTicketOrders(resources);
-        listResource.add(linkTo(methodOn(PlaneTicketOrderController.class).findAllPlaneTicketOrders()).withSelfRel());
+
+	        List<PlaneTicketOrderResource> resources = new PlaneTicketOrderResourceAsm().toResources(planeTicketOrderList.getPlaneTicketOrders());
+	        listResource.setPlaneTicketOrders(resources);
+	        listResource.add(linkTo(methodOn(PlaneTicketOrderController.class).findAllPlaneTicketOrders()).withSelfRel());
+		
+
         
         return listResource;
 	}

@@ -26,7 +26,7 @@ public class JpaPlaneTicketOrderRepository implements PlaneTicketOrderRepository
 
 	@Override
 	public List<PlaneTicketOrder> findAllPlaneTicketOrders() {
-        Query query = entityManager.createQuery("SELECT o FROM PlaneTicket o order by id");
+        Query query = entityManager.createQuery("SELECT o FROM PlaneTicketOrder o order by id");
         return query.getResultList();
 	}
 
@@ -44,14 +44,16 @@ public class JpaPlaneTicketOrderRepository implements PlaneTicketOrderRepository
 	}
 	@Override
 	public List<PlaneTicketOrder> findAllPlaneTicketOrdersForAccount(Long accountId) {
-        Query query = entityManager.createQuery("SELECT o FROM PlaneTicket o where a.owner.id=?1 order by id");
+        Query query = entityManager.createQuery("SELECT o FROM PlaneTicketOrder o where owner.id=?1 order by id");
+//      Query query = entityManager.createQuery("SELECT o FROM PlaneTicketOrder o");
+
         query.setParameter(1, accountId);
         List<PlaneTicketOrder> planeTicketOrder = query.getResultList();
-        if(planeTicketOrder.size() == 0) {
-            return null;
-        } else {
+//        if(planeTicketOrder.size() == 0) {
+//            return null;
+//        } else {
             return planeTicketOrder;
-        }
+//        }
 	}
 
 

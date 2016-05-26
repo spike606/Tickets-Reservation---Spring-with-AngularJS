@@ -19,11 +19,11 @@ public class TrainTicketOrderListResourceAsm extends ResourceAssemblerSupport<Tr
 
 	@Override
 	public TrainTicketOrderListResource toResource(TrainTicketOrderList trainTicketOrderList) {
-        List<TrainTicketOrderResource> resources = new TrainTicketOrderResourceAsm().toResources(trainTicketOrderList.getTrainTicketOrders());
         TrainTicketOrderListResource listResource = new TrainTicketOrderListResource();
-        listResource.setTrainTicketOrders(resources);
-        listResource.add(linkTo(methodOn(TrainTicketOrderController.class).findAllTrainTicketOrders()).withSelfRel());
 
+	        List<TrainTicketOrderResource> resources = new TrainTicketOrderResourceAsm().toResources(trainTicketOrderList.getTrainTicketOrders());
+	        listResource.setTrainTicketOrders(resources);
+	        listResource.add(linkTo(methodOn(TrainTicketOrderController.class).findAllTrainTicketOrders()).withSelfRel());
         return listResource;
 	}
 }

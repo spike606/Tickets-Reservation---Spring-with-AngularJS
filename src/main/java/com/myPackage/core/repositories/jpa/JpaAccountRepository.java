@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.myPackage.core.entities.Account;
+import com.myPackage.core.entities.AccountRole;
 import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.repositories.AccountRepository;
@@ -48,6 +49,13 @@ public class JpaAccountRepository implements AccountRepository{
 	public Account createAccount(Account data) {
 		entityManager.persist(data);
 		return data;
+	}
+
+	@Override
+	public Account deleteAccount(Long id) {
+		Account account = entityManager.find(Account.class, id);
+		entityManager.remove(account);
+		return account;		
 	}
 
 

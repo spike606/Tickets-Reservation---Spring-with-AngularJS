@@ -98,51 +98,51 @@ public class AccountController {
         }
 		
 	}
-    @RequestMapping(value="/{accountId}/planeTicketOrders",
-            method = RequestMethod.POST)
-        public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(
-                @PathVariable Long accountId,
-                @RequestBody PlaneTicketOrderResource resource)
-        {
-            try {
-                PlaneTicketOrder createdPlaneTicketOrder = accountService.createPlaneTicketOrderForAccount(accountId, resource.toPlaneTicketOrder());
-                PlaneTicketOrderResource createdPlaneTicketOrderResource = new PlaneTicketOrderResourceAsm().toResource(createdPlaneTicketOrder);
-                HttpHeaders headers = new HttpHeaders();
-                headers.setLocation(URI.create(createdPlaneTicketOrderResource.getLink("self").getHref()));
-                return new ResponseEntity<PlaneTicketOrderResource>(createdPlaneTicketOrderResource, headers, HttpStatus.CREATED);
-            } catch(AccountDoesNotExistException exception)//service layer exception
-            {
-                throw new BadRequestException(exception);//rest layer exception
-            }catch(PlaneTicketOrderAlreadyExistsException ex){
-            	throw new ConflictException(ex);
-            }
-        }
-    @RequestMapping(value="/{accountId}/trainTicketOrders",
-            method = RequestMethod.POST)
-        public ResponseEntity<TrainTicketOrderResource> createTrainTicketOrder(@PathVariable Long accountId,
-                @RequestBody TrainTicketOrderResource resource)
-        {
-            try {
-            	TrainTicketOrder createdTrainTicketOrder = accountService.createTrainTicketOrderForAccount(accountId, resource.toTrainTicketOrder());
-                TrainTicketOrderResource createdTrainTicketOrderResource = new TrainTicketOrderResourceAsm().toResource(createdTrainTicketOrder);
-                HttpHeaders headers = new HttpHeaders();
-                headers.setLocation(URI.create(createdTrainTicketOrderResource.getLink("self").getHref()));
-                return new ResponseEntity<TrainTicketOrderResource>(createdTrainTicketOrderResource, headers, HttpStatus.CREATED);
-            } catch(AccountDoesNotExistException exception)
-            {
-                throw new BadRequestException(exception);
-            }catch(TrainTicketOrderAlreadyExistsException ex){
-            	throw new ConflictException(ex);
-            }
-        }
+//    @RequestMapping(value="/{accountId}/planeTicketOrders",
+//            method = RequestMethod.POST)
+//        public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(
+//                @PathVariable Long accountId,
+//                @RequestBody PlaneTicketOrderResource resource)
+//        {
+//            try {
+//                PlaneTicketOrder createdPlaneTicketOrder = accountService.createPlaneTicketOrderForAccount(accountId, resource.toPlaneTicketOrder());
+//                PlaneTicketOrderResource createdPlaneTicketOrderResource = new PlaneTicketOrderResourceAsm().toResource(createdPlaneTicketOrder);
+//                HttpHeaders headers = new HttpHeaders();
+//                headers.setLocation(URI.create(createdPlaneTicketOrderResource.getLink("self").getHref()));
+//                return new ResponseEntity<PlaneTicketOrderResource>(createdPlaneTicketOrderResource, headers, HttpStatus.CREATED);
+//            } catch(AccountDoesNotExistException exception)//service layer exception
+//            {
+//                throw new BadRequestException(exception);//rest layer exception
+//            }catch(PlaneTicketOrderAlreadyExistsException ex){
+//            	throw new ConflictException(ex);
+//            }
+//        }
+//    @RequestMapping(value="/{accountId}/trainTicketOrders",
+//            method = RequestMethod.POST)
+//        public ResponseEntity<TrainTicketOrderResource> createTrainTicketOrder(@PathVariable Long accountId,
+//                @RequestBody TrainTicketOrderResource resource)
+//        {
+//            try {
+//            	TrainTicketOrder createdTrainTicketOrder = accountService.createTrainTicketOrderForAccount(accountId, resource.toTrainTicketOrder());
+//                TrainTicketOrderResource createdTrainTicketOrderResource = new TrainTicketOrderResourceAsm().toResource(createdTrainTicketOrder);
+//                HttpHeaders headers = new HttpHeaders();
+//                headers.setLocation(URI.create(createdTrainTicketOrderResource.getLink("self").getHref()));
+//                return new ResponseEntity<TrainTicketOrderResource>(createdTrainTicketOrderResource, headers, HttpStatus.CREATED);
+//            } catch(AccountDoesNotExistException exception)
+//            {
+//                throw new BadRequestException(exception);
+//            }catch(TrainTicketOrderAlreadyExistsException ex){
+//            	throw new ConflictException(ex);
+//            }
+//        }
 	@RequestMapping(value = "/{accountId}/planeTicketOrders", method = RequestMethod.GET)
 	public ResponseEntity<PlaneTicketOrderListResource> findAllPlaneTicketOrdersForAccount(@PathVariable Long accountId) {
         try {
 
 			PlaneTicketOrderList planeTicketOrderList = accountService.findAllPlaneTicketOrdersForAccount(accountId);
 			PlaneTicketOrderListResource planeTicketOrderListResource = new PlaneTicketOrderListResourceAsm().toResource(planeTicketOrderList);
-	
 			return new ResponseEntity<PlaneTicketOrderListResource>(planeTicketOrderListResource, HttpStatus.OK);
+
         } catch(AccountDoesNotExistException exception)
         {
             throw new BadRequestException(exception);

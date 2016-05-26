@@ -20,11 +20,11 @@ public class TrainTicketServiceImplementation implements TrainTicketService{
 	
 	@Override
 	public TrainTicket createTrainTicket(TrainTicket data) {
-		TrainTicket trainTicket = trainTicketRepository.findTrainTicket(data.getId());
-        if(trainTicket != null)
-        {
-            throw new TrainTicketAlreadyExistsException();
-        }
+//		TrainTicket trainTicket = trainTicketRepository.findTrainTicket(data.getId());
+//        if(trainTicket != null)
+//        {
+//            throw new TrainTicketAlreadyExistsException();
+//        }
         return trainTicketRepository.createTrainTicket(data);
 	}
 

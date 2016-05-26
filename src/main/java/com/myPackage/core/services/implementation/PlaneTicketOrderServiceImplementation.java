@@ -24,11 +24,11 @@ public class PlaneTicketOrderServiceImplementation implements PlaneTicketOrderSe
 
 	@Override
 	public PlaneTicketOrder createPlaneTicketOrder(PlaneTicketOrder data) {
-		PlaneTicketOrder planeTicketOrder = planeTicketOrderRepository.findPlaneTicketOrder(data.getId());
-        if(planeTicketOrder != null)
-        {
-            throw new PlaneTicketOrderAlreadyExistsException();
-        }
+//		PlaneTicketOrder planeTicketOrder = planeTicketOrderRepository.findPlaneTicketOrder(data.getId());
+//        if(planeTicketOrder != null)
+//        {
+//            throw new PlaneTicketOrderAlreadyExistsException();
+//        }
         return planeTicketOrderRepository.createPlaneTicketOrder(data);
 	}
 

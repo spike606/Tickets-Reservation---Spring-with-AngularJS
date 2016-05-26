@@ -1,8 +1,13 @@
 package com.myPackage.core.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Account {
@@ -24,6 +29,9 @@ public class Account {
 
 	private String login;
 	private String password;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<AccountRole> accountRole = new HashSet<AccountRole>(0);
 	
 	public Long getId() {
 		return id;
@@ -96,6 +104,12 @@ public class Account {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Set<AccountRole> getAccountRole() {
+		return accountRole;
+	}
+	public void setAccountRole(Set<AccountRole> accountRole) {
+		this.accountRole = accountRole;
 	}
 	
 }
