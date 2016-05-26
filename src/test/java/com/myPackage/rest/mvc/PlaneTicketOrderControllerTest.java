@@ -203,36 +203,36 @@ public class PlaneTicketOrderControllerTest {
                 .andExpect(status().isNotFound());
         
     }
-    @Test 
-    public void updateExistingPlaneTicketOrder() throws Exception{
-        PlaneTicketOrder ticketOrder1 = new PlaneTicketOrder();
-        ticketOrder1.setId(1L);
-        ticketOrder1.setCountry("Poland");
-        ticketOrder1.setFirstname("johnny");
-        ticketOrder1.setLastname("bravo");
-        
-        when(service.updatePlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenReturn(ticketOrder1);
-        mockMvc.perform(put("/rest/planeTicketOrders/1")
-                .content("{\"country\":\"Poland\",\"firstName\":\"johnny\",\"lastName\":\"bravo\"}")
-                .contentType(MediaType.APPLICATION_JSON))
-		        .andExpect(jsonPath("$.country", is(ticketOrder1.getCountry())))
-		        .andExpect(jsonPath("$.firstname", is(ticketOrder1.getFirstname())))
-		        .andExpect(jsonPath("$.lastname", is(ticketOrder1.getLastname())))
-        		.andExpect(jsonPath("$.links[*].href",
-        				hasItem(endsWith("/planeTicketOrders/1"))))
-        		.andDo(print())
-        		.andExpect(status().isOk());
-        
-    }
-    @Test 
-    public void updateNotExistingPlaneTicket() throws Exception{
-        
-        when(service.updatePlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenReturn(null);
-        mockMvc.perform(put("/rest/planeTicketOrders/1")
-                .content("{\"country\":\"Poland\",\"firstName\":\"johnny\",\"lastName\":\"bravo\"}")
-                .contentType(MediaType.APPLICATION_JSON))
-        		.andDo(print())
-        		.andExpect(status().isNotFound());
-        
-    }
+//    @Test 
+//    public void updateExistingPlaneTicketOrder() throws Exception{
+//        PlaneTicketOrder ticketOrder1 = new PlaneTicketOrder();
+//        ticketOrder1.setId(1L);
+//        ticketOrder1.setCountry("Poland");
+//        ticketOrder1.setFirstname("johnny");
+//        ticketOrder1.setLastname("bravo");
+//        
+//        when(service.updatePlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenReturn(ticketOrder1);
+//        mockMvc.perform(put("/rest/planeTicketOrders/1")
+//                .content("{\"country\":\"Poland\",\"firstName\":\"johnny\",\"lastName\":\"bravo\"}")
+//                .contentType(MediaType.APPLICATION_JSON))
+//		        .andExpect(jsonPath("$.country", is(ticketOrder1.getCountry())))
+//		        .andExpect(jsonPath("$.firstname", is(ticketOrder1.getFirstname())))
+//		        .andExpect(jsonPath("$.lastname", is(ticketOrder1.getLastname())))
+//        		.andExpect(jsonPath("$.links[*].href",
+//        				hasItem(endsWith("/planeTicketOrders/1"))))
+//        		.andDo(print())
+//        		.andExpect(status().isOk());
+//        
+//    }
+//    @Test 
+//    public void updateNotExistingPlaneTicket() throws Exception{
+//        
+//        when(service.updatePlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenReturn(null);
+//        mockMvc.perform(put("/rest/planeTicketOrders/1")
+//                .content("{\"country\":\"Poland\",\"firstName\":\"johnny\",\"lastName\":\"bravo\"}")
+//                .contentType(MediaType.APPLICATION_JSON))
+//        		.andDo(print())
+//        		.andExpect(status().isNotFound());
+//        
+//    }
 }

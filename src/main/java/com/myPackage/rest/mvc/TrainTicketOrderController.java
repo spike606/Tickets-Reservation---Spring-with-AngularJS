@@ -2,6 +2,7 @@ package com.myPackage.rest.mvc;
 
 import java.net.URI;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,13 @@ import com.myPackage.rest.resources.asm.TrainTicketOrderResourceAsm;
 @RestController
 @RequestMapping(value = "/rest/trainTicketOrders")
 public class TrainTicketOrderController {
-
+	@Autowired
 	private TrainTicketOrderService trainTicketOrderService;
 
 	public TrainTicketOrderController() {
 	}
+	
+	@Autowired
 	public TrainTicketOrderController(TrainTicketOrderService TrainTicketOrderService) {
 		this.trainTicketOrderService = TrainTicketOrderService;
 	}
@@ -71,16 +74,16 @@ public class TrainTicketOrderController {
             return new ResponseEntity<TrainTicketOrderResource>(HttpStatus.NOT_FOUND);
         }
     }
-    @RequestMapping(value="/{TrainTicketOrderId}",method = RequestMethod.PUT)
-    public ResponseEntity<TrainTicketOrderResource> updateTrainTicketOrder(
-            @PathVariable Long TrainTicketOrderId, @RequestBody TrainTicketOrderResource sentTrainTicketOrder) {
-        TrainTicketOrder updatedTrainTicketOrder = trainTicketOrderService.updateTrainTicketOrder(TrainTicketOrderId, sentTrainTicketOrder.toTrainTicketOrder());
-        if(updatedTrainTicketOrder != null)
-        {
-        	TrainTicketOrderResource res = new TrainTicketOrderResourceAsm().toResource(updatedTrainTicketOrder);
-            return new ResponseEntity<TrainTicketOrderResource>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<TrainTicketOrderResource>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @RequestMapping(value="/{TrainTicketOrderId}",method = RequestMethod.PUT)
+//    public ResponseEntity<TrainTicketOrderResource> updateTrainTicketOrder(
+//            @PathVariable Long TrainTicketOrderId, @RequestBody TrainTicketOrderResource sentTrainTicketOrder) {
+//        TrainTicketOrder updatedTrainTicketOrder = trainTicketOrderService.updateTrainTicketOrder(TrainTicketOrderId, sentTrainTicketOrder.toTrainTicketOrder());
+//        if(updatedTrainTicketOrder != null)
+//        {
+//        	TrainTicketOrderResource res = new TrainTicketOrderResourceAsm().toResource(updatedTrainTicketOrder);
+//            return new ResponseEntity<TrainTicketOrderResource>(res, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<TrainTicketOrderResource>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 }

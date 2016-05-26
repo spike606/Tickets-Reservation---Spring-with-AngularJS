@@ -1,7 +1,13 @@
 package com.myPackage.core.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class PlaneTicket {
 
+	@Id @GeneratedValue
 	private Long  id;
 	private String flightNumber;
 	private String flightFrom;

@@ -133,7 +133,7 @@ public class AccountControllerTest {
         createdPlaneTicketOrder.setId(1L);
         createdPlaneTicketOrder.setFirstname("johnny");
 
-        when(service.createPlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenReturn(createdPlaneTicketOrder);
+        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenReturn(createdPlaneTicketOrder);
 
         mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
                 .content("{\"firstname\":\"johnny\"}")
@@ -147,7 +147,7 @@ public class AccountControllerTest {
 
     @Test
     public void createPlaneTicketOrderNotExistingAccount() throws Exception {
-        when(service.createPlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenThrow(new AccountDoesNotExistException());
+        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenThrow(new AccountDoesNotExistException());
 
         mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
                 .content("{\"firstname\":\"johnny\"}")
@@ -156,7 +156,7 @@ public class AccountControllerTest {
     }
     @Test
     public void createPlaneTicketOrderExistingPlaneTicketOrder() throws Exception {
-        when(service.createPlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenThrow(new PlaneTicketOrderAlreadyExistsException());
+        when(service.createPlaneTicketOrderForAccount(eq(1L), any(PlaneTicketOrder.class))).thenThrow(new PlaneTicketOrderAlreadyExistsException());
 
         mockMvc.perform(post("/rest/accounts/1/planeTicketOrders")
                 .content("{\"firstname\":\"johnny\"}")

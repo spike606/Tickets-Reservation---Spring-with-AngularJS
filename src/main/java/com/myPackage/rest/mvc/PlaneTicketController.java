@@ -2,6 +2,7 @@ package com.myPackage.rest.mvc;
 
 import java.net.URI;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,13 @@ import com.myPackage.rest.resources.asm.PlaneTicketResourceAsm;
 @RestController
 @RequestMapping(value = "/rest/planeTickets")
 public class PlaneTicketController {
-
+	
 	private PlaneTicketService planeTicketService;
 
 	public PlaneTicketController() {
 	}
+	
+	@Autowired
 	public PlaneTicketController(PlaneTicketService planeTicketService) {
 		this.planeTicketService = planeTicketService;
 	}

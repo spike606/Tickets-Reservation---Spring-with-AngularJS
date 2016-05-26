@@ -1,7 +1,10 @@
 package com.myPackage.rest.mvc;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myPackage.core.entities.Account;
@@ -19,15 +23,18 @@ import com.myPackage.core.services.exceptions.AccountAlreadyExistsException;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
 import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
 import com.myPackage.core.services.exceptions.TrainTicketOrderAlreadyExistsException;
+import com.myPackage.core.services.util.AccountList;
 import com.myPackage.core.services.util.PlaneTicketOrderList;
 import com.myPackage.core.services.util.TrainTicketOrderList;
 import com.myPackage.rest.exceptions.BadRequestException;
 import com.myPackage.rest.exceptions.ConflictException;
+import com.myPackage.rest.resources.AccountListResource;
 import com.myPackage.rest.resources.AccountResource;
 import com.myPackage.rest.resources.PlaneTicketOrderListResource;
 import com.myPackage.rest.resources.PlaneTicketOrderResource;
 import com.myPackage.rest.resources.TrainTicketOrderListResource;
 import com.myPackage.rest.resources.TrainTicketOrderResource;
+import com.myPackage.rest.resources.asm.AccountListResourceAsm;
 import com.myPackage.rest.resources.asm.AccountResourceAsm;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderListResourceAsm;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderResourceAsm;
@@ -37,14 +44,34 @@ import com.myPackage.rest.resources.asm.TrainTicketOrderResourceAsm;
 @RestController
 @RequestMapping(value = "/rest/accounts")
 public class AccountController {
-
+	@Autowired
 	private AccountService accountService;
+
 
 	public AccountController() {
 	}
+
 	public AccountController(AccountService accountService) {
 		this.accountService = accountService;
 	}
+	
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<AccountListResource> findAllAccounts(@RequestParam(value="login", required = false) String login) {
+        AccountList list = null;
+        if(login == null) {
+            list = accountService.findAllAccounts();
+        } else {
+            Account account = accountService.findAccountByLogin(login);
+            if(account == null) {
+                list = new AccountList(new ArrayList<Account>());
+            } else {
+                list = new AccountList(Arrays.asList(account));
+            }
+        }
+        AccountListResource res = new AccountListResourceAsm().toResource(list);
+        return new ResponseEntity<AccountListResource>(res, HttpStatus.OK);
+    }
+	
 
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.GET)
 	public ResponseEntity<AccountResource> getAccount(@PathVariable Long accountId) {
@@ -78,7 +105,7 @@ public class AccountController {
                 @RequestBody PlaneTicketOrderResource resource)
         {
             try {
-                PlaneTicketOrder createdPlaneTicketOrder = accountService.createPlaneTicketOrder(accountId, resource.toPlaneTicketOrder());
+                PlaneTicketOrder createdPlaneTicketOrder = accountService.createPlaneTicketOrderForAccount(accountId, resource.toPlaneTicketOrder());
                 PlaneTicketOrderResource createdPlaneTicketOrderResource = new PlaneTicketOrderResourceAsm().toResource(createdPlaneTicketOrder);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(URI.create(createdPlaneTicketOrderResource.getLink("self").getHref()));
@@ -96,7 +123,7 @@ public class AccountController {
                 @RequestBody TrainTicketOrderResource resource)
         {
             try {
-            	TrainTicketOrder createdTrainTicketOrder = accountService.createTrainTicketOrder(accountId, resource.toTrainTicketOrder());
+            	TrainTicketOrder createdTrainTicketOrder = accountService.createTrainTicketOrderForAccount(accountId, resource.toTrainTicketOrder());
                 TrainTicketOrderResource createdTrainTicketOrderResource = new TrainTicketOrderResourceAsm().toResource(createdTrainTicketOrder);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(URI.create(createdTrainTicketOrderResource.getLink("self").getHref()));

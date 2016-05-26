@@ -1,7 +1,10 @@
 package com.myPackage.core.repositories.jpa;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +12,6 @@ import com.myPackage.core.entities.Account;
 import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.repositories.AccountRepository;
-import com.myPackage.core.services.util.PlaneTicketOrderList;
-import com.myPackage.core.services.util.TrainTicketOrderList;
 
 @Repository
 public class JpaAccountRepository implements AccountRepository{
@@ -22,18 +23,26 @@ public class JpaAccountRepository implements AccountRepository{
 	public Account findAccount(Long id) {
 		return entityManager.find(Account.class, id);
 	}
-
+	
 	@Override
-	public PlaneTicketOrderList findAllPlaneTicketOrdersForAccount(Long accountId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Account findAccountByLogin(String login) {
+        Query query = entityManager.createQuery("SELECT a FROM Account a WHERE a.login=?1");
+        query.setParameter(1, login);
+        List<Account> accounts = query.getResultList();
+        if(accounts.size() == 0) {
+            return null;
+        } else {
+            return accounts.get(0);
+        }
+	}
+	
+	@Override
+	public List<Account> findAllAccounts() {
+        Query query = entityManager.createQuery("SELECT a FROM Account a order by id");
+        return query.getResultList();
 	}
 
-	@Override
-	public TrainTicketOrderList findAllTrainTicketOrdersForAccount(Long accountId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Account createAccount(Account data) {
@@ -41,16 +50,6 @@ public class JpaAccountRepository implements AccountRepository{
 		return data;
 	}
 
-	@Override
-	public PlaneTicketOrder createPlaneTicketOrder(Long planeTicketOrderId, PlaneTicketOrder data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public TrainTicketOrder createTrainTicketOrder(Long trainTicketOrderId, TrainTicketOrder data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

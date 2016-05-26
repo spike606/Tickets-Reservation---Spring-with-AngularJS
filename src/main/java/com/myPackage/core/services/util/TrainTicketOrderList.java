@@ -8,6 +8,13 @@ import com.myPackage.core.entities.TrainTicketOrder;
 public class TrainTicketOrderList {
 	 private List<TrainTicketOrder> trainTicketOrderList = new ArrayList<TrainTicketOrder>();
 
+	public TrainTicketOrderList() {
+	}
+	 
+	public TrainTicketOrderList(List<TrainTicketOrder> trainTicketOrderList) {
+		this.trainTicketOrderList = trainTicketOrderList;
+	}
+
 	public List<TrainTicketOrder> getTrainTicketOrders() {
 		return trainTicketOrderList;
 	}

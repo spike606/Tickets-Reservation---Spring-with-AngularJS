@@ -2,6 +2,7 @@ package com.myPackage.rest.mvc;
 
 import java.net.URI;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,13 @@ import com.myPackage.rest.resources.asm.PlaneTicketOrderResourceAsm;
 @RestController
 @RequestMapping(value = "/rest/planeTicketOrders")
 public class PlaneTicketOrderController {
-
+	@Autowired
 	private PlaneTicketOrderService planeTicketOrderService;
 
 	public PlaneTicketOrderController() {
 	}
+	
+	@Autowired
 	public PlaneTicketOrderController(PlaneTicketOrderService planeTicketOrderService) {
 		this.planeTicketOrderService = planeTicketOrderService;
 	}
@@ -72,16 +75,16 @@ public class PlaneTicketOrderController {
             return new ResponseEntity<PlaneTicketOrderResource>(HttpStatus.NOT_FOUND);
         }
     }
-    @RequestMapping(value="/{planeTicketOrderId}",method = RequestMethod.PUT)
-    public ResponseEntity<PlaneTicketOrderResource> updatePlaneTicketOrder(
-            @PathVariable Long planeTicketOrderId, @RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
-        PlaneTicketOrder updatedPlaneTicketOrder = planeTicketOrderService.updatePlaneTicketOrder(planeTicketOrderId, sentPlaneTicketOrder.toPlaneTicketOrder());
-        if(updatedPlaneTicketOrder != null)
-        {
-        	PlaneTicketOrderResource res = new PlaneTicketOrderResourceAsm().toResource(updatedPlaneTicketOrder);
-            return new ResponseEntity<PlaneTicketOrderResource>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<PlaneTicketOrderResource>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @RequestMapping(value="/{planeTicketOrderId}",method = RequestMethod.PUT)
+//    public ResponseEntity<PlaneTicketOrderResource> updatePlaneTicketOrder(
+//            @PathVariable Long planeTicketOrderId, @RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
+//        PlaneTicketOrder updatedPlaneTicketOrder = planeTicketOrderService.updatePlaneTicketOrder(planeTicketOrderId, sentPlaneTicketOrder.toPlaneTicketOrder());
+//        if(updatedPlaneTicketOrder != null)
+//        {
+//        	PlaneTicketOrderResource res = new PlaneTicketOrderResourceAsm().toResource(updatedPlaneTicketOrder);
+//            return new ResponseEntity<PlaneTicketOrderResource>(res, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<PlaneTicketOrderResource>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 }

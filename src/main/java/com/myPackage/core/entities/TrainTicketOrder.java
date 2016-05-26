@@ -1,8 +1,15 @@
 package com.myPackage.core.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class TrainTicketOrder {
-
+	
+	@Id @GeneratedValue
 	private Long id;
 	private String firstname;
 	private String secondname;
@@ -13,7 +20,9 @@ public class TrainTicketOrder {
 	private String street;
 	private String email;
 	private String telephone;
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TrainTicket trainTicket;
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Account owner;
 	
 	public Long getId() {

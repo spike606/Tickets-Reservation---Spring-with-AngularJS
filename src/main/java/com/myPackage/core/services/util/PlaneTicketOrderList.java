@@ -8,6 +8,13 @@ import com.myPackage.core.entities.PlaneTicketOrder;
 public class PlaneTicketOrderList {
 	 private List<PlaneTicketOrder> planeTicketOrders = new ArrayList<PlaneTicketOrder>();
 
+	 public PlaneTicketOrderList() {
+	}
+
+	public PlaneTicketOrderList(List<PlaneTicketOrder> planeTicketOrders) {
+		this.planeTicketOrders = planeTicketOrders;
+	}
+
 	public List<PlaneTicketOrder> getPlaneTicketOrders() {
 		return planeTicketOrders;
 	}
