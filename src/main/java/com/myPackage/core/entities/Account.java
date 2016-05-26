@@ -1,8 +1,13 @@
 package com.myPackage.core.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Account {
 
-	
+	@Id @GeneratedValue
 	private Long id;
 	private String firstname;
 	private String secondname;

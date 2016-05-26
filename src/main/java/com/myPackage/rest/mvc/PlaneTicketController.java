@@ -27,6 +27,8 @@ public class PlaneTicketController {
 
 	private PlaneTicketService planeTicketService;
 
+	public PlaneTicketController() {
+	}
 	public PlaneTicketController(PlaneTicketService planeTicketService) {
 		this.planeTicketService = planeTicketService;
 	}

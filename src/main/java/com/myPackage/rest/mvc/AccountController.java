@@ -40,6 +40,8 @@ public class AccountController {
 
 	private AccountService accountService;
 
+	public AccountController() {
+	}
 	public AccountController(AccountService accountService) {
 		this.accountService = accountService;
 	}
