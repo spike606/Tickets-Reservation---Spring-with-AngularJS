@@ -2,6 +2,7 @@
 <html ng-app="ngBoilerplate" ng-controller="AppCtrl">
   <head>
     <title ng-bind="pageTitle"></title>
+	<meta charset="UTF-8">
 
     <!-- social media tags -->
     <meta name="twitter:card" content="summary">
@@ -15,15 +16,14 @@
     <meta property="og:url" content="http://bit.ly/ngBoilerplate" />
     <meta property="og:image" content="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/Octocat.png?1366128846" />
     <meta property="og:description" content="Non-Trivial AngularJS Made Easy: Everything you need to kickstart AngularJS projects: a best-practice directory structure, an intelligent build system, and the best web design libraries around.">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- font awesome from BootstrapCDN -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<!--     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> -->
 
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
-
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
 
@@ -33,6 +33,45 @@
     </script>
   </head>
   <body>
+<!--   <nav id="myNav" class="navbar navbar-inverse"> -->
+<!--       <div class="container-fluid"> -->
+<!--         <div class="navbar-header"> -->
+<!--           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> -->
+<!--             <span class="icon-bar"></span> -->
+<!--             <span class="icon-bar"></span> -->
+<!--             <span class="icon-bar"></span> -->
+<!--           </button> -->
+<!--         </div> -->
+<!--         <div class="collapse navbar-collapse" id="myNavbar" collapse="menuCollapsed"> -->
+<!--           <ul class="nav navbar-nav"> -->
+<!--             <li ui-sref-active="active"> -->
+<!--               <a href ui-sref="home"> -->
+<!-- 		  <img ng-src="http://localhost:9000/TicketsService/assets/logo.png"></img> -->
+
+<!--               </a> -->
+<!--             </li> -->
+<!--             <li ui-sref-active="active"> -->
+<!--               <a href ui-sref="about"> -->
+<!--                 <i class="fa fa-info-circle"></i> -->
+<!--                 About -->
+<!--               </a> -->
+<!--             </li> -->
+<!--             <li ui-sref-active="active"> -->
+<!--               <a href ui-sref="contact"> -->
+<!--                 <i class="fa fa-info-circle"></i> -->
+<!--                 Contact -->
+<!--               </a> -->
+<!--             </li> -->
+<!--           </ul> -->
+        
+<!--             <ul class="nav navbar-nav navbar-right nav-pills nav-stacked">		       -->
+<!-- 		        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
+<!-- 		        <li><a href="user.html"><span class="glyphicon glyphicon-user"></span> Sign up</a></li> -->
+<!--      		</ul> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!-- </nav> -->
     <div class="container">
       <div class="navbar navbar-default">
         <div class="navbar-header">
@@ -43,16 +82,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <div class="navbar-brand">
-            ngbp
-            <small>
-              <a href="http://github.com/ngbp/ngbp/blob/v<%= version %>-release/CHANGELOG.md">
-                v<%= version %>
-              </a>
-            </small>
+          <div>
+          	<img ng-src="http://localhost:9000/TicketsService/assets/logo.png"></img>
           </div>
         </div>
-        <div class="collapse navbar-collapse" collapse="menuCollapsed">
+        <div class="collapse navbar-collapse" collapse="menuCollapsed" id="top-navbar">
           <ul class="nav navbar-nav">
             <li ui-sref-active="active">
               <a href ui-sref="home">
@@ -63,59 +97,141 @@
             <li ui-sref-active="active">
               <a href ui-sref="about">
                 <i class="fa fa-info-circle"></i>
-                What is it?
+                About
               </a>
-            </li>
-            <li>
-              <a href="https://github.com/ngbp/ngbp#readme">
-                <i class="fa fa-book"></i>
-                Read the Docs
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/ngbp/ngbp">
-                <i class="fa fa-github-alt"></i>
-                Github
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/ngbp/ngbp/issues">
-                <i class="fa fa-comments"></i>
-                Support
+            </li>            
+            <li ui-sref-active="active">
+              <a href ui-sref="contact">
+                <i class="fa fa-info-circle"></i>
+                Contact
               </a>
             </li>
           </ul>
+	          <div ng-hide="isLoggedIn()">
+	             <ul class="nav navbar-nav navbar-right" >
+	             	<li>
+		              <a ui-sref="login" ng-click="login()">
+		              	<span class="glyphicon glyphicon-log-in"></span>Login
+		              </a>
+		            </li>
+		            <li>
+		              <a ui-sref="register">
+						<span class="glyphicon glyphicon-user"></span>Sign up
+		              </a>
+		            </li>
+				    <li>
+		              <a ng-click="" id="flag">
+						<span class="glyphicon glyphicon-flag"></span>PL
+		              </a>
+		            </li> 
+				    <li>
+		              <a ng-click="" id="flag">
+						<span class="glyphicon glyphicon-flag"></span>ENG
+		              </a>
+		            </li>           
+		            <li>		          	    
+		         </ul>      
+	          </div>
+	          <div ng-show="isLoggedIn()">
+	          	 <ul class="nav navbar-nav navbar-right" >
+				    <li>
+		              <a ng-click="logout()" id="logout-click">
+						<span class="glyphicon glyphicon-log-out"></span>Logout
+		              </a>
+		            </li> 	          	 
+				    <li>
+		              <a ng-click="" id="flag">
+						<span class="glyphicon glyphicon-flag"></span>PL
+		              </a>
+		            </li> 
+				    <li>
+		              <a ng-click="" id="flag">
+						<span class="glyphicon glyphicon-flag"></span>ENG
+		              </a>
+		            </li>   
+		          </ul>		                     
+	          </div>
+	       </ul>	
         </div>
       </div>
+	</div>
+ 
+ 
+<div class="container">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+  			<ul class="nav nav-pills nav-stacked">
+					 <li><a href="planeTickets.html"><span class="glyphicon glyphicon-chevron-right"></span>addPlane</a></li>
+					 <li><a href="trainTickets.html"><span class="glyphicon glyphicon-chevron-right"></span> addTrain</a></li>
+			</ul>
+		    &nbsp;
+		    <ul class="nav nav-pills nav-stacked">			   			
+					 <li><a href="planeTicketsList.html"><span class="glyphicon glyphicon-chevron-right"></span>planeTicketsList</a></li>
+					  <li><a href="trainTicketsList.html"><span class="glyphicon glyphicon-chevron-right"></span>trainTicketsList</a></li>
+			</ul>
+			&nbsp;
+			<ul class="nav nav-pills nav-stacked">					 
+					 <li><a href="planeTicketsListBook.html"><span class="glyphicon glyphicon-chevron-right"></span> planeTicketsListBook</a></li>
+				     <li><a href="trainTicketsListBook.html"><span class="glyphicon glyphicon-chevron-right"></span>trainTicketsListBook</a></li>
+			</ul>
+			&nbsp;
+			
+			<ul class="nav nav-pills nav-stacked">		
+					 <li><a href="planeOrdersList.html"><span class="glyphicon glyphicon-chevron-right"></span> planeOrdersList</a></li>
+					 <li><a href="trainOrdersList.html"><span class="glyphicon glyphicon-chevron-right"></span> trainOrdersList</a></li>
+			</ul>
+			 &nbsp;
+			<ul class="nav nav-pills nav-stacked">					 
+					 <li><a href="userRole.html"><span class="glyphicon glyphicon-chevron-right"></span> userRole</a></li>
+			         <li><a href="user.html"><span class="glyphicon glyphicon-chevron-right"></span> user</a></li>
+    		</ul>
+    		&nbsp;		
+    		<ul class="nav nav-pills nav-stacked">					 
+    		  	     <li><a href="usersList.html"><span class="glyphicon glyphicon-chevron-right"></span> usersList</a></li>
+    		</ul>
+    		    		&nbsp;		
+    		
+    		<ul class="nav nav-pills nav-stacked">					 
+	    			 <li><a href="myPlaneOrders.html"><span class="glyphicon glyphicon-chevron-right"></span>myPlaneOrders</a></li>
+    		  	     <li><a href="myTrainOrders.html"><span class="glyphicon glyphicon-chevron-right"></span> myTrainOrders</a></li>
+    		</ul>
     </div>
+	    <div class="col-sm-8 text-left"> 
+     
+	      	    <div class="container" ui-view="main"></div>
+	      
+	<!--       <div class="container" style="width:90%"> -->
+	         
+		
+		</div>
+    </div>
+    <div class="col-sm-2 sidenav">
 
-    <div class="container" ui-view="main"></div>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-inner">
-          <ul class="social">
-            <li><a target="_blank" href="http://gplus.to/joshdmiller"><i class="fa fa-google-plus-sign"></i></a></li>
-            <li><a target="_blank" href="http://twitter.com/joshdmiller"><i class="fa fa-twitter-sign"></i></a></li>
-            <li><a target="_blank" href="http://linkedin.com/in/joshdmiller"><i class="fa fa-linkedin-sign"></i></a></li>
-            <li><a target="_blank" href="http://github.com/ngbp/ngbp"><i class="fa fa-github-sign"></i></a></li>
-          </ul>
-          
-
-          <p>
-            (c) 2013 <a href="http://www.joshdavidmiller.com">Josh David Miller</a>. 
-            <a href="http://github.com/ngbp/ngbp/fork_select">Fork this</a>
-            to kickstart your next project.
-            <br />
-            ngbp is based on
-            <a href="http://www.angularjs.org">AngularJS</a>,
-            <a href="http://getbootstrap.com">Bootstrap</a>, 
-            <a href="http://angular-ui.github.com/bootstrap">UI Bootstrap</a>,
-            and 
-            <a href="http://fortawesome.github.com/Font-Awesome">Font Awesome</a>.        
-          </p>
+		
+    </div>
+  </div>
+</div> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+<!-- 		<div class="container-fluid text-center"> -->
+<!-- 		  <img ng-src="http://localhost:9000/TicketsService/assets/plane.jpg"></img> -->
+		 
+<!-- 		  <p>2015 \u00a9 TickTwo Ltd. All rights reserved.</p> -->
+<!-- 		</div> -->
+   <footer class="footer">
+      <div class="container text-center">
+        <div class="footer-inner" id="footer-inner">      
+          <p>(c) 2015 TickTwo Ltd. All rights reserved.</p>
         </div>
       </div>
-    </footer>
+</footer>
   </body>
 </html>

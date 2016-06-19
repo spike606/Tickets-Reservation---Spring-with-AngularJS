@@ -16,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myPackage.core.entities.Account;
-import com.myPackage.core.entities.PlaneTicketOrder;
-import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.exceptions.AccountAlreadyExistsException;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
-import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
-import com.myPackage.core.services.exceptions.TrainTicketOrderAlreadyExistsException;
+
 import com.myPackage.core.services.util.AccountList;
 import com.myPackage.core.services.util.PlaneTicketOrderList;
 import com.myPackage.core.services.util.TrainTicketOrderList;
@@ -31,15 +28,11 @@ import com.myPackage.rest.exceptions.ConflictException;
 import com.myPackage.rest.resources.AccountListResource;
 import com.myPackage.rest.resources.AccountResource;
 import com.myPackage.rest.resources.PlaneTicketOrderListResource;
-import com.myPackage.rest.resources.PlaneTicketOrderResource;
 import com.myPackage.rest.resources.TrainTicketOrderListResource;
-import com.myPackage.rest.resources.TrainTicketOrderResource;
 import com.myPackage.rest.resources.asm.AccountListResourceAsm;
 import com.myPackage.rest.resources.asm.AccountResourceAsm;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderListResourceAsm;
-import com.myPackage.rest.resources.asm.PlaneTicketOrderResourceAsm;
 import com.myPackage.rest.resources.asm.TrainTicketOrderListResourceAsm;
-import com.myPackage.rest.resources.asm.TrainTicketOrderResourceAsm;
 
 @RestController
 @RequestMapping(value = "/rest/accounts")

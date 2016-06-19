@@ -361,7 +361,7 @@ module.exports = function ( grunt ) {
         configFile: '<%= build_dir %>/karma-unit.js'
       },
       unit: {
-        port: 9019,
+        port: 9101,
         background: true
       },
       continuous: {
