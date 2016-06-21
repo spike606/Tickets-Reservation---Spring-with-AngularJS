@@ -5,6 +5,10 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.about',
   'ngBoilerplate.account',
   'ngBoilerplate.contact',
+  'ngBoilerplate.newPlaneTicket',
+  'ngBoilerplate.newTrainTicket',
+  'ngBoilerplate.planeTicketsList',
+  'ngBoilerplate.trainTicketsList',
   'ui.router'
 ])
 

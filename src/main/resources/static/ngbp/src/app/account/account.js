@@ -20,7 +20,22 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource'])
 			}
 		},
 		data:{pageTitle:'Registration'}
-	});
+	})
+    .state('usersList', {
+            url:'/usersList',
+            views: {
+                'main': {
+                    templateUrl:'account/usersList.tpl.html',
+                    controller: 'UsersListCtrl'
+                }
+            },
+            data : { pageTitle : "Search Accounts" },
+            resolve: {
+                accounts: function(accountService) {
+                    return accountService.getAllAccounts();
+                }
+            }
+    });
 })
 .factory("sessionService", function(){
 	var session = {};
@@ -57,6 +72,20 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource'])
 		failure);
 		
 	};
+    service.getAccountById = function(accountId) {
+        var Account = $resource("/TicketsService/rest/accounts/:paramAccountId");
+        return Account.get({paramAccountId:accountId}).$promise;
+    };
+    service.deleteAccount = function(rid) {
+        var Account = $resource("/TicketsService/rest/accounts/:accountId");
+        return Account.remove({accountId:rid}).$promise;
+    };
+    service.getAllAccounts = function() {
+        var Account = $resource("/TicketsService/rest/accounts");
+        return Account.get().$promise.then(function(data) {
+          return data.accounts;
+        });
+    };    
 	return service;
 })
 .controller("LoginCtrl",function($scope, sessionService, $state,accountService){
@@ -83,4 +112,12 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource'])
 		$state.go('home');
 
 	};
+})
+.controller("UsersListCtrl", function($scope,$state, accounts,accountService) {
+    $scope.accounts = accounts;
+    $scope.deleteAccount = function(rid) {
+    accountService.deleteAccount(rid).then(function(){
+        $state.go("usersList",{},{ reload : true });
+    });
+    };
 });

@@ -27,7 +27,7 @@ public class PlaneTicketResourceAsm extends ResourceAssemblerSupport<PlaneTicket
         res.setFlightDateStop(planeTicket.getFlightDateStop());
         res.setFlightHourStop(planeTicket.getFlightHourStop());
         res.setFlightPrice(planeTicket.getFlightPrice());
-
+        res.setRid(planeTicket.getId());
 		res.add(linkTo(methodOn(PlaneTicketController.class).getPlaneTicket(planeTicket.getId())).withSelfRel());
 		return res;
 	}

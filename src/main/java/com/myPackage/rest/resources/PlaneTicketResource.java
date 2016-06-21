@@ -13,7 +13,14 @@ public class PlaneTicketResource extends ResourceSupport{
 	private String flightDateStop;
 	private String flightHourStop;
 	private String flightPrice;
+	private Long rid;
 	
+	public Long getRid() {
+		return rid;
+	}
+	public void setRid(Long rid) {
+		this.rid = rid;
+	}
 	public String getFlightNumber() {
 		return flightNumber;
 	}

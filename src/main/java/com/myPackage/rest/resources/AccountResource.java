@@ -24,6 +24,8 @@ public class AccountResource  extends ResourceSupport{
 	private String login;
 	private String password;
 
+	private Long rid;
+	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -102,6 +104,15 @@ public class AccountResource  extends ResourceSupport{
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+	
+
+	public Long getRid() {
+		return rid;
+	}
+
+	public void setRid(Long rid) {
+		this.rid = rid;
 	}
 
 	@JsonIgnore//ignore when sending data to client

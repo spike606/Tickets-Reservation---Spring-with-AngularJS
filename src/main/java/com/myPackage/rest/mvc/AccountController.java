@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myPackage.core.entities.Account;
+import com.myPackage.core.entities.PlaneTicket;
 import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.exceptions.AccountAlreadyExistsException;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
@@ -28,10 +29,12 @@ import com.myPackage.rest.exceptions.ConflictException;
 import com.myPackage.rest.resources.AccountListResource;
 import com.myPackage.rest.resources.AccountResource;
 import com.myPackage.rest.resources.PlaneTicketOrderListResource;
+import com.myPackage.rest.resources.PlaneTicketResource;
 import com.myPackage.rest.resources.TrainTicketOrderListResource;
 import com.myPackage.rest.resources.asm.AccountListResourceAsm;
 import com.myPackage.rest.resources.asm.AccountResourceAsm;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderListResourceAsm;
+import com.myPackage.rest.resources.asm.PlaneTicketResourceAsm;
 import com.myPackage.rest.resources.asm.TrainTicketOrderListResourceAsm;
 
 @RestController
@@ -91,6 +94,18 @@ public class AccountController {
         }
 		
 	}
+	
+    @RequestMapping(value = "/{accountId}",method = RequestMethod.DELETE)
+    public ResponseEntity<AccountResource> deleteAccount(@PathVariable("accountId") Long accountId) {
+    	Account account = accountService.deleteAccount(accountId);
+        if(account != null)
+        {
+        	AccountResource res = new AccountResourceAsm().toResource(account);
+            return new ResponseEntity<AccountResource>(res, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<AccountResource>(HttpStatus.NOT_FOUND);
+        }
+    }
 //    @RequestMapping(value="/{accountId}/planeTicketOrders",
 //            method = RequestMethod.POST)
 //        public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(

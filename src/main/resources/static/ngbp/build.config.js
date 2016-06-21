@@ -69,11 +69,16 @@ module.exports = {
          'vendor/angular-ui-utils/modules/route/route.js',
          'vendor/angular-resource/angular-resource.js',
          'vendor/jquery/dist/jquery.min.js',
-         'vendor/bootstrap/dist/js/bootstrap.min.js'
+         'vendor/bootstrap/dist/js/bootstrap.min.js',
+         'vendor/clockpicker/dist/bootstrap-clockpicker.min.js'
+
+
 
          ],
     css: [
-          'vendor/css/main.css'
+          'vendor/css/main.css',
+          'vendor/clockpicker/dist/bootstrap-clockpicker.min.css'
+
 
     ],
     assets: [

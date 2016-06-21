@@ -26,6 +26,11 @@
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
+    
+      <!-- Datepicker -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 
     <!-- it's stupid to have to load it here, but this is for the +1 button -->
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
@@ -151,7 +156,6 @@
 		            </li>   
 		          </ul>		                     
 	          </div>
-	       </ul>	
         </div>
       </div>
 	</div>
@@ -161,13 +165,13 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
   			<ul class="nav nav-pills nav-stacked">
-					 <li><a href="planeTickets.html"><span class="glyphicon glyphicon-chevron-right"></span>addPlane</a></li>
-					 <li><a href="trainTickets.html"><span class="glyphicon glyphicon-chevron-right"></span> addTrain</a></li>
+					 <li><a ui-sref="newPlaneTicket"><span class="glyphicon glyphicon-chevron-right"></span>addPlane</a></li>
+					 <li><a ui-sref="newTrainTicket"><span class="glyphicon glyphicon-chevron-right"></span> addTrain</a></li>
 			</ul>
 		    &nbsp;
 		    <ul class="nav nav-pills nav-stacked">			   			
-					 <li><a href="planeTicketsList.html"><span class="glyphicon glyphicon-chevron-right"></span>planeTicketsList</a></li>
-					  <li><a href="trainTicketsList.html"><span class="glyphicon glyphicon-chevron-right"></span>trainTicketsList</a></li>
+					 <li><a ui-sref="planeTicketsList"><span class="glyphicon glyphicon-chevron-right"></span>planeTicketsList</a></li>
+					  <li><a ui-sref="trainTicketsList"><span class="glyphicon glyphicon-chevron-right"></span>trainTicketsList</a></li>
 			</ul>
 			&nbsp;
 			<ul class="nav nav-pills nav-stacked">					 
@@ -187,7 +191,7 @@
     		</ul>
     		&nbsp;		
     		<ul class="nav nav-pills nav-stacked">					 
-    		  	     <li><a href="usersList.html"><span class="glyphicon glyphicon-chevron-right"></span> usersList</a></li>
+    		  	     <li><a ui-sref="usersList"><span class="glyphicon glyphicon-chevron-right"></span> usersList</a></li>
     		</ul>
     		    		&nbsp;		
     		
@@ -210,7 +214,6 @@
 		
     </div>
   </div>
-</div> 
  
  
  

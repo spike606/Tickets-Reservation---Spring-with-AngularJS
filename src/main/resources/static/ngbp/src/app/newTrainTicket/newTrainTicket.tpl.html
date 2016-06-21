@@ -1,0 +1,62 @@
+<div class="row">
+  <h1 class="page-header">
+      New Train Transit
+  </h1>
+  <form ng-submit="trainTicketSubmit()">
+      <div class="form-group myForm-control">
+          <label>Transit number*</label>
+          <input type="text" ng-model="trainticket.transitNumber" class="form-control"/>
+      </div>
+      <div class="form-group myForm-control">
+          <label>Transit name*</label>
+          <input type="text" ng-model="trainticket.transitName" class="form-control" />
+      </div>
+      <div class="form-group myForm-control">
+          <label>From*</label>
+          <input type="text"  ng-model="trainticket.transitFrom" class="form-control" />
+      </div>
+      <div class="form-group myForm-control">
+          <label>To*</label>
+          <input type="text" ng-model="trainticket.transitTo" class="form-control " />
+      </div>
+      <div class="form-group myForm-control">      
+        <label>Departure date*</label>
+			<div  class="input-group input-append date" id="dateRangePicker"  >
+             <input  type="text" class="form-control" name="date" ng-model="trainticket.transitDateStart"/>
+                  <span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span>
+           </div>
+      </div>
+      <div class="form-group myForm-control">      
+        <label>Departure hour*</label>
+			<div  class="input-group input-append clockpicker">
+             <input  type="text" class="form-control" name="clock" ng-model="trainticket.transitHourStart"/>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+           </div>
+      </div>
+      <div class="form-group myForm-control">      
+        <label>Arrive date*</label>
+			<div  class="input-group input-append date" id="dateRangePicker"  >
+             <input  type="text" class="form-control" name="date" ng-model="trainticket.transitDateStop"/>
+                  <span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span>
+           </div>
+      </div>
+      <div class="form-group myForm-control">      
+        <label>Arrive hour*</label>
+			<div  class="input-group input-append clockpicker">
+             <input  type="text" class="form-control" name="clock" ng-model="trainticket.transitHourStop"/>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+           </div>
+      </div>
+      <div class="form-group myForm-control">
+          <label>Price*</label>
+          <div  class="input-group input-append">
+          <input type="text" ng-model="trainticket.transitPrice" class="form-control" />
+                <span class="input-group-addon add-on"><span class="glyphicon">$</span></span>
+          </div>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block myButton" type="submit">Submit</button>
+      
+  </form>
+</div>
+
+

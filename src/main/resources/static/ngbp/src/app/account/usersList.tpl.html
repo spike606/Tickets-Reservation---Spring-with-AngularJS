@@ -1,0 +1,36 @@
+<div class="row">
+  <h1 class="page-header">
+      List of users
+  </h1>
+		 <table class="table table-bordered">
+		    <thead>
+		      <tr>
+		        <th>Login</th>
+		        <th>User role</th>
+		        <th>First name</th>
+		        <th>Last name</th>
+		        <th>Email</th>
+		        <th>Telephone</th>
+		        <th>Actions</th>
+		      </tr>
+			</thead>
+
+			<tbody>
+			
+	        <tr ng-repeat="account in accounts | filter:q">
+	            <td>{{account.login}}</td>
+	            <td>{{account.accountRole}}</td>
+	            <td>{{account.firstname}}</td>
+	            <td>{{account.lastname}}</td>
+	            <td>{{account.email}}</td>
+	            <td>{{account.telephone}}</td>
+	            <td>
+	                  <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="deleteAccount(account.rid)">DELETE</button>
+				</td>
+            	            
+	        </tr>			
+			</tbody>
+ 		 </table>
+</div>
+
+

@@ -1,0 +1,80 @@
+<div class="row">
+  <h1 class="page-header">
+      New Plane Flight
+  </h1>
+  <form ng-submit="planeTicketSubmit()">
+      <div class="form-group myForm-control">
+          <label>Flight number*</label>
+          <input type="text" ng-model="planeticket.flightNumber" class="form-control" ng-model="planeticket.flightNumber"/>
+      </div>
+      <div class="form-group myForm-control">
+          <label>From*</label>
+          <input type="text"  ng-model="planeticket.flightFrom" class="form-control" ng-model="planeticket.flightFrom"/>
+      </div>
+      <div class="form-group myForm-control">
+          <label>To*</label>
+          <input type="text" ng-model="planeticket.flightTo" class="form-control"  ng-model="planeticket.flightTo"/>
+      </div>
+      <div class="form-group myForm-control">      
+        <label>Departure date*</label>
+			<div  class="input-group input-append date" id="dateRangePicker"  >
+             <input  type="text" class="form-control" name="date" ng-model="planeticket.flightDateStart"/>
+                  <span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span>
+           </div>
+      </div>
+      <div class="form-group myForm-control">      
+        <label>Departure hour*</label>
+			<div  class="input-group input-append clockpicker">
+             <input  type="text" class="form-control" name="clock" ng-model="planeticket.flightHourStart"/>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+           </div>
+      </div>
+      <div class="form-group myForm-control">      
+        <label>Arrive date*</label>
+			<div  class="input-group input-append date" id="dateRangePicker"  >
+             <input  type="text" class="form-control" name="date" ng-model="planeticket.flightDateStop"/>
+                  <span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span>
+           </div>
+      </div>
+      <div class="form-group myForm-control">      
+        <label>Arrive hour*</label>
+			<div  class="input-group input-append clockpicker">
+             <input  type="text" class="form-control" name="clock" ng-model="planeticket.flightHourStop"/>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+           </div>
+      </div>
+      <div class="form-group myForm-control">
+          <label>Price*</label>
+          <div  class="input-group input-append">
+          <input type="text" class="form-control" ng-model="planeticket.flightPrice"/>
+                <span class="input-group-addon add-on"><span class="glyphicon">$</span></span>
+          </div>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block myButton" type="submit">Submit</button>
+      
+  </form>
+</div>
+<script>
+$( document ).ready(function() {
+$(".date").datepicker({
+    format: 'mm/dd/yyyy',
+    startDate: new Date(),
+    endDate: '12/30/2020',
+    autoclose: true,
+    language: 'de-DE'
+})
+.on('changeDate', function(e) {
+    $(".date").datepicker('hide');
+});
+$('.clockpicker').clockpicker({
+	placement: 'top', // clock popover placement
+	align: 'right',       // popover arrow align
+	donetext: 'OK',     // done button text
+	autoclose: false,    // auto close when minute is selected
+	twelvehour: false        // vibrate the device when dragging clock hand
+	});
+
+});
+
+</script>
+

@@ -30,6 +30,7 @@ public class AccountResourceAsm extends ResourceAssemblerSupport<Account, Accoun
 		res.setStreet(account.getStreet());
 		res.setLogin(account.getLogin());
 		res.setPassword(account.getPassword());
+		res.setRid(account.getId());
 		Link link = linkTo(AccountController.class).slash(account.getId()).withSelfRel();
 		res.add(link);
         return res;

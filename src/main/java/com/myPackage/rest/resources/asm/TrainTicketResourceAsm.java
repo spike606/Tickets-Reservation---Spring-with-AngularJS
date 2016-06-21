@@ -27,6 +27,7 @@ public class TrainTicketResourceAsm  extends ResourceAssemblerSupport<TrainTicke
 		res.setTransitDateStop(trainTicket.getTransitDateStop());
 		res.setTransitHourStop(trainTicket.getTransitHourStop());
 		res.setTransitPrice(trainTicket.getTransitPrice());
+        res.setRid(trainTicket.getId());
 		res.add(linkTo(methodOn(TrainTicketController.class).getTrainTicket(trainTicket.getId())).withSelfRel());
 
 		return res;

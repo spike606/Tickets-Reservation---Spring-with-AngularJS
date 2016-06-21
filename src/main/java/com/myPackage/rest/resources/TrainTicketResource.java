@@ -14,7 +14,14 @@ public class TrainTicketResource extends ResourceSupport{
 	private String transitDateStop;
 	private String transitHourStop;
 	private String transitPrice;
-
+	private Long rid;
+	
+	public Long getRid() {
+		return rid;
+	}
+	public void setRid(Long rid) {
+		this.rid = rid;
+	}
 	public String getTransitNumber() {
 		return transitNumber;
 	}
