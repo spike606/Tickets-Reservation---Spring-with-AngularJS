@@ -19,34 +19,44 @@
           <label>To*</label>
           <input type="text" ng-model="trainticket.transitTo" class="form-control " />
       </div>
-      <div class="form-group myForm-control">      
-        <label>Departure date*</label>
-			<div  class="input-group input-append date" id="dateRangePicker"  >
-             <input  type="text" class="form-control" name="date" ng-model="trainticket.transitDateStart"/>
-                  <span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span>
-           </div>
-      </div>
+      <div class="form-group myForm-control"
+		     moment-picker="trainticket.transitDateStart"
+		     format="YYYY-MM-DD">
+		  <label>Departure date*</label>
+		     <div  class="input-group input-append date">
+					<input class="form-control"
+						           placeholder="Select a date"
+						           ng-model="trainticket.transitDateStart"
+						           ng-model-options="{ updateOn: 'blur' }">		     
+                  		<span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span>
+
+		     </div>
+	 </div>
       <div class="form-group myForm-control">      
         <label>Departure hour*</label>
-			<div  class="input-group input-append clockpicker">
-             <input  type="text" class="form-control" name="clock" ng-model="trainticket.transitHourStart"/>
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-           </div>
-      </div>
-      <div class="form-group myForm-control">      
-        <label>Arrive date*</label>
-			<div  class="input-group input-append date" id="dateRangePicker"  >
-             <input  type="text" class="form-control" name="date" ng-model="trainticket.transitDateStop"/>
-                  <span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span>
-           </div>
-      </div>
+             <ng-timepicker  type="text" name="clock" ng-model="trainticket.transitHourStart"
+                                       init-time="{{true && trainticket.transitHourStart ||  '12:00'}}"/>
+             
+      </div>  
+      <div class="form-group myForm-control"
+		     moment-picker="trainticket.transitDateStop"
+		     format="YYYY-MM-DD">
+		  <label>Arrive date*</label>
+		     <div  class="input-group input-append date">
+					<input class="form-control"
+						           placeholder="Select a date"
+						           ng-model="trainticket.transitDateStop"
+						           ng-model-options="{ updateOn: 'blur' }">		     
+                  		<span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span>
+
+		     </div>
+	 </div>
       <div class="form-group myForm-control">      
         <label>Arrive hour*</label>
-			<div  class="input-group input-append clockpicker">
-             <input  type="text" class="form-control" name="clock" ng-model="trainticket.transitHourStop"/>
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-           </div>
-      </div>
+             <ng-timepicker  type="text" name="clock" ng-model="trainticket.transitHourStop"
+                                         init-time="{{true && trainticket.transitHourStop ||  '12:00'}}"/>
+             
+      </div>  
       <div class="form-group myForm-control">
           <label>Price*</label>
           <div  class="input-group input-append">

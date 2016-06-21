@@ -2,7 +2,9 @@ angular.module( 'ngBoilerplate.newPlaneTicket', [
   'ui.router',
   'placeholders',
   'ui.bootstrap',
-  'ngBoilerplate.planeTicketsList'
+  'ngBoilerplate.planeTicketsList',
+  'jkuri.timepicker',
+  'moment-picker'
 ])
 
 .config(function config( $stateProvider ) {

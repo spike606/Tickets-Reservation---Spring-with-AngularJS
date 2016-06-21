@@ -2,13 +2,13 @@
   "name": "ng-boilerplate",
   "version": "0.3.2",
   "devDependencies": {
-    "angular": "1.2.4",
-    "angular-resource": "1.2.4",
-    "angular-mocks": "1.2.4",
-    "bootstrap": "3.0.3",
+    "angular": "~1.4.1",
+    "angular-resource": "~1.4.1",
+    "angular-mocks": "~1.4.1",
+    "bootstrap": "3.3.0",
     "angular-bootstrap": "0.10.0",
-    "angular-ui-router": "~0.2"
-  },
+    "moment-picker": "0.5.4"
+},
   "dependencies": {
     "moment": "^2.13.0"
   }

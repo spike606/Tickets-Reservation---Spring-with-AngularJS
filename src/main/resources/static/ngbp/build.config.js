@@ -70,14 +70,19 @@ module.exports = {
          'vendor/angular-resource/angular-resource.js',
          'vendor/jquery/dist/jquery.min.js',
          'vendor/bootstrap/dist/js/bootstrap.min.js',
-         'vendor/clockpicker/dist/bootstrap-clockpicker.min.js'
+         'vendor/ngTimepicker/src/js/ngTimepicker.min.js',
+         'vendor/moment/min/moment-with-locales.min.js',
+         'vendor/moment-picker/dist/angular-moment-picker.min.js'
+
 
 
 
          ],
     css: [
           'vendor/css/main.css',
-          'vendor/clockpicker/dist/bootstrap-clockpicker.min.css'
+          'vendor/clockpicker/dist/bootstrap-clockpicker.min.css',
+          'vendor/ngTimepicker/src/css/ngTimepicker.css',
+          'vendor/moment-picker/dist/angular-moment-picker.min.css'
 
 
     ],
