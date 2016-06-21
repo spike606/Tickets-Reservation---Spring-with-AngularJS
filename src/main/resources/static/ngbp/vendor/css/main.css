@@ -1,0 +1,188 @@
+@CHARSET "UTF-8";
+
+
+/* 	.pull-left{ */
+
+/* 	} */
+   /* Remove the navbar's default margin-bottom and rounded borders */ 
+    #myNav .navbar {
+      margin-bottom: 0px;
+      border-radius: 0px;
+      background-color: #d81b60;
+	  font-family: Rockwell,Courier Bold,Courier,Georgia,Times,Times New Roman,serif;
+	  font-size: 16px;
+      color: #ffffff;
+	  padding-bottom: 0px;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100%}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 60px!important;
+      background-color: #ffffff;
+      height: auto;
+    }
+    
+    /* Set black background color, white text and some padding */
+    #footer-inner, #top-navbar{
+      background-color: #d81b60;
+      color: #ffffff;
+    
+/*       padding: 15px; */
+    }
+	.navbar-default .navbar-nav > .active > a,
+	.navbar-default .navbar-nav > .active > a:hover,
+	.navbar-default .navbar-nav > .active > a:focus {
+	  color: #ffffff!important;
+	  background-color: #d81b60!important;
+	}
+	.navbar-default .navbar-nav > li > a:hover,
+	.navbar-default .navbar-nav > li > a:focus {
+	  color: #ffffff!important;
+	  background-color: transparent!important;
+	}
+    .navbar-default .navbar-nav > li > a {
+	  color: #9d9d9d!important;
+	}
+	#logout-click, #flag{
+	    cursor: pointer;	
+	}
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+    
+
+/*menu*/
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+color: #fff;
+background-color: #e4276f;
+}
+
+.margintop20 {
+    margin-top:20px;
+}
+
+.nav-pills>li>a {
+border-radius: 0px;
+}
+
+a {
+color: #000;
+text-decoration: none;
+}
+
+a:hover {
+color: #000;
+text-decoration: none;
+}
+
+
+.nav-stacked>li {
+margin-top: 0px;
+margin-left: 0;
+border-top:3px solid #dadada;
+border-bottom:3px solid #dadada;
+border-left:3px solid #dadada;
+border-right:3px solid #dadada;
+}
+
+.active2 {
+    border-right:4px solid #d81b60;
+}
+/*szerokosc w widoku main*/
+.container {
+  width: auto!important;
+}
+/*szerokosc input i button*/
+
+.myForm-control {
+	width: 50%!important;
+}
+.myButton {
+	width: 50%!important;
+}
+
+/*button*/
+/* .myButton{ */
+/* 	margin-top:20px; */
+/* 	width: 50%; */
+/* } */
+    
+    
+/*image*/
+#image {
+    vertical-align: middle!important;
+}   
+
+    /*datepicker*/
+/* #dateRangeForm .form-control-feedback { */
+/*     top: 0; */
+/*     right: -15px; */
+/* }  */
+/*logowanie*/
+@import "bourbon";
+.wrapper {	
+	margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);  
+
+  .form-signin-heading,
+	.checkbox {
+	  margin-bottom: 30px;
+	}
+
+	.checkbox {
+	  font-weight: normal;
+	}
+
+	.form-control {
+	  position: relative;
+	  font-size: 16px;
+	  height: auto;
+	  padding: 10px;
+		@include box-sizing(border-box);
+
+		&:focus {
+		  z-index: 2;
+		}
+	}
+
+	input[type="text"] {
+	  margin-bottom: -1px;
+	  border-bottom-left-radius: 0;
+	  border-bottom-right-radius: 0;
+	}
+
+	input[type="password"] {
+	  margin-bottom: 20px;
+	  border-top-left-radius: 0;
+	  border-top-right-radius: 0;
+	}
+}
+.btn-primary {
+    background-color:#e4276f;
+    border-color: #d81b60;
+    color: #fff;
+}
+.btn-primary:HOVER :FOCUS{
+    background-color: #d81b60;
+    border-color: #d81b60;
+    color: #fff;
+}
+    
+  
+    
