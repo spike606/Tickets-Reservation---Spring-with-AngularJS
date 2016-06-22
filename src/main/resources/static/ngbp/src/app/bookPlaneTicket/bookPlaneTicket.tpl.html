@@ -1,0 +1,40 @@
+<div class="row">
+  <h1 class="page-header">
+      Book flight
+  </h1>
+		 <table class="table table-bordered">
+		    <thead>
+		      <tr>
+		        <th>Flight number</th>
+		        <th>From</th>
+		        <th>To</th>
+		        <th>Departure date</th>
+		        <th>Departure hour</th>
+		        <th>Arrive date</th>
+		        <th>Arrive hour</th>
+		        <th>Price $</th>
+		        <th>Actions</th>
+		      </tr>
+			</thead>
+
+			<tbody>
+			
+	        <tr ng-repeat="planeTicket in planeTicketsList | filter:q">
+	            <td>{{planeTicket.flightNumber}}</td>
+	            <td>{{planeTicket.flightFrom}}</td>
+	            <td>{{planeTicket.flightTo}}</td>
+	            <td>{{planeTicket.flightDateStart}}</td>
+	            <td>{{planeTicket.flightHourStart}}</td>
+	            <td>{{planeTicket.flightDateStop}}</td>
+	            <td>{{planeTicket.flightHourStop}}</td>
+	            <td>{{planeTicket.flightPrice}}</td>
+	            <td>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="bookPlaneTicket(planeTicket.rid)">BOOK</button>
+				</td>
+            	            
+	        </tr>			
+			</tbody>
+ 		 </table>
+</div>
+
+

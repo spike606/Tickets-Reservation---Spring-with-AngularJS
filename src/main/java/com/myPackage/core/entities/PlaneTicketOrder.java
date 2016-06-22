@@ -1,5 +1,6 @@
 package com.myPackage.core.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class PlaneTicketOrder {
 	private String street;
 	private String email;
 	private String telephone;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private PlaneTicket planeTicket;
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Account owner;

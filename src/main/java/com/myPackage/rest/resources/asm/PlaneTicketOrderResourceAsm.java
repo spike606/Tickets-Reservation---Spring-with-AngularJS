@@ -27,9 +27,8 @@ public class PlaneTicketOrderResourceAsm extends ResourceAssemblerSupport<PlaneT
 		res.setCity(planeTicketOrder.getCity());
 		res.setState(planeTicketOrder.getState());
 		res.setStreet(planeTicketOrder.getStreet());
-		res.setPlaneTicket(planeTicketOrder.getPlaneTicket());
+		res.setPlaneTicket(planeTicketOrder.getPlaneTicket().getId());
 		res.setOwner(planeTicketOrder.getOwner());
-
 		Link self = linkTo(PlaneTicketOrderController.class).slash(planeTicketOrder.getId()).withSelfRel();
 		
 		res.add(self);

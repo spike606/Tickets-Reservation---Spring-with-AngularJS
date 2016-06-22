@@ -9,6 +9,7 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.newTrainTicket',
   'ngBoilerplate.planeTicketsList',
   'ngBoilerplate.trainTicketsList',
+  'ngBoilerplate.bookPlaneTicket',
   'ui.router'
 ])
 

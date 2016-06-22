@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myPackage.core.entities.Account;
+import com.myPackage.core.entities.PlaneTicket;
 import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.repositories.AccountRepository;
 import com.myPackage.core.repositories.PlaneTicketOrderRepository;
+import com.myPackage.core.repositories.PlaneTicketRepository;
 import com.myPackage.core.services.PlaneTicketOrderService;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
 import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
@@ -29,6 +31,8 @@ public class PlaneTicketOrderServiceImplementation implements PlaneTicketOrderSe
 //        {
 //            throw new PlaneTicketOrderAlreadyExistsException();
 //        }
+//		PlaneTicket planeTicket = planeTicketRepository.findPlaneTicket(data.getPlaneTicket().getId());
+//		data.setPlaneTicket(planeTicket);
         return planeTicketOrderRepository.createPlaneTicketOrder(data);
 	}
 
