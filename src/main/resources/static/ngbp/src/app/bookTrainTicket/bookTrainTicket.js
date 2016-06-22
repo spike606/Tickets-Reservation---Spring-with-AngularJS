@@ -52,7 +52,11 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
   };
 })
 .controller( 'bookTrainTicketOrderCtrl', function bookTrainTicketOrderCtrl( $scope,$stateParams,trainTicketOrderService,$state) {
-  $scope.ridparam = $stateParams.ridparam;
+  if($stateParams.ridparam){
+		$scope.ridparam = $stateParams.ridparam;
+  }else{
+  $state.go("home",{ reload : true });
+  }
   console.log($scope.ridparam);
   $scope.makeTrainOrder = function(){
 		trainTicketOrderService.addTrainTicketOrder($scope.ridparam,$scope.trainTicketOrder,
