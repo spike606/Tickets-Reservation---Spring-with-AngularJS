@@ -5,26 +5,17 @@
   <form ng-submit="planeTicketSubmit()">
       <div class="form-group myForm-control">
           <label>Flight number*</label>
-          <input type="text" ng-model="planeticket.flightNumber" class="form-control" ng-model="planeticket.flightNumber"/>
+          <input type="text" ng-model="planeticket.flightNumber" class="form-control"/>
       </div>
       <div class="form-group myForm-control">
           <label>From*</label>
-          <input type="text"  ng-model="planeticket.flightFrom" class="form-control" ng-model="planeticket.flightFrom"/>
+          <input type="text"  ng-model="planeticket.flightFrom" class="form-control"/>
       </div>
       <div class="form-group myForm-control">
           <label>To*</label>
-          <input type="text" ng-model="planeticket.flightTo" class="form-control"  ng-model="planeticket.flightTo"/>
+          <input type="text" ng-model="planeticket.flightTo" class="form-control"/>
       </div>
-<!--       <div class="form-group myForm-control">       -->
-<!--         <label>Departure date*</label> -->
-<!-- 			<div  class="input-group input-append date" id="dateRangePicker"  > -->
-<!--              <input  type="text" class="form-control" name="date" ng-model="planeticket.flightDateStart"/> -->
-<!--                   <span class="input-group-addon add-on"><span class="glyphicon glyphicon-list"></span></span> -->
-<!--            </div> -->
-<!--       </div> -->
-      
 
-      
       <div class="form-group myForm-control"
 		     moment-picker="planeticket.flightDateStart"
 		     format="YYYY-MM-DD">
@@ -41,8 +32,7 @@
       
       <div class="form-group myForm-control">      
         <label>Departure hour*</label>
-             <ng-timepicker  type="text" name="clock" ng-model="planeticket.flightHourStart"
-             init-time="{{true && planeticket.flightHourStart ||  '12:00'}}"/>
+             <ng-timepicker  type="text" name="clock" ng-model="planeticket.flightHourStart" init-time="{{true && planeticket.flightHourStart ||  '12:00'}}"/>
       </div>      
       
       
@@ -61,9 +51,8 @@
 	 </div>
       <div class="form-group myForm-control">      
         <label>Arrive hour*</label>
-             <ng-timepicker  type="text" name="clock" ng-model="planeticket.flightHourStop"
-                          init-time="{{true && planeticket.flightHourStop ||  '12:00'}}"/>
-             />
+             <ng-timepicker  type="text" name="clock" ng-model="planeticket.flightHourStop" init-time="{{true && planeticket.flightHourStop ||  '12:00'}}"/>
+             
       </div> 
       <div class="form-group myForm-control">
           <label>Price*</label>
@@ -76,27 +65,4 @@
       
   </form>
 </div>
-<script>
-$( document ).ready(function() {
-$(".date").datepicker({
-    format: 'mm/dd/yyyy',
-    startDate: new Date(),
-    endDate: '12/30/2020',
-    autoclose: true,
-    language: 'de-DE'
-})
-.on('changeDate', function(e) {
-    $(".date").datepicker('hide');
-});
-$('.clockpicker').clockpicker({
-	placement: 'top', // clock popover placement
-	align: 'right',       // popover arrow align
-	donetext: 'OK',     // done button text
-	autoclose: false,    // auto close when minute is selected
-	twelvehour: false        // vibrate the device when dragging clock hand
-	});
-
-});
-
-</script>
 

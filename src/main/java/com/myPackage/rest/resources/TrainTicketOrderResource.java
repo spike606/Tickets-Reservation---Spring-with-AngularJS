@@ -8,7 +8,7 @@ import com.myPackage.core.entities.TrainTicketOrder;
 
 public class TrainTicketOrderResource extends ResourceSupport {
 
-
+	private Long rid;
 	private String firstname;
 	private String secondname;
 	private String lastname;
@@ -21,6 +21,16 @@ public class TrainTicketOrderResource extends ResourceSupport {
 	private Long trainTicketId;
 	private Account owner;
 	
+	
+	public Long getRid() {
+		return rid;
+	}
+	public void setRid(Long rid) {
+		this.rid = rid;
+	}
+	public void setTrainTicketId(Long trainTicketId) {
+		this.trainTicketId = trainTicketId;
+	}
 	public String getFirstname() {
 		return firstname;
 	}
@@ -77,9 +87,6 @@ public class TrainTicketOrderResource extends ResourceSupport {
 	}
 	public Long getTrainTicketId() {
 		return trainTicketId;
-	}
-	public void setTrainTicket(Long trainTicketId) {
-		this.trainTicketId = trainTicketId;
 	}
 	public Account getOwner() {
 		return owner;
