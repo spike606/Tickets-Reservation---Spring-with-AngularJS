@@ -1,0 +1,42 @@
+<div class="row">
+  <h1 class="page-header">
+      Book transit
+  </h1>
+		 <table class="table table-bordered">
+		    <thead>
+		      <tr>
+		        <th>Transit number</th>
+		        <th>Transit name</th>
+		        <th>From</th>
+		        <th>To</th>
+		        <th>Departure date</th>
+		        <th>Departure hour</th>
+		        <th>Arrive date</th>
+		        <th>Arrive hour</th>
+		        <th>Price $</th>
+		        <th>Actions</th>
+		      </tr>
+			</thead>
+
+			<tbody>
+			
+	        <tr ng-repeat="trainTicket in trainTicketsList | filter:q">
+	            <td>{{trainTicket.transitNumber}}</td>
+	            <td>{{trainTicket.transitName}}</td>
+	            <td>{{trainTicket.transitFrom}}</td>
+	            <td>{{trainTicket.transitTo}}</td>
+	            <td>{{trainTicket.transitDateStart}}</td>
+	            <td>{{trainTicket.transitHourStart}}</td>
+	            <td>{{trainTicket.transitDateStop}}</td>
+	            <td>{{trainTicket.transitHourStop}}</td>
+	            <td>{{trainTicket.transitPrice}}</td>
+	            <td>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="bookTrainTicket(trainTicket.rid)">BOOK</button>
+				</td>
+            	            
+	        </tr>			
+			</tbody>
+ 		 </table>
+</div>
+
+

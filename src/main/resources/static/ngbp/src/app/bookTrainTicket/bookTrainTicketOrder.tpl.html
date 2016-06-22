@@ -1,0 +1,45 @@
+<div class="row">
+  <h1 class="page-header">
+      Book transit
+  </h1>
+  <form ng-submit="makeTrainOrder()">
+      <div class="form-group">
+          <label>First name*:</label>
+          <input type="text" ng-model="trainTicketOrder.firstname" class="form-control myForm-control" />
+      </div>
+      <div class="form-group">
+          <label>Second name:</label>
+          <input type="text" ng-model="trainTicketOrder.secondname" class="form-control myForm-control" />
+      </div>
+      <div class="form-group">
+          <label>Last name*:</label>
+          <input type="text"  ng-model="trainTicketOrder.lastname" class="form-control myForm-control" />
+      </div>
+       <div class="form-group">
+          <label>Country*:</label>
+          <input type="text" ng-model="trainTicketOrder.country" class="form-control myForm-control" />
+      </div>
+      <div class="form-group">
+          <label>State*:</label>
+          <input type="text"  ng-model="trainTicketOrder.state" class="form-control myForm-control" />
+      </div>
+            <div class="form-group">
+          <label>City*:</label>
+          <input type="text" ng-model="trainTicketOrder.city" class="form-control myForm-control" />
+      </div>
+      <div class="form-group">
+          <label>Street*:</label>
+          <input type="text"  ng-model="trainTicketOrder.street" class="form-control myForm-control" />
+      </div>
+      <div class="form-group">
+          <label>Email*:</label>
+          <input type="text" ng-model="trainTicketOrder.email" class="form-control myForm-control" />
+      </div>
+      <div class="form-group">
+          <label>Telephone*:</label>
+          <input type="text"  ng-model="trainTicketOrder.telephone" class="form-control myForm-control" />
+      </div>
+      <button class="btn btn-lg btn-primary btn-block myButton" type="submit">Submit</button>
+      
+  </form>
+</div>

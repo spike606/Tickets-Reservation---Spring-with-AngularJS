@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.services.TrainTicketOrderService;
+import com.myPackage.core.services.TrainTicketService;
 import com.myPackage.core.services.exceptions.TrainTicketOrderAlreadyExistsException;
 import com.myPackage.core.services.util.TrainTicketOrderList;
 import com.myPackage.rest.exceptions.ConflictException;
@@ -25,8 +26,12 @@ import com.myPackage.rest.resources.asm.TrainTicketOrderResourceAsm;
 @RestController
 @RequestMapping(value = "/rest/trainTicketOrders")
 public class TrainTicketOrderController {
+	
 	@Autowired
 	private TrainTicketOrderService trainTicketOrderService;
+	
+	@Autowired
+	private TrainTicketService trainTicketService;
 
 	public TrainTicketOrderController() {
 	}
@@ -54,7 +59,8 @@ public class TrainTicketOrderController {
 	public ResponseEntity<TrainTicketOrderResource> createTrainTicketOrder(@RequestBody TrainTicketOrderResource sentTrainTicketOrder) {
 		TrainTicketOrder createdTrainTicketOrder = null;
 		try {
-			createdTrainTicketOrder = trainTicketOrderService.createTrainTicketOrder(sentTrainTicketOrder.toTrainTicketOrder());
+			createdTrainTicketOrder = trainTicketOrderService.createTrainTicketOrder(sentTrainTicketOrder.
+					toTrainTicketOrder(trainTicketService.findTrainTicket(sentTrainTicketOrder.getTrainTicketId())));
 			TrainTicketOrderResource createdTrainTicketOrderResource = new TrainTicketOrderResourceAsm().toResource(createdTrainTicketOrder);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(URI.create(createdTrainTicketOrderResource.getLink("self").getHref()));

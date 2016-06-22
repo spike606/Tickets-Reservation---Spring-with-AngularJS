@@ -18,7 +18,7 @@ public class TrainTicketOrderResource extends ResourceSupport {
 	private String street;
 	private String email;
 	private String telephone;
-	private TrainTicket trainTicket;
+	private Long trainTicketId;
 	private Account owner;
 	
 	public String getFirstname() {
@@ -75,11 +75,11 @@ public class TrainTicketOrderResource extends ResourceSupport {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	public TrainTicket getTrainTicket() {
-		return trainTicket;
+	public Long getTrainTicketId() {
+		return trainTicketId;
 	}
-	public void setTrainTicket(TrainTicket trainTicket) {
-		this.trainTicket = trainTicket;
+	public void setTrainTicket(Long trainTicketId) {
+		this.trainTicketId = trainTicketId;
 	}
 	public Account getOwner() {
 		return owner;
@@ -87,7 +87,7 @@ public class TrainTicketOrderResource extends ResourceSupport {
 	public void setOwner(Account owner) {
 		this.owner = owner;
 	}
-	public TrainTicketOrder toTrainTicketOrder() {
+	public TrainTicketOrder toTrainTicketOrder(TrainTicket trainTicket) {
 		
 		TrainTicketOrder trainTicketOrder = new TrainTicketOrder();
 		trainTicketOrder.setFirstname(firstname);

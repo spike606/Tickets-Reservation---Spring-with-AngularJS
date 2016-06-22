@@ -41,7 +41,6 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
 	service.addPlaneTicketOrder = function(rid,planeTicketOrder, success, failure){
 		var PlaneTicketOrder = $resource('/TicketsService/rest/planeTicketOrders');
 		planeTicketOrder.planeTicketId = rid;
-		console.log(planeTicketOrder.planeTicket);
 		PlaneTicketOrder.save({},planeTicketOrder,success,failure);
 	};
 	return service;
@@ -55,7 +54,7 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
 .controller( 'bookPlaneTicketOrderCtrl', function bookPlaneTicketOrderCtrl( $scope,$stateParams,planeTicketOrderService,$state) {
   $scope.ridparam = $stateParams.ridparam;
   console.log($scope.ridparam);
-  $scope.makeOrder = function(){
+  $scope.makePlaneOrder = function(){
 		planeTicketOrderService.addPlaneTicketOrder($scope.ridparam,$scope.planeTicketOrder,
 				function(returnedData){
 			$state.go('home');

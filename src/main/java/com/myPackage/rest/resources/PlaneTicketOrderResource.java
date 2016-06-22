@@ -1,24 +1,16 @@
 package com.myPackage.rest.resources;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.myPackage.core.entities.Account;
 import com.myPackage.core.entities.PlaneTicket;
 import com.myPackage.core.entities.PlaneTicketOrder;
-import com.myPackage.core.repositories.PlaneTicketRepository;
-import com.myPackage.core.services.PlaneTicketService;
-import com.myPackage.core.services.implementation.PlaneTicketServiceImplementation;
 
 @Service
 public class PlaneTicketOrderResource extends ResourceSupport{
 	
-	@Autowired
-	private PlaneTicketService planeTicketService;
 
-	
 	private String firstname;
 	private String secondname;
 	private String lastname;
@@ -88,7 +80,7 @@ public class PlaneTicketOrderResource extends ResourceSupport{
 	public Long getPlaneTicketId() {
 		return planeTicketId;
 	}
-	public void setPlaneTicket(Long planeTicketId) {
+	public void setPlaneTicketId(Long planeTicketId) {
 		this.planeTicketId = planeTicketId;
 	}
 	public Account getOwner() {
@@ -109,12 +101,8 @@ public class PlaneTicketOrderResource extends ResourceSupport{
 		planeTicketOrder.setCity(city);
 		planeTicketOrder.setState(state);
 		planeTicketOrder.setStreet(street);
-//		System.out.println("************************************" + planeTicketService.findPlaneTicket(new Long(50)).getId());
 		planeTicketOrder.setPlaneTicket(planeTicket);
 		planeTicketOrder.setOwner(owner);
-//		System.out.println("dAne----------------------------------------------------- " + planeTicket);
-//		System.out.println(planeTicket.getFlightNumber());
-
 
 		return planeTicketOrder;
 

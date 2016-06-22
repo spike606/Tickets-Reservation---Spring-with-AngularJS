@@ -26,10 +26,13 @@ import com.myPackage.rest.resources.asm.PlaneTicketOrderResourceAsm;
 @RestController
 @RequestMapping(value = "/rest/planeTicketOrders")
 public class PlaneTicketOrderController {
+	
 	@Autowired
 	private PlaneTicketOrderService planeTicketOrderService;
+	
 	@Autowired
 	private PlaneTicketService planeTicketService;
+	
 	public PlaneTicketOrderController() {
 	}
 	
@@ -55,9 +58,9 @@ public class PlaneTicketOrderController {
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(@RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
-		PlaneTicketOrder createdPlaneTicketOrder = null;
+//		PlaneTicketOrder createdPlaneTicketOrder = null;
 		try {
-			createdPlaneTicketOrder = planeTicketOrderService.createPlaneTicketOrder(sentPlaneTicketOrder.toPlaneTicketOrder(
+			PlaneTicketOrder createdPlaneTicketOrder = planeTicketOrderService.createPlaneTicketOrder(sentPlaneTicketOrder.toPlaneTicketOrder(
 					planeTicketService.findPlaneTicket(sentPlaneTicketOrder.getPlaneTicketId())));
 			PlaneTicketOrderResource createdPlaneTicketOrderResource = new PlaneTicketOrderResourceAsm().toResource(createdPlaneTicketOrder);
 			HttpHeaders headers = new HttpHeaders();
