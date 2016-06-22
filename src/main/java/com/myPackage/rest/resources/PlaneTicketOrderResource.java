@@ -10,7 +10,7 @@ import com.myPackage.core.entities.PlaneTicketOrder;
 @Service
 public class PlaneTicketOrderResource extends ResourceSupport{
 	
-
+	private Long rid;
 	private String firstname;
 	private String secondname;
 	private String lastname;
@@ -23,6 +23,12 @@ public class PlaneTicketOrderResource extends ResourceSupport{
 	private Long planeTicketId;
 	private Account owner;
 	
+	public Long getRid() {
+		return rid;
+	}
+	public void setRid(Long rid) {
+		this.rid = rid;
+	}
 	public String getFirstname() {
 		return firstname;
 	}

@@ -1,0 +1,42 @@
+<div class="row">
+  <h1 class="page-header">
+      List of plane orders
+  </h1>
+		 <table class="table table-bordered">
+		    <thead>
+		      <tr>
+		        <th>First name</th>
+		        <th>Last name</th>
+		        <th>Country</th>
+		        <th>State</th>
+		        <th>City</th>
+		        <th>Street</th>
+		        <th>Email</th>
+		        <th>Telephone</th>
+		        <th>Flight number</th>
+		        <th>Actions</th>
+		      </tr>
+			</thead>
+
+			<tbody>
+<!-- 			ng-repeat="planeTicket in planeTicketsList |filter:q" -->
+	        <tr  ng-repeat="planeTicketOrder in planeTicketOrderList | filter:q">
+	            <td>{{planeTicketOrder.firstname}}</td>
+	            <td>{{planeTicketOrder.lastname}}</td>
+	            <td>{{planeTicketOrder.country}}</td>
+	            <td>{{planeTicketOrder.state}}</td>
+	            <td>{{planeTicketOrder.city}}</td>
+	            <td>{{planeTicketOrder.street}}</td>
+	            <td>{{planeTicketOrder.email}}</td>
+	            <td>{{planeTicketOrder.telephone}}</td>
+	            <td>{{planeTicketOrder.planeTicket.flightNumber}}</td>
+	            <td>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="deletePlaneTicketOrder(planeTicketOrder.rid)">DELETE</button>
+				</td>
+            	            
+	        </tr>			
+			</tbody>
+ 		 </table>
+</div>
+
+
