@@ -2,10 +2,14 @@ package com.myPackage.rest.mvc;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +26,7 @@ import com.myPackage.rest.resources.PlaneTicketOrderListResource;
 import com.myPackage.rest.resources.PlaneTicketOrderResource;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderListResourceAsm;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderResourceAsm;
+import com.myPackage.rest.validators.PlaneTicketOrderValidator;
 
 @RestController
 @RequestMapping(value = "/rest/planeTicketOrders")
@@ -33,12 +38,21 @@ public class PlaneTicketOrderController {
 	@Autowired
 	private PlaneTicketService planeTicketService;
 	
+	PlaneTicketOrderValidator planeTicketOrderValidator;
+	
 	public PlaneTicketOrderController() {
+		planeTicketOrderValidator = new PlaneTicketOrderValidator();
 	}
 	
 	@Autowired
 	public PlaneTicketOrderController(PlaneTicketOrderService planeTicketOrderService) {
 		this.planeTicketOrderService = planeTicketOrderService;
+		planeTicketOrderValidator = new PlaneTicketOrderValidator();
+
+	}
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(planeTicketOrderValidator);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -57,7 +71,7 @@ public class PlaneTicketOrderController {
 			
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(@RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
+	public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(@Valid @RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
 //		PlaneTicketOrder createdPlaneTicketOrder = null;
 		try {
 			PlaneTicketOrder createdPlaneTicketOrder = planeTicketOrderService.createPlaneTicketOrder(sentPlaneTicketOrder.toPlaneTicketOrder(

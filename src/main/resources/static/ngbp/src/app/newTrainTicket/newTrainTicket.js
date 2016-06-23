@@ -65,7 +65,7 @@ angular.module( 'ngBoilerplate.newTrainTicket', [
 				$state.go('trainTicketsList');
 			},
 			function(){
-				alert('Error adding trainticket');
+				$state.go('badRequest');
 			});
 		}else{
 			updateTrainTicketService.update({rid:$scope.ridparam},$scope.trainticket,
@@ -73,7 +73,7 @@ angular.module( 'ngBoilerplate.newTrainTicket', [
 				$state.go('trainTicketsList');
 			},
 			function(){
-				alert('Error adding trainticket');
+				$state.go('badRequest');
 			});
 		}
 	};

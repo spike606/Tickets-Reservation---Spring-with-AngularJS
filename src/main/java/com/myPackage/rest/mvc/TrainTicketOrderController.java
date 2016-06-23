@@ -2,10 +2,14 @@ package com.myPackage.rest.mvc;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +26,7 @@ import com.myPackage.rest.resources.TrainTicketOrderListResource;
 import com.myPackage.rest.resources.TrainTicketOrderResource;
 import com.myPackage.rest.resources.asm.TrainTicketOrderListResourceAsm;
 import com.myPackage.rest.resources.asm.TrainTicketOrderResourceAsm;
+import com.myPackage.rest.validators.TrainTicketOrderValidator;
 
 @RestController
 @RequestMapping(value = "/rest/trainTicketOrders")
@@ -33,13 +38,25 @@ public class TrainTicketOrderController {
 	@Autowired
 	private TrainTicketService trainTicketService;
 
+	TrainTicketOrderValidator trainTicketOrderValidator;
+
 	public TrainTicketOrderController() {
+		trainTicketOrderValidator = new TrainTicketOrderValidator();
 	}
+	
 	
 	@Autowired
 	public TrainTicketOrderController(TrainTicketOrderService TrainTicketOrderService) {
 		this.trainTicketOrderService = TrainTicketOrderService;
+		trainTicketOrderValidator = new TrainTicketOrderValidator();
+
 	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(trainTicketOrderValidator);
+	}
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<TrainTicketOrderListResource> findAllTrainTicketOrders() {
 		TrainTicketOrderList trainTicketOrderList = trainTicketOrderService.findAllTrainTicketOrders();
@@ -56,7 +73,7 @@ public class TrainTicketOrderController {
 			
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<TrainTicketOrderResource> createTrainTicketOrder(@RequestBody TrainTicketOrderResource sentTrainTicketOrder) {
+	public ResponseEntity<TrainTicketOrderResource> createTrainTicketOrder(@Valid @RequestBody TrainTicketOrderResource sentTrainTicketOrder) {
 		TrainTicketOrder createdTrainTicketOrder = null;
 		try {
 			createdTrainTicketOrder = trainTicketOrderService.createTrainTicketOrder(sentTrainTicketOrder.

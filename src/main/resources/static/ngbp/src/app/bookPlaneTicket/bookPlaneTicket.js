@@ -98,7 +98,7 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
 			$state.go('home');
 		},
 		function(){
-			alert('Error adding planeticket');
+			$state.go('badRequest');
 		});
   };
 })

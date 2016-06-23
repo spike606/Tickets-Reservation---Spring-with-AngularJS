@@ -2,10 +2,14 @@ package com.myPackage.rest.mvc;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +25,7 @@ import com.myPackage.rest.resources.PlaneTicketListResource;
 import com.myPackage.rest.resources.PlaneTicketResource;
 import com.myPackage.rest.resources.asm.PlaneTicketListResourceAsm;
 import com.myPackage.rest.resources.asm.PlaneTicketResourceAsm;
+import com.myPackage.rest.validators.PlaneTicketValidator;
 
 @RestController
 @RequestMapping(value = "/rest/planeTickets")
@@ -28,14 +33,22 @@ public class PlaneTicketController {
 	
 	private PlaneTicketService planeTicketService;
 
+	PlaneTicketValidator planeTicketValidator;
+
 	public PlaneTicketController() {
+		planeTicketValidator = new PlaneTicketValidator();
 	}
 	
 	@Autowired
 	public PlaneTicketController(PlaneTicketService planeTicketService) {
 		this.planeTicketService = planeTicketService;
-	}
+		planeTicketValidator = new PlaneTicketValidator();
 
+	}
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(planeTicketValidator);
+	}
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<PlaneTicketListResource> findAllPlaneTickets() {
 		PlaneTicketList planeTicketList = planeTicketService.findAllPlaneTickets();
@@ -54,10 +67,9 @@ public class PlaneTicketController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<PlaneTicketResource> createPlaneTicket(@RequestBody PlaneTicketResource sentPlaneTicket) {
-		PlaneTicket createdPlaneTicket = null;
+	public ResponseEntity<PlaneTicketResource> createPlaneTicket(@Valid @RequestBody PlaneTicketResource sentPlaneTicket) {
 		try {
-			createdPlaneTicket = planeTicketService.createPlaneTicket(sentPlaneTicket.toPlaneTicket());
+			PlaneTicket createdPlaneTicket = planeTicketService.createPlaneTicket(sentPlaneTicket.toPlaneTicket());
 			PlaneTicketResource createdPlaneTicketResource = new PlaneTicketResourceAsm().toResource(createdPlaneTicket);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(URI.create(createdPlaneTicketResource.getLink("self").getHref()));
@@ -80,7 +92,7 @@ public class PlaneTicketController {
 
     @RequestMapping(value="/{planeTicketId}",method = RequestMethod.PUT)
     public ResponseEntity<PlaneTicketResource> updatePlaneTicket(
-            @PathVariable Long planeTicketId, @RequestBody PlaneTicketResource sentPlaneTicket) {
+            @PathVariable Long planeTicketId,@Valid @RequestBody PlaneTicketResource sentPlaneTicket) {
         PlaneTicket updatedPlaneTicket = planeTicketService.updatePlaneTicket(planeTicketId, sentPlaneTicket.toPlaneTicket());
         if(updatedPlaneTicket != null)
         {

@@ -4,10 +4,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myPackage.core.entities.Account;
-import com.myPackage.core.entities.PlaneTicket;
 import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.exceptions.AccountAlreadyExistsException;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
@@ -29,13 +32,12 @@ import com.myPackage.rest.exceptions.ConflictException;
 import com.myPackage.rest.resources.AccountListResource;
 import com.myPackage.rest.resources.AccountResource;
 import com.myPackage.rest.resources.PlaneTicketOrderListResource;
-import com.myPackage.rest.resources.PlaneTicketResource;
 import com.myPackage.rest.resources.TrainTicketOrderListResource;
 import com.myPackage.rest.resources.asm.AccountListResourceAsm;
 import com.myPackage.rest.resources.asm.AccountResourceAsm;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderListResourceAsm;
-import com.myPackage.rest.resources.asm.PlaneTicketResourceAsm;
 import com.myPackage.rest.resources.asm.TrainTicketOrderListResourceAsm;
+import com.myPackage.rest.validators.AccountValidator;
 
 @RestController
 @RequestMapping(value = "/rest/accounts")
@@ -43,12 +45,21 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 
+	AccountValidator accountValidator;
+
 
 	public AccountController() {
+		accountValidator = new AccountValidator();
 	}
 
 	public AccountController(AccountService accountService) {
 		this.accountService = accountService;
+		accountValidator = new AccountValidator();
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(accountValidator);
 	}
 	
     @RequestMapping(method = RequestMethod.GET)
@@ -81,7 +92,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<AccountResource> createAccount(@RequestBody AccountResource sentAccount) {
+	public ResponseEntity<AccountResource> createAccount(@Valid @RequestBody AccountResource sentAccount) {
 
         try {
             Account account = accountService.createAccount(sentAccount.toAccount());

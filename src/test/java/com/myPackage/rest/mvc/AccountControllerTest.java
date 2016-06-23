@@ -95,7 +95,9 @@ public class AccountControllerTest {
         when(service.createAccount(any(Account.class))).thenReturn(createdAccount);
 
         mockMvc.perform(post("/rest/accounts")
-                .content("{\"login\":\"testlogin\",\"password\":\"pass\",\"firstname\":\"johnny\",\"lastname\":\"bravo\"}")
+                .content("{\"login\":\"testlogin\",\"password\":\"pass\",\"firstname\":\"johnny\",\"lastname\":\"bravo\","
+                		+ "\"secondname\":\"john\",\"email\":\"john@aol.com\",\"telephone\":\"+48 111-111-111\",\"country\":\"Poland\",\"state\":\"Lodzkie\","
+                		+ "\"city\":\"Lodz\",\"street\":\"Zachodnia 12\"}")
                 .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
                 .andExpect(header().string("Location", org.hamcrest.Matchers.endsWith("/rest/accounts/1")))
@@ -122,8 +124,9 @@ public class AccountControllerTest {
         when(service.createAccount(any(Account.class))).thenThrow(new AccountAlreadyExistsException());
 
         mockMvc.perform(post("/rest/accounts")
-                .content("{\"login\":\"testlogin\",\"password\":\"pass\"}")
-                .contentType(MediaType.APPLICATION_JSON))
+                .content("{\"login\":\"testlogin\",\"password\":\"pass\",\"firstname\":\"johnny\",\"lastname\":\"bravo\","
+                		+ "\"secondname\":\"john\",\"email\":\"john@aol.com\",\"telephone\":\"+48 111-111-111\",\"country\":\"Poland\",\"state\":\"Lodzkie\","
+                		+ "\"city\":\"Lodz\",\"street\":\"Zachodnia 12\"}")                .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
                 .andExpect(status().isConflict());
     }

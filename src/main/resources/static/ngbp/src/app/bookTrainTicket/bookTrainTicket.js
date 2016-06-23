@@ -85,6 +85,23 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
   $state.go("bookTrainTicketOrder",{ridparam : rid}, { reload : true });
   };
 })
+.controller( 'bookTrainTicketOrderCtrl', function bookTrainTicketOrderCtrl( $scope,$stateParams,trainTicketOrderService,$state) {
+  if($stateParams.ridparam){
+		$scope.ridparam = $stateParams.ridparam;
+  }else{
+  $state.go("home",{ reload : true });
+  }
+  console.log($scope.ridparam);
+  $scope.makeTrainOrder = function(){
+  trainTicketOrderService.addTrainTicketOrder($scope.ridparam,$scope.trainTicketOrder,
+			function(returnedData){
+		$state.go('home');
+	},
+	function(){
+		$state.go('badRequest');
+	});
+  };
+})
 .controller( 'bookTrainTicketOrderListCtrl', function bookTrainTicketOrderListCtrl( $scope,$state,trainTicketOrderList,trainTicketsList, trainTicketOrderListService) {
   $scope.trainTicketOrderList = trainTicketOrderList;
   $scope.trainTicketsList = trainTicketsList;

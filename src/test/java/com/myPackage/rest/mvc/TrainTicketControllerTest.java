@@ -108,7 +108,8 @@ public class TrainTicketControllerTest {
         
         when(service.createTrainTicket(any(TrainTicket.class))).thenReturn(ticket1);
         mockMvc.perform(post("/rest/trainTickets")
-                .content("{\"transitNumber\":\"345FTTT\",\"transitFrom\":\"Berlin\",\"transitTo\":\"Warsaw\"}")
+                .content("{\"transitNumber\":\"45NN\",\"transitName\":\"Capt\",\"transitFrom\":\"London\",\"transitTo\":\"Warsaw\",\"transitDateStart\":\"2016-06-06\","
+                		+ "\"transitHourStart\":\"12:00\",\"transitDateStop\":\"2016-06-06\",\"transitHourStop\":\"14:00\",\"transitPrice\":\"560\"}")
                 .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
                 .andExpect(header().string("Location", org.hamcrest.Matchers.endsWith("/rest/trainTickets/1")))
@@ -128,8 +129,8 @@ public class TrainTicketControllerTest {
         
         when(service.createTrainTicket(any(TrainTicket.class))).thenThrow(new TrainTicketAlreadyExistsException());
         mockMvc.perform(post("/rest/trainTickets")
-                .content("{\"transitNumber\":\"345FT\",\"transitFrom\":\"Berlin\",\"transitTo\":\"Warsaw\"}")
-                .contentType(MediaType.APPLICATION_JSON))
+                .content("{\"transitNumber\":\"45NN\",\"transitName\":\"Capt\",\"transitFrom\":\"London\",\"transitTo\":\"Warsaw\",\"transitDateStart\":\"2016-06-06\","
+                		+ "\"transitHourStart\":\"12:00\",\"transitDateStop\":\"2016-06-06\",\"transitHourStop\":\"14:00\",\"transitPrice\":\"560\"}")                .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
                 .andExpect(status().isConflict());
         
@@ -170,8 +171,8 @@ public class TrainTicketControllerTest {
         
         when(service.updateTrainTicket(eq(1L), any(TrainTicket.class))).thenReturn(ticket1);
         mockMvc.perform(put("/rest/trainTickets/1")
-                .content("{\"transitNumber\":\"345FT\",\"transitFrom\":\"Berlin\",\"transitTo\":\"Warsaw\"}")
-
+                .content("{\"transitNumber\":\"45NN\",\"transitName\":\"Capt\",\"transitFrom\":\"London\",\"transitTo\":\"Warsaw\",\"transitDateStart\":\"2016-06-06\","
+                		+ "\"transitHourStart\":\"12:00\",\"transitDateStop\":\"2016-06-06\",\"transitHourStop\":\"14:00\",\"transitPrice\":\"560\"}")
                 .contentType(MediaType.APPLICATION_JSON))
 		        .andExpect(jsonPath("$.transitNumber", is(ticket1.getTransitNumber())))
 		        .andExpect(jsonPath("$.transitFrom", is(ticket1.getTransitFrom())))
@@ -187,8 +188,8 @@ public class TrainTicketControllerTest {
         
         when(service.updateTrainTicket(eq(1L), any(TrainTicket.class))).thenReturn(null);
         mockMvc.perform(put("/rest/trainTickets/1")
-                .content("{\"transitNumber\":\"345FT\",\"transitFrom\":\"Berlin\",\"transitTo\":\"Warsaw\"}")
-                .contentType(MediaType.APPLICATION_JSON))
+                .content("{\"transitNumber\":\"45NN\",\"transitName\":\"Capt\",\"transitFrom\":\"London\",\"transitTo\":\"Warsaw\",\"transitDateStart\":\"2016-06-06\","
+                		+ "\"transitHourStart\":\"12:00\",\"transitDateStop\":\"2016-06-06\",\"transitHourStop\":\"14:00\",\"transitPrice\":\"560\"}")                .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
         		.andExpect(status().isNotFound());
         

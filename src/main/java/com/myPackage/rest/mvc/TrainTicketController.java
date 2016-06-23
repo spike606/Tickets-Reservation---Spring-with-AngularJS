@@ -2,10 +2,14 @@ package com.myPackage.rest.mvc;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +25,7 @@ import com.myPackage.rest.resources.TrainTicketListResource;
 import com.myPackage.rest.resources.TrainTicketResource;
 import com.myPackage.rest.resources.asm.TrainTicketListResourceAsm;
 import com.myPackage.rest.resources.asm.TrainTicketResourceAsm;
+import com.myPackage.rest.validators.TrainTicketValidator;
 
 @RestController
 @RequestMapping(value = "/rest/trainTickets")
@@ -28,12 +33,21 @@ public class TrainTicketController {
 	@Autowired
 	private TrainTicketService trainTicketService;
 
+	TrainTicketValidator trainTicketValidator;
+	
 	public TrainTicketController() {
+		trainTicketValidator = new TrainTicketValidator();
 	}
 	
 	@Autowired
 	public TrainTicketController(TrainTicketService trainTicketService) {
 		this.trainTicketService = trainTicketService;
+		trainTicketValidator = new TrainTicketValidator();
+
+	}
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(trainTicketValidator);
 	}
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<TrainTicketListResource> findAllTrainTickets() {
@@ -53,10 +67,9 @@ public class TrainTicketController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<TrainTicketResource> createTrainTicket(@RequestBody TrainTicketResource sentTrainTicket) {
-		TrainTicket createdTrainTicket = null;
+	public ResponseEntity<TrainTicketResource> createTrainTicket(@Valid @RequestBody TrainTicketResource sentTrainTicket) {
 		try {
-			createdTrainTicket = trainTicketService.createTrainTicket(sentTrainTicket.toTrainTicket());
+			TrainTicket	createdTrainTicket = trainTicketService.createTrainTicket(sentTrainTicket.toTrainTicket());
 			TrainTicketResource createdTrainTicketResource = new TrainTicketResourceAsm().toResource(createdTrainTicket);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(URI.create(createdTrainTicketResource.getLink("self").getHref()));
@@ -79,7 +92,7 @@ public class TrainTicketController {
 
     @RequestMapping(value="/{TrainTicketId}",method = RequestMethod.PUT)
     public ResponseEntity<TrainTicketResource> updateTrainTicket(
-            @PathVariable Long TrainTicketId, @RequestBody TrainTicketResource sentTrainTicket) {
+            @PathVariable Long TrainTicketId,@Valid @RequestBody TrainTicketResource sentTrainTicket) {
         TrainTicket updatedTrainTicket = trainTicketService.updateTrainTicket(TrainTicketId, sentTrainTicket.toTrainTicket());
         if(updatedTrainTicket != null)
         {

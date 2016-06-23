@@ -1,4 +1,4 @@
-angular.module('ngBoilerplate.account',['ui.router','ngResource'])
+angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.badRequest'])
 .config(function($stateProvider){
 	$stateProvider.state('login', {
 		url:'/login',
@@ -107,9 +107,8 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource'])
 			$state.go('home');
 		},
 		function(){
-			alert('Error registerin user');
+			$state.go('badRequest');
 		});
-		$state.go('home');
 
 	};
 })

@@ -109,7 +109,8 @@ public class PlaneTicketControllerTest {
         
         when(service.createPlaneTicket(any(PlaneTicket.class))).thenReturn(ticket1);
         mockMvc.perform(post("/rest/planeTickets")
-                .content("{\"flightNumber\":\"345FT\",\"flightFrom\":\"Berlin\",\"flightTo\":\"Warsaw\"}")
+                .content("{\"flightNumber\":\"45NN\",\"flightFrom\":\"London\",\"flightTo\":\"Warsaw\",\"flightDateStart\":\"2016-06-06\","
+                		+ "\"flightHourStart\":\"12:00\",\"flightDateStop\":\"2016-06-06\",\"flightHourStop\":\"14:00\",\"flightPrice\":\"560\"}")
                 .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
                 .andExpect(header().string("Location", org.hamcrest.Matchers.endsWith("/rest/planeTickets/1")))
@@ -129,7 +130,8 @@ public class PlaneTicketControllerTest {
         
         when(service.createPlaneTicket(any(PlaneTicket.class))).thenThrow(new PlaneTicketAlreadyExistsException());
         mockMvc.perform(post("/rest/planeTickets")
-                .content("{\"flightNumber\":\"345FT\",\"flightFrom\":\"Berlin\",\"flightTo\":\"Warsaw\"}")
+                .content("{\"flightNumber\":\"45NN\",\"flightFrom\":\"London\",\"flightTo\":\"Warsaw\",\"flightDateStart\":\"2016-06-06\","
+                		+ "\"flightHourStart\":\"12:00\",\"flightDateStop\":\"2016-06-06\",\"flightHourStop\":\"14:00\",\"flightPrice\":\"560\"}")
                 .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
                 .andExpect(status().isConflict());
@@ -171,7 +173,8 @@ public class PlaneTicketControllerTest {
         
         when(service.updatePlaneTicket(eq(1L), any(PlaneTicket.class))).thenReturn(ticket1);
         mockMvc.perform(put("/rest/planeTickets/1")
-        		.content("{\"flightNumber\":\"345FT\",\"flightFrom\":\"Berlin\",\"flightTo\":\"Warsaw\"}")
+                .content("{\"flightNumber\":\"45NN\",\"flightFrom\":\"London\",\"flightTo\":\"Warsaw\",\"flightDateStart\":\"2016-06-06\","
+                		+ "\"flightHourStart\":\"12:00\",\"flightDateStop\":\"2016-06-06\",\"flightHourStop\":\"14:00\",\"flightPrice\":\"560\"}")
                 .contentType(MediaType.APPLICATION_JSON))
 		        .andExpect(jsonPath("$.flightNumber", is(ticket1.getFlightNumber())))
 		        .andExpect(jsonPath("$.flightFrom", is(ticket1.getFlightFrom())))
@@ -187,7 +190,8 @@ public class PlaneTicketControllerTest {
         
         when(service.updatePlaneTicket(eq(1L), any(PlaneTicket.class))).thenReturn(null);
         mockMvc.perform(put("/rest/planeTickets/1")
-        		.content("{\"flightNumber\":\"345FT\",\"flightFrom\":\"Berlin\",\"flightTo\":\"Warsaw\"}")
+                .content("{\"flightNumber\":\"45NN\",\"flightFrom\":\"London\",\"flightTo\":\"Warsaw\",\"flightDateStart\":\"2016-06-06\","
+                		+ "\"flightHourStart\":\"12:00\",\"flightDateStop\":\"2016-06-06\",\"flightHourStop\":\"14:00\",\"flightPrice\":\"560\"}")
                 .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
         		.andExpect(status().isNotFound());

@@ -66,7 +66,7 @@ angular.module( 'ngBoilerplate.newPlaneTicket', [
 				$state.go('planeTicketsList');
 			},
 			function(){
-				alert('Error adding planeticket');
+				$state.go('badRequest');
 			});
 		}else{
 			updatePlaneTicketService.update({rid:$scope.ridparam},$scope.planeticket,
@@ -74,7 +74,7 @@ angular.module( 'ngBoilerplate.newPlaneTicket', [
 				$state.go('planeTicketsList');
 			},
 			function(){
-				alert('Error adding planeticket');
+				$state.go('badRequest');
 			});
 		}
 	};

@@ -11,6 +11,7 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.trainTicketsList',
   'ngBoilerplate.bookPlaneTicket',
   'ngBoilerplate.bookTrainTicket',
+  'ngBoilerplate.badRequest',
   'ui.router'
 ])
 
