@@ -1,6 +1,8 @@
 package com.myPackage.rest.mvc;
 
 import java.net.URI;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -16,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.entities.TrainTicket;
+import com.myPackage.core.services.TrainTicketOrderService;
 import com.myPackage.core.services.TrainTicketService;
 import com.myPackage.core.services.exceptions.TrainTicketAlreadyExistsException;
+import com.myPackage.core.services.exceptions.TrainTicketNotFoundException;
 import com.myPackage.core.services.util.TrainTicketList;
 import com.myPackage.rest.exceptions.ConflictException;
+import com.myPackage.rest.exceptions.NotFoundException;
 import com.myPackage.rest.resources.TrainTicketListResource;
 import com.myPackage.rest.resources.TrainTicketResource;
 import com.myPackage.rest.resources.asm.TrainTicketListResourceAsm;
@@ -32,6 +38,8 @@ import com.myPackage.rest.validators.TrainTicketValidator;
 public class TrainTicketController {
 	@Autowired
 	private TrainTicketService trainTicketService;
+	
+	private TrainTicketOrderService trainTicketOrderService;
 
 	TrainTicketValidator trainTicketValidator;
 	
@@ -40,8 +48,9 @@ public class TrainTicketController {
 	}
 	
 	@Autowired
-	public TrainTicketController(TrainTicketService trainTicketService) {
+	public TrainTicketController(TrainTicketService trainTicketService, TrainTicketOrderService trainTicketOrderService) {
 		this.trainTicketService = trainTicketService;
+		this.trainTicketOrderService = trainTicketOrderService;
 		trainTicketValidator = new TrainTicketValidator();
 
 	}
@@ -58,11 +67,12 @@ public class TrainTicketController {
 
 	@RequestMapping(value = "/{TrainTicketId}", method = RequestMethod.GET)
 	public ResponseEntity<TrainTicketResource> getTrainTicket(@PathVariable Long TrainTicketId) {
-		TrainTicket TrainTicket = trainTicketService.findTrainTicket(TrainTicketId);
-		if(TrainTicket != null){
+		try{TrainTicket TrainTicket = trainTicketService.findTrainTicket(TrainTicketId);
 			TrainTicketResource TrainTicketResource = new TrainTicketResourceAsm().toResource(TrainTicket);
 			return new ResponseEntity<TrainTicketResource>(TrainTicketResource, HttpStatus.OK);
-		}else return new ResponseEntity<TrainTicketResource>(HttpStatus.NOT_FOUND);
+		} catch (TrainTicketNotFoundException e) {
+			throw new NotFoundException(e);
+		}
 			
 	}
 
@@ -78,29 +88,46 @@ public class TrainTicketController {
             throw new ConflictException(e);
 		}
 	}
-    @RequestMapping(value = "/{TrainTicketId}",method = RequestMethod.DELETE)
-    public ResponseEntity<TrainTicketResource> deleteTrainTicket(@PathVariable Long TrainTicketId) {
-    	TrainTicket TrainTicket = trainTicketService.deleteTrainTicket(TrainTicketId);
-        if(TrainTicket != null)
-        {
-        	TrainTicketResource res = new TrainTicketResourceAsm().toResource(TrainTicket);
-            return new ResponseEntity<TrainTicketResource>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<TrainTicketResource>(HttpStatus.NOT_FOUND);
-        }
-    }
 
-    @RequestMapping(value="/{TrainTicketId}",method = RequestMethod.PUT)
-    public ResponseEntity<TrainTicketResource> updateTrainTicket(
-            @PathVariable Long TrainTicketId,@Valid @RequestBody TrainTicketResource sentTrainTicket) {
-        TrainTicket updatedTrainTicket = trainTicketService.updateTrainTicket(TrainTicketId, sentTrainTicket.toTrainTicket());
-        if(updatedTrainTicket != null)
-        {
-        	TrainTicketResource res = new TrainTicketResourceAsm().toResource(updatedTrainTicket);
-            return new ResponseEntity<TrainTicketResource>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<TrainTicketResource>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@RequestMapping(value = "/{TrainTicketId}", method = RequestMethod.DELETE)
+	public ResponseEntity<TrainTicketResource> deleteTrainTicket(@PathVariable Long TrainTicketId) {
+
+		try {
+			// delete orders with no users
+			List<TrainTicketOrder> trainTicketOrderList2 = trainTicketOrderService.findAllTrainTicketOrders()
+					.getTrainTicketOrders();
+
+			for (Iterator it3 = trainTicketOrderList2.iterator(); it3.hasNext();) {
+				TrainTicketOrder trainTicketOrder2 = (TrainTicketOrder) it3.next();
+
+				if (trainTicketOrder2.getTrainTicket().getId() == TrainTicketId) {
+
+					trainTicketOrderService.deleteTrainTicketOrder(trainTicketOrder2.getId());
+
+				}
+
+			}
+			TrainTicket TrainTicket = trainTicketService.deleteTrainTicket(TrainTicketId);
+
+			TrainTicketResource res = new TrainTicketResourceAsm().toResource(TrainTicket);
+			return new ResponseEntity<TrainTicketResource>(res, HttpStatus.OK);
+		} catch (TrainTicketNotFoundException e) {
+			throw new NotFoundException(e);
+		}
+	}
+
+	@RequestMapping(value = "/{TrainTicketId}", method = RequestMethod.PUT)
+	public ResponseEntity<TrainTicketResource> updateTrainTicket(@PathVariable Long TrainTicketId,
+			@Valid @RequestBody TrainTicketResource sentTrainTicket) {
+		try {
+			TrainTicket updatedTrainTicket = trainTicketService.updateTrainTicket(TrainTicketId,
+					sentTrainTicket.toTrainTicket());
+
+			TrainTicketResource res = new TrainTicketResourceAsm().toResource(updatedTrainTicket);
+			return new ResponseEntity<TrainTicketResource>(res, HttpStatus.OK);
+		} catch (TrainTicketNotFoundException e) {
+			throw new NotFoundException(e);
+		}
+	}
 	
 }

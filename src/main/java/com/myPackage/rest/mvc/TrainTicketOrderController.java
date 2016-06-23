@@ -20,8 +20,10 @@ import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.services.TrainTicketOrderService;
 import com.myPackage.core.services.TrainTicketService;
 import com.myPackage.core.services.exceptions.TrainTicketOrderAlreadyExistsException;
+import com.myPackage.core.services.exceptions.TrainTicketOrderNotFoundException;
 import com.myPackage.core.services.util.TrainTicketOrderList;
 import com.myPackage.rest.exceptions.ConflictException;
+import com.myPackage.rest.exceptions.NotFoundException;
 import com.myPackage.rest.resources.TrainTicketOrderListResource;
 import com.myPackage.rest.resources.TrainTicketOrderResource;
 import com.myPackage.rest.resources.asm.TrainTicketOrderListResourceAsm;
@@ -65,12 +67,14 @@ public class TrainTicketOrderController {
 	}
 	@RequestMapping(value = "/{TrainTicketOrderId}", method = RequestMethod.GET)
 	public ResponseEntity<TrainTicketOrderResource> getTrainTicketOrder(@PathVariable Long TrainTicketOrderId) {
-		TrainTicketOrder trainTicketOrder = trainTicketOrderService.findTrainTicketOrder(TrainTicketOrderId);
-		if(trainTicketOrder != null){
+		try{
+			TrainTicketOrder trainTicketOrder = trainTicketOrderService.findTrainTicketOrder(TrainTicketOrderId);
+		
 			TrainTicketOrderResource trainTicketOrderResource = new TrainTicketOrderResourceAsm().toResource(trainTicketOrder);
 			return new ResponseEntity<TrainTicketOrderResource>(trainTicketOrderResource, HttpStatus.OK);
-		}else return new ResponseEntity<TrainTicketOrderResource>(HttpStatus.NOT_FOUND);
-			
+		} catch (TrainTicketOrderNotFoundException e) {
+			throw new NotFoundException(e);
+		}
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<TrainTicketOrderResource> createTrainTicketOrder(@Valid @RequestBody TrainTicketOrderResource sentTrainTicketOrder) {
@@ -86,17 +90,18 @@ public class TrainTicketOrderController {
             throw new ConflictException(e);
 		}
 	}
-    @RequestMapping(value = "/{TrainTicketOrderId}",method = RequestMethod.DELETE)
-    public ResponseEntity<TrainTicketOrderResource> deleteTrainTicketOrder(@PathVariable Long TrainTicketOrderId) {
-    	TrainTicketOrder trainTicketOrder = trainTicketOrderService.deleteTrainTicketOrder(TrainTicketOrderId);
-        if(trainTicketOrder != null)
-        {
-        	TrainTicketOrderResource res = new TrainTicketOrderResourceAsm().toResource(trainTicketOrder);
-            return new ResponseEntity<TrainTicketOrderResource>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<TrainTicketOrderResource>(HttpStatus.NOT_FOUND);
-        }
-    }
+
+	@RequestMapping(value = "/{TrainTicketOrderId}", method = RequestMethod.DELETE)
+	public ResponseEntity<TrainTicketOrderResource> deleteTrainTicketOrder(@PathVariable Long TrainTicketOrderId) {
+		try {
+			TrainTicketOrder trainTicketOrder = trainTicketOrderService.deleteTrainTicketOrder(TrainTicketOrderId);
+
+			TrainTicketOrderResource res = new TrainTicketOrderResourceAsm().toResource(trainTicketOrder);
+			return new ResponseEntity<TrainTicketOrderResource>(res, HttpStatus.OK);
+		} catch (TrainTicketOrderNotFoundException e) {
+			throw new NotFoundException(e);
+		}
+	}
 //    @RequestMapping(value="/{TrainTicketOrderId}",method = RequestMethod.PUT)
 //    public ResponseEntity<TrainTicketOrderResource> updateTrainTicketOrder(
 //            @PathVariable Long TrainTicketOrderId, @RequestBody TrainTicketOrderResource sentTrainTicketOrder) {

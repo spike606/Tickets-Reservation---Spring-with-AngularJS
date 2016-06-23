@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.myPackage.core.entities.TrainTicket;
 import com.myPackage.core.repositories.TrainTicketRepository;
 import com.myPackage.core.services.TrainTicketService;
-import com.myPackage.core.services.exceptions.TrainTicketAlreadyExistsException;
 import com.myPackage.core.services.exceptions.TrainTicketNotFoundException;
 import com.myPackage.core.services.util.TrainTicketList;
 @Service
@@ -36,12 +35,20 @@ public class TrainTicketServiceImplementation implements TrainTicketService{
 
 	@Override
 	public TrainTicket findTrainTicket(Long id) {
+		
+		if(trainTicketRepository.findTrainTicket(id) == null){
+            throw new TrainTicketNotFoundException();
+		}
 		return trainTicketRepository.findTrainTicket(id);
 
 	}
 
 	@Override
 	public TrainTicket deleteTrainTicket(Long id) {
+		TrainTicket ticket = trainTicketRepository.findTrainTicket(id);
+		if(ticket == null){
+            throw new TrainTicketNotFoundException();
+		}
 		return trainTicketRepository.deleteTrainTicket(id);
 
 	}

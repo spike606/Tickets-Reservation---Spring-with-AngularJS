@@ -5,14 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myPackage.core.entities.Account;
-import com.myPackage.core.entities.PlaneTicket;
 import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.repositories.AccountRepository;
 import com.myPackage.core.repositories.PlaneTicketOrderRepository;
-import com.myPackage.core.repositories.PlaneTicketRepository;
 import com.myPackage.core.services.PlaneTicketOrderService;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
-import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
+import com.myPackage.core.services.exceptions.PlaneTicketOrderNotFoundException;
 import com.myPackage.core.services.util.PlaneTicketOrderList;
 @Service
 @Transactional
@@ -46,6 +44,11 @@ public class PlaneTicketOrderServiceImplementation implements PlaneTicketOrderSe
 
 	@Override
 	public PlaneTicketOrder findPlaneTicketOrder(Long id) {
+		PlaneTicketOrder planeTicketOrder = planeTicketOrderRepository.findPlaneTicketOrder(id);
+        if(planeTicketOrder == null)
+        {
+            throw new PlaneTicketOrderNotFoundException();
+        }
 		return planeTicketOrderRepository.findPlaneTicketOrder(id);
 	}
 
@@ -64,6 +67,11 @@ public class PlaneTicketOrderServiceImplementation implements PlaneTicketOrderSe
 
 	@Override
 	public PlaneTicketOrder deletePlaneTicketOrder(Long id) {
+		PlaneTicketOrder planeTicketOrder = planeTicketOrderRepository.findPlaneTicketOrder(id);
+        if(planeTicketOrder == null)
+        {
+            throw new PlaneTicketOrderNotFoundException();
+        }
 		return planeTicketOrderRepository.deletePlaneTicketOrder(id);
 	}
 

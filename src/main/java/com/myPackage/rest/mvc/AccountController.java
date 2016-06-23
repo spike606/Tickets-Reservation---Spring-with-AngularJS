@@ -29,6 +29,7 @@ import com.myPackage.core.services.util.PlaneTicketOrderList;
 import com.myPackage.core.services.util.TrainTicketOrderList;
 import com.myPackage.rest.exceptions.BadRequestException;
 import com.myPackage.rest.exceptions.ConflictException;
+import com.myPackage.rest.exceptions.NotFoundException;
 import com.myPackage.rest.resources.AccountListResource;
 import com.myPackage.rest.resources.AccountResource;
 import com.myPackage.rest.resources.PlaneTicketOrderListResource;
@@ -82,12 +83,13 @@ public class AccountController {
 
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.GET)
 	public ResponseEntity<AccountResource> getAccount(@PathVariable Long accountId) {
-		Account account = accountService.findAccount(accountId);
-		if (account != null) {
+		try {
+			Account account = accountService.findAccount(accountId);
 			AccountResource res = new AccountResourceAsm().toResource(account);
 			return new ResponseEntity<AccountResource>(res, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<AccountResource>(HttpStatus.NOT_FOUND);
+
+		} catch (AccountDoesNotExistException exception) {
+			throw new NotFoundException(exception);
 		}
 	}
 	
@@ -106,17 +108,17 @@ public class AccountController {
 		
 	}
 	
-    @RequestMapping(value = "/{accountId}",method = RequestMethod.DELETE)
-    public ResponseEntity<AccountResource> deleteAccount(@PathVariable("accountId") Long accountId) {
-    	Account account = accountService.deleteAccount(accountId);
-        if(account != null)
-        {
-        	AccountResource res = new AccountResourceAsm().toResource(account);
-            return new ResponseEntity<AccountResource>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<AccountResource>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@RequestMapping(value = "/{accountId}", method = RequestMethod.DELETE)
+	public ResponseEntity<AccountResource> deleteAccount(@PathVariable("accountId") Long accountId) {
+		try {
+			Account account = accountService.deleteAccount(accountId);
+			AccountResource res = new AccountResourceAsm().toResource(account);
+			return new ResponseEntity<AccountResource>(res, HttpStatus.OK);
+
+		} catch (AccountDoesNotExistException exception) {
+			throw new NotFoundException(exception);
+		}
+	}
 //    @RequestMapping(value="/{accountId}/planeTicketOrders",
 //            method = RequestMethod.POST)
 //        public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(

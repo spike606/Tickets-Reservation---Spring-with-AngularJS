@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.myPackage.core.entities.PlaneTicket;
 import com.myPackage.core.repositories.PlaneTicketRepository;
 import com.myPackage.core.services.PlaneTicketService;
-import com.myPackage.core.services.exceptions.PlaneTicketAlreadyExistsException;
 import com.myPackage.core.services.exceptions.PlaneTicketNotFoundException;
 import com.myPackage.core.services.util.PlaneTicketList;
 @Service
@@ -34,11 +33,17 @@ public class PlaneTicketServiceImplementation implements PlaneTicketService{
 
 	@Override
 	public PlaneTicket findPlaneTicket(Long id) {
+		if(planeTicketRepository.findPlaneTicket(id) == null)
+            throw new PlaneTicketNotFoundException();
 		return planeTicketRepository.findPlaneTicket(id);
 	}
 
 	@Override
 	public PlaneTicket deletePlaneTicket(Long id) {
+		PlaneTicket ticket = planeTicketRepository.findPlaneTicket(id);
+		if(ticket == null){
+            throw new PlaneTicketNotFoundException();
+		}
 		return planeTicketRepository.deletePlaneTicket(id);
 	}
 

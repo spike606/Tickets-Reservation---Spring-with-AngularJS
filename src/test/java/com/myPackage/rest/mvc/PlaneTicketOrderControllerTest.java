@@ -33,6 +33,7 @@ import com.myPackage.core.entities.PlaneTicket;
 import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.services.PlaneTicketOrderService;
 import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
+import com.myPackage.core.services.exceptions.PlaneTicketOrderNotFoundException;
 import com.myPackage.core.services.util.PlaneTicketOrderList;
 
 public class PlaneTicketOrderControllerTest {
@@ -131,7 +132,7 @@ public class PlaneTicketOrderControllerTest {
 //    }
     @Test
     public void getNotExistingPlaneTicketOrder() throws Exception{
-        when(service.findPlaneTicketOrder(1L)).thenReturn(null);
+        when(service.findPlaneTicketOrder(1L)).thenThrow(new PlaneTicketOrderNotFoundException());
         mockMvc.perform(get("/rest/planeTicketOrders/1"))
 		.andDo(print())
         .andExpect(status().isNotFound());
@@ -195,42 +196,10 @@ public class PlaneTicketOrderControllerTest {
     @Test 
     public void deleteNotExistingPlaneTicketOrder() throws Exception{
         
-        when(service.deletePlaneTicketOrder(eq(1L))).thenReturn(null);
+        when(service.deletePlaneTicketOrder(eq(1L))).thenThrow(new PlaneTicketOrderNotFoundException());
         mockMvc.perform(delete("/rest/planeTicketOrders/1"))
         		.andDo(print())
                 .andExpect(status().isNotFound());
         
     }
-//    @Test 
-//    public void updateExistingPlaneTicketOrder() throws Exception{
-//        PlaneTicketOrder ticketOrder1 = new PlaneTicketOrder();
-//        ticketOrder1.setId(1L);
-//        ticketOrder1.setCountry("Poland");
-//        ticketOrder1.setFirstname("johnny");
-//        ticketOrder1.setLastname("bravo");
-//        
-//        when(service.updatePlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenReturn(ticketOrder1);
-//        mockMvc.perform(put("/rest/planeTicketOrders/1")
-//                .content("{\"country\":\"Poland\",\"firstName\":\"johnny\",\"lastName\":\"bravo\"}")
-//                .contentType(MediaType.APPLICATION_JSON))
-//		        .andExpect(jsonPath("$.country", is(ticketOrder1.getCountry())))
-//		        .andExpect(jsonPath("$.firstname", is(ticketOrder1.getFirstname())))
-//		        .andExpect(jsonPath("$.lastname", is(ticketOrder1.getLastname())))
-//        		.andExpect(jsonPath("$.links[*].href",
-//        				hasItem(endsWith("/planeTicketOrders/1"))))
-//        		.andDo(print())
-//        		.andExpect(status().isOk());
-//        
-//    }
-//    @Test 
-//    public void updateNotExistingPlaneTicket() throws Exception{
-//        
-//        when(service.updatePlaneTicketOrder(eq(1L), any(PlaneTicketOrder.class))).thenReturn(null);
-//        mockMvc.perform(put("/rest/planeTicketOrders/1")
-//                .content("{\"country\":\"Poland\",\"firstName\":\"johnny\",\"lastName\":\"bravo\"}")
-//                .contentType(MediaType.APPLICATION_JSON))
-//        		.andDo(print())
-//        		.andExpect(status().isNotFound());
-//        
-//    }
 }

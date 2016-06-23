@@ -27,13 +27,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.myPackage.core.entities.Account;
-import com.myPackage.core.entities.PlaneTicket;
-import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
 import com.myPackage.core.services.exceptions.AccountAlreadyExistsException;
-import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
-import com.myPackage.core.services.util.PlaneTicketOrderList;
 
 
 public class AccountControllerTest {
@@ -76,7 +72,7 @@ public class AccountControllerTest {
 	}
     @Test
     public void getNotExistingAccount() throws Exception {
-        when(service.findAccount(1L)).thenReturn(null);
+        when(service.findAccount(1L)).thenThrow(new AccountDoesNotExistException());
 
         mockMvc.perform(get("/rest/accounts/1"))
         		.andDo(print())
@@ -126,7 +122,8 @@ public class AccountControllerTest {
         mockMvc.perform(post("/rest/accounts")
                 .content("{\"login\":\"testlogin\",\"password\":\"pass\",\"firstname\":\"johnny\",\"lastname\":\"bravo\","
                 		+ "\"secondname\":\"john\",\"email\":\"john@aol.com\",\"telephone\":\"+48 111-111-111\",\"country\":\"Poland\",\"state\":\"Lodzkie\","
-                		+ "\"city\":\"Lodz\",\"street\":\"Zachodnia 12\"}")                .contentType(MediaType.APPLICATION_JSON))
+                		+ "\"city\":\"Lodz\",\"street\":\"Zachodnia 12\"}")
+                .contentType(MediaType.APPLICATION_JSON))
         		.andDo(print())
                 .andExpect(status().isConflict());
     }

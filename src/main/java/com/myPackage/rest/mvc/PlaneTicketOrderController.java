@@ -20,8 +20,10 @@ import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.services.PlaneTicketOrderService;
 import com.myPackage.core.services.PlaneTicketService;
 import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
+import com.myPackage.core.services.exceptions.PlaneTicketOrderNotFoundException;
 import com.myPackage.core.services.util.PlaneTicketOrderList;
 import com.myPackage.rest.exceptions.ConflictException;
+import com.myPackage.rest.exceptions.NotFoundException;
 import com.myPackage.rest.resources.PlaneTicketOrderListResource;
 import com.myPackage.rest.resources.PlaneTicketOrderResource;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderListResourceAsm;
@@ -61,14 +63,17 @@ public class PlaneTicketOrderController {
 		PlaneTicketOrderListResource planeTicketOrderListResource = new PlaneTicketOrderListResourceAsm().toResource(planeTicketOrderList);
 		return new ResponseEntity<PlaneTicketOrderListResource>(planeTicketOrderListResource, HttpStatus.OK);
 	}
+
 	@RequestMapping(value = "/{planeTicketOrderId}", method = RequestMethod.GET)
 	public ResponseEntity<PlaneTicketOrderResource> getPlaneTicketOrder(@PathVariable Long planeTicketOrderId) {
-		PlaneTicketOrder planeTicketOrder = planeTicketOrderService.findPlaneTicketOrder(planeTicketOrderId);
-		if(planeTicketOrder != null){
-			PlaneTicketOrderResource planeTicketOrderResource = new PlaneTicketOrderResourceAsm().toResource(planeTicketOrder);
+		try {
+			PlaneTicketOrder planeTicketOrder = planeTicketOrderService.findPlaneTicketOrder(planeTicketOrderId);
+			PlaneTicketOrderResource planeTicketOrderResource = new PlaneTicketOrderResourceAsm()
+					.toResource(planeTicketOrder);
 			return new ResponseEntity<PlaneTicketOrderResource>(planeTicketOrderResource, HttpStatus.OK);
-		}else return new ResponseEntity<PlaneTicketOrderResource>(HttpStatus.NOT_FOUND);
-			
+		} catch (PlaneTicketOrderNotFoundException e) {
+			throw new NotFoundException(e);
+		}
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(@Valid @RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
@@ -84,17 +89,18 @@ public class PlaneTicketOrderController {
             throw new ConflictException(e);
 		}
 	}
-    @RequestMapping(value = "/{planeTicketOrderId}",method = RequestMethod.DELETE)
-    public ResponseEntity<PlaneTicketOrderResource> deletePlaneTicketOrder(@PathVariable Long planeTicketOrderId) {
-    	PlaneTicketOrder planeTicketOrder = planeTicketOrderService.deletePlaneTicketOrder(planeTicketOrderId);
-        if(planeTicketOrder != null)
-        {
-        	PlaneTicketOrderResource res = new PlaneTicketOrderResourceAsm().toResource(planeTicketOrder);
-            return new ResponseEntity<PlaneTicketOrderResource>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<PlaneTicketOrderResource>(HttpStatus.NOT_FOUND);
-        }
-    }
+
+	@RequestMapping(value = "/{planeTicketOrderId}", method = RequestMethod.DELETE)
+	public ResponseEntity<PlaneTicketOrderResource> deletePlaneTicketOrder(@PathVariable Long planeTicketOrderId) {
+		try {
+			PlaneTicketOrder planeTicketOrder = planeTicketOrderService.deletePlaneTicketOrder(planeTicketOrderId);
+
+			PlaneTicketOrderResource res = new PlaneTicketOrderResourceAsm().toResource(planeTicketOrder);
+			return new ResponseEntity<PlaneTicketOrderResource>(res, HttpStatus.OK);
+		} catch (PlaneTicketOrderNotFoundException e) {
+			throw new NotFoundException(e);
+		}
+	}
 //    @RequestMapping(value="/{planeTicketOrderId}",method = RequestMethod.PUT)
 //    public ResponseEntity<PlaneTicketOrderResource> updatePlaneTicketOrder(
 //            @PathVariable Long planeTicketOrderId, @RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {

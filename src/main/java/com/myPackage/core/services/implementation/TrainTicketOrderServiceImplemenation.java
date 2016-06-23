@@ -10,7 +10,7 @@ import com.myPackage.core.repositories.AccountRepository;
 import com.myPackage.core.repositories.TrainTicketOrderRepository;
 import com.myPackage.core.services.TrainTicketOrderService;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
-import com.myPackage.core.services.exceptions.TrainTicketOrderAlreadyExistsException;
+import com.myPackage.core.services.exceptions.TrainTicketOrderNotFoundException;
 import com.myPackage.core.services.util.TrainTicketOrderList;
 @Service
 @Transactional
@@ -41,6 +41,11 @@ public class TrainTicketOrderServiceImplemenation  implements TrainTicketOrderSe
 
 	@Override
 	public TrainTicketOrder findTrainTicketOrder(Long id) {
+		TrainTicketOrder trainTicketOrder = trainTicketOrderRepository.findTrainTicketOrder(id);
+        if(trainTicketOrder == null)
+        {
+            throw new TrainTicketOrderNotFoundException();
+        }
 		return trainTicketOrderRepository.findTrainTicketOrder(id);
 
 	}
@@ -60,8 +65,12 @@ public class TrainTicketOrderServiceImplemenation  implements TrainTicketOrderSe
 
 	@Override
 	public TrainTicketOrder deleteTrainTicketOrder(Long id) {
+		TrainTicketOrder trainTicketOrder = trainTicketOrderRepository.findTrainTicketOrder(id);
+        if(trainTicketOrder == null)
+        {
+            throw new TrainTicketOrderNotFoundException();
+        }
 		return trainTicketOrderRepository.deleteTrainTicketOrder(id);
-
 	}
 
 }

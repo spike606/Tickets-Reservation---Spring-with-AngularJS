@@ -31,7 +31,14 @@ public class AccountServiceImplementation implements AccountService{
 	
 	@Override
 	public Account findAccount(Long id) {
+		 
+        Account account = accountRepository.findAccount(id);
+        if(account == null)
+        {
+            throw new AccountDoesNotExistException();
+        }
 		 return accountRepository.findAccount(id);
+		 
 	}
 
 	@Override
@@ -116,11 +123,23 @@ public class AccountServiceImplementation implements AccountService{
 
 	@Override
 	public Account findAccountByLogin(String login) {
+        Account account = accountRepository.findAccountByLogin(login);
+        if(account == null)
+        {
+            throw new AccountDoesNotExistException();
+        }
 		 return accountRepository.findAccountByLogin(login);
+	 
 	}
 
 	@Override
 	public Account deleteAccount(Long id) {
+		
+        Account account = accountRepository.findAccount(id);
+        if(account == null)
+        {
+            throw new AccountDoesNotExistException();
+        }
 		return accountRepository.deleteAccount(id);
 	}
 

@@ -32,7 +32,7 @@ import com.myPackage.core.entities.Account;
 import com.myPackage.core.entities.TrainTicket;
 import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.services.TrainTicketOrderService;
-import com.myPackage.core.services.exceptions.TrainTicketOrderAlreadyExistsException;
+import com.myPackage.core.services.exceptions.TrainTicketOrderNotFoundException;
 import com.myPackage.core.services.util.TrainTicketOrderList;
 
 public class TrainTicketOrderControllerTest {
@@ -133,7 +133,7 @@ public class TrainTicketOrderControllerTest {
     }
     @Test
     public void getNotExistingTrainTicketOrder() throws Exception{
-        when(service.findTrainTicketOrder(1L)).thenReturn(null);
+        when(service.findTrainTicketOrder(1L)).thenThrow(new TrainTicketOrderNotFoundException());
         mockMvc.perform(get("/rest/trainTicketOrders/1"))
 		.andDo(print())
         .andExpect(status().isNotFound());
@@ -197,7 +197,7 @@ public class TrainTicketOrderControllerTest {
     @Test 
     public void deleteNotExistingTrainTicketOrder() throws Exception{
         
-        when(service.deleteTrainTicketOrder(eq(1L))).thenReturn(null);
+        when(service.deleteTrainTicketOrder(eq(1L))).thenThrow(new TrainTicketOrderNotFoundException());
         mockMvc.perform(delete("/rest/trainTicketOrders/1"))
         		.andDo(print())
                 .andExpect(status().isNotFound());
