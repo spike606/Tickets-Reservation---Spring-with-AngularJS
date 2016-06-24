@@ -84,13 +84,12 @@ public class TrainTicketValidator implements Validator {
 	}
 	private boolean invalidFieldNotRequired(String regexPattern, String valueToCheck) {
 		pattern = Pattern.compile(regexPattern);
-		if(valueToCheck != null || !valueToCheck.isEmpty()){
-			matcher = pattern.matcher(valueToCheck);
-			if (!matcher.matches()) {
-				return true;
-			}			
-		}
-
+		if(valueToCheck == null)
+			return false;
+		matcher = pattern.matcher(valueToCheck);
+		if (!matcher.matches()) {
+			return true;
+		}	
 		return false;
 
 	}

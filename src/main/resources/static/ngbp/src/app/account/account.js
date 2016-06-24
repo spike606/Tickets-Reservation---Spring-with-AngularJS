@@ -99,8 +99,11 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 		});
 	};
 })
-.controller("RegisterCtrl",function($scope, sessionService, $state,accountService){
+.controller("RegisterCtrl",function($scope, sessionService, $state,accountService, ValidationService){
+    var myValidation = new ValidationService();
+    $scope.showButtonFlag = true;
 	$scope.register = function(){
+		$scope.showButtonFlag = false;
 		accountService.register($scope.account,
 				function(returnedData){
 			sessionService.login(returnedData);

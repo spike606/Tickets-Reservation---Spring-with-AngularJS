@@ -103,12 +103,14 @@ border-right:3px solid #dadada;
 /*szerokosc input i button*/
 
 .myForm-control {
-	width: 50%!important;
+	width: 100%!important;
 }
 .myButton {
 	width: 50%!important;
 }
-
+.form-group {
+	width: 50%!important;
+}
 /*button*/
 /* .myButton{ */
 /* 	margin-top:20px; */

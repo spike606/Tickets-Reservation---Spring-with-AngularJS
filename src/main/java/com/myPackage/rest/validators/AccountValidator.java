@@ -15,7 +15,7 @@ public class AccountValidator implements Validator {
 	private Pattern pattern;
 	private Matcher matcher;
 
-	private static final String LOGIN_PATTERN = "[a-zA-Z0-9_]{1,15}";
+	private static final String LOGIN_PATTERN = "[a-zA-Z0-9]{1,15}";
 	private static final String PASSWORD_PATTERN = "[a-zA-Z0-9_!£$#%^&*@?<>+]{1,25}";
 	private static final String NAME_PATTERN = "[a-zA-Z\\s]{1,25}";
 	private static final String COUNTRY_PATTERN = "[a-zA-Z\\s]{1,25}";
@@ -82,13 +82,12 @@ public class AccountValidator implements Validator {
 	}
 	private boolean invalidFieldNotRequired(String regexPattern, String valueToCheck) {
 		pattern = Pattern.compile(regexPattern);
-		if(valueToCheck != null || !valueToCheck.isEmpty()){
-			matcher = pattern.matcher(valueToCheck);
-			if (!matcher.matches()) {
-				return true;
-			}			
-		}
-
+		if(valueToCheck == null)
+			return false;
+		matcher = pattern.matcher(valueToCheck);
+		if (!matcher.matches()) {
+			return true;
+		}	
 		return false;
 
 	}

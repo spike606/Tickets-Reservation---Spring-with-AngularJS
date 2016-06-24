@@ -55,10 +55,13 @@ angular.module( 'ngBoilerplate.newTrainTicket', [
     "but wait! A third!"
   ];
 })
-.controller("newTrainTicketCtrl",function($scope, sessionService, $state,trainTicketService,trainticket,$stateParams,updateTrainTicketService){
+.controller("newTrainTicketCtrl",function($scope, sessionService, $state,trainTicketService,trainticket,$stateParams,updateTrainTicketService, ValidationService){
+    var myValidation = new ValidationService();
 	$scope.trainticket = trainticket;
     $scope.ridparam = $stateParams.ridparam;
+    $scope.showButtonFlag = true;
 	$scope.trainTicketSubmit = function(){
+		$scope.showButtonFlag = false;
 		if($scope.ridparam === null){
 			trainTicketService.addTrainTicket($scope.trainticket,
 					function(returnedData){

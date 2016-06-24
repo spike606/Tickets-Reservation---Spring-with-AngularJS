@@ -85,14 +85,17 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
   $state.go("bookPlaneTicketOrder",{ridparam : rid}, { reload : true });
   };
 })
-.controller( 'bookPlaneTicketOrderCtrl', function bookPlaneTicketOrderCtrl( $scope,$stateParams,planeTicketOrderService,$state) {
-  if($stateParams.ridparam){
+.controller( 'bookPlaneTicketOrderCtrl', function bookPlaneTicketOrderCtrl( $scope,$stateParams,planeTicketOrderService,$state, ValidationService) {
+  var myValidation = new ValidationService();
+  $scope.showButtonFlag = true;  
+	if($stateParams.ridparam){
 		$scope.ridparam = $stateParams.ridparam;
   }else{
   $state.go("home",{ reload : true });
   }
   console.log($scope.ridparam);
   $scope.makePlaneOrder = function(){
+  $scope.showButtonFlag = false;  
 		planeTicketOrderService.addPlaneTicketOrder($scope.ridparam,$scope.planeTicketOrder,
 				function(returnedData){
 			$state.go('home');
