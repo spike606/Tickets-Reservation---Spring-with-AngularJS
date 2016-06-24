@@ -21,11 +21,11 @@ public class PlaneTicketValidator implements Validator {
 
 	private static final String FLIGHT_NUMBER_PATTERN = "[a-zA-Z0-9]{1,9}";
 	private static final String CITY_PATTERN = "[a-zA-Z\\s]{1,25}";
-	private static final String DATE_PATTERN = "[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])";// YYYY/MM/DD
+	private static final String DATE_PATTERN = "[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])";// YYYY-MM-DD
 	private static final String HOUR_PATTER_24 = "([01]?[0-9]|2[0-3]):[0-5][0-9]";// 24
 																					// hour
 																					// pattern
-	private static final String PRICE_PATTERN = "[1-9]{1}[0-9]{0,10}";// PRICE
+	private static final String PRICE_PATTERN = "[1-9]{1}[0-9]{1,10}";// PRICE
 
 
 	@Override

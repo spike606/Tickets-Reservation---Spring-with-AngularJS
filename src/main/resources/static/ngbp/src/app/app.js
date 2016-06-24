@@ -12,11 +12,19 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.bookPlaneTicket',
   'ngBoilerplate.bookTrainTicket',
   'ngBoilerplate.badRequest',
+  'ghiscoding.validation',
+  'pascalprecht.translate',
   'ui.router'
 ])
 
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
+.config( function myAppConfig ( $stateProvider, $urlRouterProvider, $translateProvider ) {
   $urlRouterProvider.otherwise( '/home' );
+  $translateProvider.useStaticFilesLoader({
+  prefix: '/TicketsService/assets/',
+  suffix: '.json'
+  });
+  $translateProvider.preferredLanguage('en');
+  $translateProvider.useSanitizeValueStrategy(null);
 })
 
 .run( function run () {
@@ -30,6 +38,7 @@ angular.module( 'ngBoilerplate', [
   });
 	$scope.isLoggedIn = sessionService.isLoggedIn;
 	$scope.logout = sessionService.logout;
+	$scope.logoImage = 'logo.png';
 });
 
 

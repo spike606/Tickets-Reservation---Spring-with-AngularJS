@@ -191,6 +191,22 @@ border-right:3px solid #dadada;
 /* .mytable > th, .mytable > td { */
 /*     word-wrap: break-word; */
 /* } */
-    
+
+/* AngularJS Form validation styling */
+.validation.help-block {
+    color: #E07676;
+    font-style: italic;
+}
+
+/* invalid & (dirty or touched) => red -- CSS3 only */
+.ng-invalid.ng-dirty:not(:focus),
+.ng-invalid.ng-touched:not(:focus) {
+    border-color: #e74c3c;
+}
+
+/* error display font italic, text-danger is red in BS */
+.validation.text-danger {
+    font-style: italic;
+} 
   
     

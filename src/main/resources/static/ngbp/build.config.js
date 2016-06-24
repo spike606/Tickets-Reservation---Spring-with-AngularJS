@@ -72,15 +72,14 @@ module.exports = {
          'vendor/bootstrap/dist/js/bootstrap.min.js',
          'vendor/ngTimepicker/src/js/ngTimepicker.min.js',
          'vendor/moment/min/moment-with-locales.min.js',
-         'vendor/moment-picker/dist/angular-moment-picker.min.js'
-
-
-
+         'vendor/moment-picker/dist/angular-moment-picker.min.js',
+         'vendor/angular-validation-ghiscoding/dist/angular-validation.min.js',
+         'vendor/angular-translate/angular-translate.min.js',
+         'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
 
          ],
     css: [
           'vendor/css/main.css',
-          'vendor/clockpicker/dist/bootstrap-clockpicker.min.css',
           'vendor/ngTimepicker/src/css/ngTimepicker.css',
           'vendor/moment-picker/dist/angular-moment-picker.min.css'
 
@@ -89,8 +88,9 @@ module.exports = {
     assets: [
 		'vendor/images/plane.jpg',
 		'vendor/images/train.jpg',
-		'vendor/images/logo.png'
-
+		'vendor/images/logo.png',
+		'vendor/angular-validation-ghiscoding/locales/validation/en.json',
+		'vendor/bootstrap/fonts/*'
     ]
   },
 };
