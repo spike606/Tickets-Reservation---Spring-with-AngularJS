@@ -31,9 +31,9 @@
 	            <td>{{trainTicket.transitHourStop}}</td>
    	            <td>{{trainTicket.transitPrice}}</td>
    	            <td>
-                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="deleteTrainTicket(trainTicket.rid)">DELETE</button>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="deleteButtonDisabled" ng-click="deleteTrainTicket(trainTicket.rid)">DELETE</button>
                  <br>
-                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="editTrainTicket(trainTicket.rid)">EDIT</button>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="editButtonDisabled" ng-click="editTrainTicket(trainTicket.rid)">EDIT</button>
 			</td>
             	            
 	        </tr>			

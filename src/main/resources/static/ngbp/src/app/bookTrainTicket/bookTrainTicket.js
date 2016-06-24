@@ -105,6 +105,7 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
 .controller( 'bookTrainTicketOrderListCtrl', function bookTrainTicketOrderListCtrl( $scope,$state,trainTicketOrderList,trainTicketsList, trainTicketOrderListService) {
   $scope.trainTicketOrderList = trainTicketOrderList;
   $scope.trainTicketsList = trainTicketsList;
+  $scope.deleteButtonDisabled = false;
   console.log($scope.trainTicketOrderList);
   console.log($scope.trainTicketsList);
    for (i = 0; i < $scope.trainTicketOrderList.length; i++) {
@@ -116,6 +117,7 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
 	}
 	}
    $scope.deleteTrainTicketOrder = function(rid) {
+   $scope.deleteButtonDisabled = true;
    trainTicketOrderListService.deleteTrainTicketOrder(rid).then(function(){
         $state.go("bookTrainTicketOrderList",{},{ reload : true });
     });

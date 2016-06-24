@@ -114,7 +114,9 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 })
 .controller("UsersListCtrl", function($scope,$state, accounts,accountService) {
     $scope.accounts = accounts;
+    $scope.deleteButtonDisabled = false;
     $scope.deleteAccount = function(rid) {
+    $scope.deleteButtonDisabled = true;
     accountService.deleteAccount(rid).then(function(){
         $state.go("usersList",{},{ reload : true });
     });

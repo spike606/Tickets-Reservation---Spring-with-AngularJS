@@ -30,7 +30,7 @@
 	            <td>{{trainTicketOrder.telephone}}</td>
 	            <td>{{trainTicketOrder.trainTicket.transitNumber}}</td>
 	            <td>
-                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="deleteTrainTicketOrder(trainTicketOrder.rid)">DELETE</button>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="deleteButtonDisabled" ng-click="deleteTrainTicketOrder(trainTicketOrder.rid)">DELETE</button>
 				</td>
             	            
 	        </tr>			

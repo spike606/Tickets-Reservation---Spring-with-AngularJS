@@ -49,12 +49,18 @@ angular.module( 'ngBoilerplate.planeTicketsList', [
 })
 .controller("planeTicketsListCtrl",function($scope, sessionService, $state,planeTicketsListService,planeTicketsList){
     $scope.planeTicketsList = planeTicketsList;
+	$scope.deleteButtonDisabled = false;
+	$scope.editButtonDisabled = false;
     $scope.deletePlaneTicket = function(rid) {
+    $scope.deleteButtonDisabled = true;
+    $scope.editButtonDisabled = true;
 	planeTicketsListService.deletePlaneTicket(rid).then(function(){
         $state.go("planeTicketsList",{},{ reload : true });
     });
     };
     $scope.editPlaneTicket = function(rid){
+    $scope.editButtonDisabled = true;
+    $scope.deleteButtonDisabled = true;
     $state.go("newPlaneTicket",{ridparam : rid}, { reload : true });
     };
 })

@@ -29,9 +29,9 @@
 	            <td>{{planeTicket.flightHourStop}}</td>
 	            <td>{{planeTicket.flightPrice}}</td>
 	            <td>
-                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="deletePlaneTicket(planeTicket.rid)">DELETE</button>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="deleteButtonDisabled" ng-click="deletePlaneTicket(planeTicket.rid)">DELETE</button>
                  <br>
-                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="editPlaneTicket(planeTicket.rid)">EDIT</button>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="editButtonDisabled" ng-click="editPlaneTicket(planeTicket.rid)">EDIT</button>
 			</td>
             	            
 	        </tr>			

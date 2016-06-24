@@ -25,7 +25,7 @@
 	            <td>{{account.email}}</td>
 	            <td>{{account.telephone}}</td>
 	            <td>
-	                  <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="deleteAccount(account.rid)">DELETE</button>
+	                  <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="deleteButtonDisabled" ng-click="deleteAccount(account.rid)">DELETE</button>
 				</td>
             	            
 	        </tr>			

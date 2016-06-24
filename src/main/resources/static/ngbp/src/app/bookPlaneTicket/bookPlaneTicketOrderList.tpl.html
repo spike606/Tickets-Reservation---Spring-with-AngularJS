@@ -31,7 +31,7 @@
 	            <td>{{planeTicketOrder.telephone}}</td>
 	            <td>{{planeTicketOrder.planeTicket.flightNumber}}</td>
 	            <td>
-                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="deletePlaneTicketOrder(planeTicketOrder.rid)">DELETE</button>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="deleteButtonDisabled" ng-click="deletePlaneTicketOrder(planeTicketOrder.rid)">DELETE</button>
 				</td>
             	            
 	        </tr>			
