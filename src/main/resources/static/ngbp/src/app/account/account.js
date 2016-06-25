@@ -89,6 +89,7 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 	return service;
 })
 .controller("LoginCtrl",function($scope, sessionService, $state,accountService){
+	$scope.$emit('changeTitle', 'LOG_IN');
 	$scope.login = function(){
 		accountService.doesUserExists($scope.account, function(account){
 			sessionService.login(account);
@@ -100,6 +101,7 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 	};
 })
 .controller("RegisterCtrl",function($scope, sessionService, $state,accountService, ValidationService){
+	$scope.$emit('changeTitle', 'SIGN_UP');
     var myValidation = new ValidationService();
     $scope.showButtonFlag = true;
 	$scope.register = function(){
@@ -116,7 +118,8 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 	};
 })
 .controller("UsersListCtrl", function($scope,$state, accounts,accountService) {
-    $scope.accounts = accounts;
+	$scope.$emit('changeTitle', 'USERS_LIST');
+	$scope.accounts = accounts;
     $scope.deleteButtonDisabled = false;
     $scope.deleteAccount = function(rid) {
     $scope.deleteButtonDisabled = true;

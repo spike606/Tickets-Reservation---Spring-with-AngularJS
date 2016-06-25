@@ -15,5 +15,6 @@ angular.module( 'ngBoilerplate.badRequest', [
   });
 })
 .controller( 'badRequestCtrl', function badRequestController( $scope , sessionService) {
+	$scope.$emit('changeTitle', 'BAD_REQUEST');
 });
 

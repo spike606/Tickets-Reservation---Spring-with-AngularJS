@@ -12,18 +12,18 @@ angular.module( 'ngBoilerplate.about', [
         controller: 'AboutCtrl',
         templateUrl: 'about/about.tpl.html'
       }
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
 })
 
-.controller( 'AboutCtrl', function AboutCtrl( $scope ) {
+.controller( 'AboutCtrl', function AboutCtrl( $scope,$rootScope,$translate ) {
   // This is simple a demo for UI Boostrap.
   $scope.dropdownDemoItems = [
     "The first choice!",
     "And another choice for you.",
     "but wait! A third!"
   ];
+  $scope.$emit('changeTitle', 'ABOUT');
 })
 
 ;

@@ -48,16 +48,9 @@ angular.module( 'ngBoilerplate.newPlaneTicket', [
       });
       return data;
   })
-.controller( 'newPlaneTicketCtrl', function newPlaneTicketCtrl( $scope ) {
-  // This is simple a demo for UI Boostrap.
-  $scope.dropdownDemoItems = [
-    "The first choice!",
-    "And another choice for you.",
-    "but wait! A third!"
-  ];
-})
-.controller("newPlaneTicketCtrl",function($scope, sessionService, $state,planeTicketService,planeticket,$stateParams,updatePlaneTicketService, ValidationService){
-    var myValidation = new ValidationService();
+.controller("newPlaneTicketCtrl",function newPlaneTicketCtrl($scope, sessionService, $state,planeTicketService,planeticket,$stateParams,updatePlaneTicketService, ValidationService){
+	$scope.$emit('changeTitle', 'NEW_PLANE_TICKET');
+	var myValidation = new ValidationService();
 	$scope.planeticket = planeticket;
     $scope.ridparam = $stateParams.ridparam;
     $scope.showButtonFlag = true;

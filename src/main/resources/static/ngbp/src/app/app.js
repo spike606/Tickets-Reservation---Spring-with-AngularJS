@@ -27,20 +27,32 @@ angular.module( 'ngBoilerplate', [
   $translateProvider.useSanitizeValueStrategy(null);
 })
 
-.run( function run () {
+.run( function run ($rootScope, $translate) {
+    // serves as a cache
+    var currentTitleKey = '';
+
+    $rootScope.$on('changeTitle', function(e, titleKey) {
+        // update if parameter is defined, else reuse
+        currentTitleKey = (titleKey || currentTitleKey);
+        $translate(currentTitleKey).then(function(result){
+        $rootScope.Title = result;
+        });
+    });
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location,sessionService, $translate) {
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    if ( angular.isDefined( toState.data.pageTitle ) ) {
-      $scope.pageTitle = toState.data.pageTitle ;
-    }
+//    if ( angular.isDefined( toState.data.pageTitle ) ) {
+//      $scope.pageTitle = toState.data.pageTitle ;
+//    }
   });
 	$scope.isLoggedIn = sessionService.isLoggedIn;
 	$scope.logout = sessionService.logout;
 	$scope.logoImage = 'logo.png';
 	$scope.changeLanguage = function (langKey) {
-     $translate.use(langKey);
+    $translate.use(langKey);
+     $scope.$emit('changeTitle');
+
 		};
 });
 

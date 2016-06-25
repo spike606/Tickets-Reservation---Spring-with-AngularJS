@@ -80,12 +80,14 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
 	return service;
 })
 .controller( 'bookPlaneTicketCtrl', function bookPlaneTicketCtrl( $scope,$state,planeTicketsList) {
+  $scope.$emit('changeTitle', 'BOOK_PLANE_TICKET');
   $scope.planeTicketsList = planeTicketsList;
   $scope.bookPlaneTicket = function(rid){
   $state.go("bookPlaneTicketOrder",{ridparam : rid}, { reload : true });
   };
 })
 .controller( 'bookPlaneTicketOrderCtrl', function bookPlaneTicketOrderCtrl( $scope,$stateParams,planeTicketOrderService,$state, ValidationService) {
+  $scope.$emit('changeTitle', 'BOOK_PLANE_TICKET');
   var myValidation = new ValidationService();
   $scope.showButtonFlag = true;  
 	if($stateParams.ridparam){
@@ -106,6 +108,7 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
   };
 })
 .controller( 'bookPlaneTicketOrderListCtrl', function bookPlaneTicketOrderListCtrl( $scope,$state,planeTicketOrderList,planeTicketsList, planeTicketOrderListService) {
+  $scope.$emit('changeTitle', 'BOOK_PLANE_TICKET_ORDER_LIST');
   $scope.planeTicketOrderList = planeTicketOrderList;
   $scope.planeTicketsList = planeTicketsList;
   $scope.deleteButtonDisabled = false;
