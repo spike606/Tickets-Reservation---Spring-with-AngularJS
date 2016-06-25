@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.myPackage.core.entities.Account;
 import com.myPackage.core.entities.TrainTicketOrder;
+import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.TrainTicketOrderService;
 import com.myPackage.core.services.TrainTicketService;
 import com.myPackage.core.services.exceptions.TrainTicketOrderAlreadyExistsException;
@@ -39,6 +45,9 @@ public class TrainTicketOrderController {
 	
 	@Autowired
 	private TrainTicketService trainTicketService;
+	
+	@Autowired
+	private AccountService accountService;
 
 	TrainTicketOrderValidator trainTicketOrderValidator;
 
@@ -78,10 +87,21 @@ public class TrainTicketOrderController {
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<TrainTicketOrderResource> createTrainTicketOrder(@Valid @RequestBody TrainTicketOrderResource sentTrainTicketOrder) {
-		TrainTicketOrder createdTrainTicketOrder = null;
 		try {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			TrainTicketOrder createdTrainTicketOrder;
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(!(auth instanceof AnonymousAuthenticationToken) && principal instanceof UserDetails) {//if user is logged in - has auth
+			 UserDetails details = (UserDetails)principal;	
+			 Account loggedIn = accountService.findAccountByLogin(details.getUsername());
+			 
 			createdTrainTicketOrder = trainTicketOrderService.createTrainTicketOrder(sentTrainTicketOrder.
-					toTrainTicketOrder(trainTicketService.findTrainTicket(sentTrainTicketOrder.getTrainTicketId())));
+					toTrainTicketOrder(trainTicketService.findTrainTicket(sentTrainTicketOrder.getTrainTicketId()),accountService.findAccount(loggedIn.getId())));
+			}else{
+				createdTrainTicketOrder = trainTicketOrderService.createTrainTicketOrder(sentTrainTicketOrder.
+						toTrainTicketOrder(trainTicketService.findTrainTicket(sentTrainTicketOrder.getTrainTicketId())));
+				
+			}
 			TrainTicketOrderResource createdTrainTicketOrderResource = new TrainTicketOrderResourceAsm().toResource(createdTrainTicketOrder);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(URI.create(createdTrainTicketOrderResource.getLink("self").getHref()));

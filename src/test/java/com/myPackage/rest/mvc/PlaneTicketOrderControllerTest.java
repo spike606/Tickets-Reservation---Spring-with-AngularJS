@@ -97,10 +97,10 @@ public class PlaneTicketOrderControllerTest {
                         hasItems(endsWith("john"))))
                 .andExpect(jsonPath("$.planeTicketOrders[*].lastname",
                         hasItems(endsWith("smith"))))
-                .andExpect(jsonPath("$.planeTicketOrders[0].owner.firstname",
-                		is(ownerTicketOrder1.getFirstname())))
-                .andExpect(jsonPath("$.planeTicketOrders[0].owner.lastname",
-                		is(ownerTicketOrder1.getLastname())))
+//                .andExpect(jsonPath("$.planeTicketOrders[0].owner.firstname",
+//                		is(ownerTicketOrder1.getFirstname())))
+//                .andExpect(jsonPath("$.planeTicketOrders[0].owner.lastname",
+//                		is(ownerTicketOrder1.getLastname())))
 //                .andExpect(jsonPath("$.planeTicketOrders[*].planeTicket.flightFrom",
 //                        hasItems(endsWith("Berlin"))))
                 .andExpect(status().isOk());

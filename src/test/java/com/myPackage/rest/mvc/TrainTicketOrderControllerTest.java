@@ -96,10 +96,10 @@ public class TrainTicketOrderControllerTest {
                         hasItems(endsWith("john"))))
                 .andExpect(jsonPath("$.trainTicketOrders[*].lastname",
                         hasItems(endsWith("smith"))))
-                .andExpect(jsonPath("$.trainTicketOrders[0].owner.firstname",
-                		is(ownerTicketOrder1.getFirstname())))
-                .andExpect(jsonPath("$.trainTicketOrders[0].owner.lastname",
-                		is(ownerTicketOrder1.getLastname())))
+//                .andExpect(jsonPath("$.trainTicketOrders[0].owner.firstname",
+//                		is(ownerTicketOrder1.getFirstname())))
+//                .andExpect(jsonPath("$.trainTicketOrders[0].owner.lastname",
+//                		is(ownerTicketOrder1.getLastname())))
 //                .andExpect(jsonPath("$.trainTicketOrders[*].trainTicket.transitFrom",
 //                        hasItems(endsWith("Berlin"),endsWith("Warsaw"))))
                 .andExpect(status().isOk());
@@ -124,8 +124,6 @@ public class TrainTicketOrderControllerTest {
 
         mockMvc.perform(get("/rest/trainTicketOrders/1"))
 				.andDo(print())
-                .andExpect(jsonPath("$.owner.firstname", is(ticketOrder1.getOwner().getFirstname())))
-                .andExpect(jsonPath("$.owner.lastname", is(ticketOrder1.getOwner().getLastname())))
 //                .andExpect(jsonPath("$.trainTicket.transitFrom", is(ticketOrder1.getTrainTicket().getTransitFrom())))
                 .andExpect(jsonPath("$.links[*].href",
                         hasItem(endsWith("/trainTicketOrders/1"))))

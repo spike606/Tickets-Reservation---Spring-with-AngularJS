@@ -41,15 +41,23 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         } ).then(function(data) {
             alert("login successful");
+            console.log(data);
             localStorage.setItem("session", {});
         }, function(data) {
             alert("error logging in");
         });
     };
-
-	session.logout = function(data){		
-		localStorage.removeItem("session");
-	};
+    session.logout = function(data) {
+        return $http.post("/TicketsService/logout","").then(function(data) {
+            alert("logut successful");
+            localStorage.removeItem("session", {});
+        }, function(data) {
+            alert("error logging out in");
+        });
+    };
+//	session.logout = function(data){		
+//		localStorage.removeItem("session");
+//	};
 	session.isLoggedIn = function(){		
 		return localStorage.getItem("session") !== null;
 	};

@@ -19,7 +19,6 @@ public class TrainTicketOrderResource extends ResourceSupport {
 	private String email;
 	private String telephone;
 	private Long trainTicketId;
-	private Account owner;
 	
 	
 	public Long getRid() {
@@ -88,13 +87,8 @@ public class TrainTicketOrderResource extends ResourceSupport {
 	public Long getTrainTicketId() {
 		return trainTicketId;
 	}
-	public Account getOwner() {
-		return owner;
-	}
-	public void setOwner(Account owner) {
-		this.owner = owner;
-	}
-	public TrainTicketOrder toTrainTicketOrder(TrainTicket trainTicket) {
+
+	public TrainTicketOrder toTrainTicketOrder(TrainTicket trainTicket, Account owner) {
 		
 		TrainTicketOrder trainTicketOrder = new TrainTicketOrder();
 		trainTicketOrder.setFirstname(firstname);
@@ -112,5 +106,21 @@ public class TrainTicketOrderResource extends ResourceSupport {
 		return trainTicketOrder;
 
 	}
-	
+	public TrainTicketOrder toTrainTicketOrder(TrainTicket trainTicket) {
+		
+		TrainTicketOrder trainTicketOrder = new TrainTicketOrder();
+		trainTicketOrder.setFirstname(firstname);
+		trainTicketOrder.setSecondname(secondname);
+		trainTicketOrder.setLastname(lastname);
+		trainTicketOrder.setEmail(email);
+		trainTicketOrder.setTelephone(telephone);
+		trainTicketOrder.setCountry(country);
+		trainTicketOrder.setCity(city);
+		trainTicketOrder.setState(state);
+		trainTicketOrder.setStreet(street);
+		trainTicketOrder.setTrainTicket(trainTicket);
+
+		return trainTicketOrder;
+
+	}	
 }

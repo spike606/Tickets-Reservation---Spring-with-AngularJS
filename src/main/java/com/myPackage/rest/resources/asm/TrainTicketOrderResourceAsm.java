@@ -30,7 +30,6 @@ public class TrainTicketOrderResourceAsm extends ResourceAssemblerSupport<TrainT
 		res.setStreet(trainTicketOrder.getStreet());
 		res.setTrainTicketId(trainTicketOrder.getTrainTicket().getId());
 		res.setRid(trainTicketOrder.getId());
-		res.setOwner(trainTicketOrder.getOwner());
 
 		Link link = linkTo(TrainTicketOrderController.class).slash(trainTicketOrder.getId()).withSelfRel();
 		res.add(link);

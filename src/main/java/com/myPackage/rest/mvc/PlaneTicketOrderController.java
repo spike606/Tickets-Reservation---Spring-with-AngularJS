@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.myPackage.core.entities.Account;
 import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.PlaneTicketOrderService;
@@ -81,13 +86,25 @@ public class PlaneTicketOrderController {
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(@Valid @RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
-//		PlaneTicketOrder createdPlaneTicketOrder = null;
 		try {
-			PlaneTicketOrder createdPlaneTicketOrder = planeTicketOrderService.createPlaneTicketOrder(sentPlaneTicketOrder
-					.toPlaneTicketOrder(planeTicketService
-							.findPlaneTicket(sentPlaneTicketOrder
-									.getPlaneTicketId())
-							,accountService.findAccount(sentPlaneTicketOrder.getOwnerId())));
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			PlaneTicketOrder createdPlaneTicketOrder;
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(!(auth instanceof AnonymousAuthenticationToken) && principal instanceof UserDetails) {//if user is logged in - has auth
+				UserDetails details = (UserDetails)principal;	
+				Account loggedIn = accountService.findAccountByLogin(details.getUsername());	 
+				createdPlaneTicketOrder = planeTicketOrderService.createPlaneTicketOrder(sentPlaneTicketOrder
+						.toPlaneTicketOrder(planeTicketService
+								.findPlaneTicket(sentPlaneTicketOrder
+										.getPlaneTicketId())
+								,accountService.findAccount(loggedIn.getId())));
+			}else{
+				createdPlaneTicketOrder = planeTicketOrderService.createPlaneTicketOrder(sentPlaneTicketOrder
+						.toPlaneTicketOrder(planeTicketService
+								.findPlaneTicket(sentPlaneTicketOrder
+										.getPlaneTicketId())));
+			}
+
 			PlaneTicketOrderResource createdPlaneTicketOrderResource = new PlaneTicketOrderResourceAsm().toResource(createdPlaneTicketOrder);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(URI.create(createdPlaneTicketOrderResource.getLink("self").getHref()));
