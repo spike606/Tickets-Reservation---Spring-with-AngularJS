@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myPackage.core.entities.PlaneTicketOrder;
+import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.PlaneTicketOrderService;
 import com.myPackage.core.services.PlaneTicketService;
 import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
@@ -39,6 +40,9 @@ public class PlaneTicketOrderController {
 	
 	@Autowired
 	private PlaneTicketService planeTicketService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	PlaneTicketOrderValidator planeTicketOrderValidator;
 	
@@ -79,8 +83,11 @@ public class PlaneTicketOrderController {
 	public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(@Valid @RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
 //		PlaneTicketOrder createdPlaneTicketOrder = null;
 		try {
-			PlaneTicketOrder createdPlaneTicketOrder = planeTicketOrderService.createPlaneTicketOrder(sentPlaneTicketOrder.toPlaneTicketOrder(
-					planeTicketService.findPlaneTicket(sentPlaneTicketOrder.getPlaneTicketId())));
+			PlaneTicketOrder createdPlaneTicketOrder = planeTicketOrderService.createPlaneTicketOrder(sentPlaneTicketOrder
+					.toPlaneTicketOrder(planeTicketService
+							.findPlaneTicket(sentPlaneTicketOrder
+									.getPlaneTicketId())
+							,accountService.findAccount(sentPlaneTicketOrder.getOwnerId())));
 			PlaneTicketOrderResource createdPlaneTicketOrderResource = new PlaneTicketOrderResourceAsm().toResource(createdPlaneTicketOrder);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(URI.create(createdPlaneTicketOrderResource.getLink("self").getHref()));

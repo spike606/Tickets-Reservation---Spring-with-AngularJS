@@ -12,8 +12,7 @@ angular.module( 'ngBoilerplate.contact', [
         controller: 'ContactCtrl',
         templateUrl: 'contact/contact.tpl.html'
       }
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
 })
 

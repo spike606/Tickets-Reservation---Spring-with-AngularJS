@@ -21,8 +21,15 @@ public class PlaneTicketOrderResource extends ResourceSupport{
 	private String email;
 	private String telephone;
 	private Long planeTicketId;
-	private Account owner;
+	private Long ownerId;
 	
+	
+	public Long getOwnerId() {
+		return ownerId;
+	}
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
+	}
 	public Long getRid() {
 		return rid;
 	}
@@ -89,13 +96,8 @@ public class PlaneTicketOrderResource extends ResourceSupport{
 	public void setPlaneTicketId(Long planeTicketId) {
 		this.planeTicketId = planeTicketId;
 	}
-	public Account getOwner() {
-		return owner;
-	}
-	public void setOwner(Account owner) {
-		this.owner = owner;
-	}
-	public PlaneTicketOrder toPlaneTicketOrder(PlaneTicket planeTicket) {
+
+	public PlaneTicketOrder toPlaneTicketOrder(PlaneTicket planeTicket, Account owner) {
 		
 		PlaneTicketOrder planeTicketOrder = new PlaneTicketOrder();
 		planeTicketOrder.setFirstname(firstname);

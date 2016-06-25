@@ -10,8 +10,7 @@ angular.module( 'ngBoilerplate.badRequest', [
         controller: 'badRequestCtrl',
         templateUrl: 'badRequest/badRequest.tpl.html'
       }
-    },
-    data:{ pageTitle: 'badRequest' }
+    }
   });
 })
 .controller( 'badRequestCtrl', function badRequestController( $scope , sessionService) {

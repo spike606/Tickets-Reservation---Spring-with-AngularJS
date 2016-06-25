@@ -23,8 +23,7 @@ angular.module( 'ngBoilerplate.newPlaneTicket', [
         planeticket: function(planeTicketsListService, $stateParams){
         return planeTicketsListService.getPlaneTicketById($stateParams.ridparam);
         }
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
 })
 

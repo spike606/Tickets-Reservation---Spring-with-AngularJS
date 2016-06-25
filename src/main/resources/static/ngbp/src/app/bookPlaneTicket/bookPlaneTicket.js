@@ -18,8 +18,7 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
 	planeTicketsList: function(planeTicketsListService){
             return planeTicketsListService.getPlaneTicketsList();
         }
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
   $stateProvider.state( 'bookPlaneTicketOrder', {
     url: '/bookPlaneTicketOrder',
@@ -31,8 +30,7 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
     },
     params: {
         ridparam: null
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
   $stateProvider.state( 'bookPlaneTicketOrderList', {
     url: '/bookPlaneTicketOrderList',
@@ -52,8 +50,7 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
     },
     params: {
         ridparam: null
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });  
 })
 .factory("planeTicketOrderService", function($resource,planeTicketService){
@@ -61,6 +58,7 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
 	service.addPlaneTicketOrder = function(rid,planeTicketOrder, success, failure){
 		var PlaneTicketOrder = $resource('/TicketsService/rest/planeTicketOrders');
 		planeTicketOrder.planeTicketId = rid;
+		planeTicketOrder.ownerId = rid;
 		PlaneTicketOrder.save({},planeTicketOrder,success,failure);
 	};
 	return service;

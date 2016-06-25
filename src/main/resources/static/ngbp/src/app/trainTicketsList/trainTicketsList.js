@@ -17,8 +17,7 @@ angular.module( 'ngBoilerplate.trainTicketsList', [
 	trainTicketsList: function(trainTicketsListService){
             return trainTicketsListService.getTrainTicketsList();
         }
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
 })
 .factory("trainTicketsListService", function($resource){

@@ -23,8 +23,7 @@ angular.module( 'ngBoilerplate.newTrainTicket', [
         trainticket: function(trainTicketsListService, $stateParams){
         return trainTicketsListService.getTrainTicketById($stateParams.ridparam);
         }
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
 })
 .factory("trainTicketService", function($resource){

@@ -17,8 +17,7 @@ angular.module( 'ngBoilerplate.planeTicketsList', [
 	planeTicketsList: function(planeTicketsListService){
             return planeTicketsListService.getPlaneTicketsList();
         }
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
 })
 .factory("planeTicketsListService", function($resource){

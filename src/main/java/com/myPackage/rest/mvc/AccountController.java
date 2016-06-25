@@ -65,7 +65,9 @@ public class AccountController {
 	
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<AccountListResource> findAllAccounts(@RequestParam(value="login", required = false) String login) {
-        AccountList list = null;
+		try {
+
+    	AccountList list = null;
         if(login == null) {
             list = accountService.findAllAccounts();
         } else {
@@ -78,6 +80,9 @@ public class AccountController {
         }
         AccountListResource res = new AccountListResourceAsm().toResource(list);
         return new ResponseEntity<AccountListResource>(res, HttpStatus.OK);
+		} catch (AccountDoesNotExistException exception) {
+			throw new NotFoundException(exception);
+		}
     }
 	
 

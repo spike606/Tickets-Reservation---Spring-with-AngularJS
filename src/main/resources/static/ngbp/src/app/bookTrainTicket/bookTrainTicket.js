@@ -18,8 +18,7 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
 	trainTicketsList: function(trainTicketsListService){
             return trainTicketsListService.getTrainTicketsList();
         }
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
   $stateProvider.state( 'bookTrainTicketOrder', {
     url: '/bookTrainTicketOrder',
@@ -31,8 +30,7 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
     },
     params: {
         ridparam: null
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });
   $stateProvider.state( 'bookTrainTicketOrderList', {
     url: '/bookTrainTicketOrderList',
@@ -52,8 +50,7 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
     },
     params: {
         ridparam: null
-    },
-    data:{ pageTitle: 'What is It?' }
+    }
   });   
 })
 .factory("trainTicketOrderService", function($resource,trainTicketService){

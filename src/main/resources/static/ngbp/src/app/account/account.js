@@ -7,8 +7,7 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 				templateUrl:'account/login.tpl.html' ,
 				controller: 'LoginCtrl'
 			}
-		},
-		data:{pageTitle:'Login'}
+		}
 	})
 	.state('register', {
 		url:'/register',
@@ -18,8 +17,7 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 				controller: 'RegisterCtrl'
 
 			}
-		},
-		data:{pageTitle:'Registration'}
+		}
 	})
     .state('usersList', {
             url:'/usersList',
@@ -29,7 +27,6 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
                     controller: 'UsersListCtrl'
                 }
             },
-            data : { pageTitle : "Search Accounts" },
             resolve: {
                 accounts: function(accountService) {
                     return accountService.getAllAccounts();
