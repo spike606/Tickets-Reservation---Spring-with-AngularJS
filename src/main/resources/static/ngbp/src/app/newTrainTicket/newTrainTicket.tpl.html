@@ -1,28 +1,28 @@
 <div class="row">
   <h1 class="page-header">
-      New Train Transit
+      {{'NEW_TRAIN_TRANSIT' | translate}}
   </h1>
   <form ng-submit="trainTicketSubmit()" name="trainTicketSubmitForm">
       <div class="form-group myForm-control">
-          <label>Transit number*</label>
+          <label>{{'TRANSIT_NUMBER' | translate}}*</label>
           <input type="text" name="transitNumber" ng-model="trainticket.transitNumber" class="form-control" validation="min_len:1|max_len:9|alpha_num|required"/>
       </div>
       <div class="form-group myForm-control">
-          <label>Transit name*</label>
+          <label>{{'TRANSIT_NAME' | translate}}*</label>
           <input type="text" name="transitName"  ng-model="trainticket.transitName" class="form-control" validation="min_len:1|max_len:25|alpha_num_spaces|required"/>
       </div>
       <div class="form-group myForm-control">
-          <label>From*</label>
+          <label>{{'FROM' | translate}}*</label>
           <input type="text" name="transitFrom"   ng-model="trainticket.transitFrom" class="form-control" validation="min_len:1|max_len:25|alpha_num_spaces|required"/>
       </div>
       <div class="form-group myForm-control">
-          <label>To*</label>
+          <label>{{'TO' | translate}}*</label>
           <input type="text" name="transitTo"  ng-model="trainticket.transitTo" class="form-control" validation="min_len:1|max_len:25|alpha_num_spaces|required"/>
       </div>
       <div class="form-group myForm-control"
 		     moment-picker="trainticket.transitDateStart"
 		     format="YYYY-MM-DD">
-		  <label>Departure date*</label>
+		  <label>{{'DEPARTURE_DATE' | translate}}*</label>
 		     <div  class="input-group input-append date">
 					<input class="form-control" name="transitDateStart" validation="date_iso|required"  ng-disabled="true"
 						 validation-error-to="transitDateStartErrorMessage" ng-model="trainticket.transitDateStart"
@@ -34,7 +34,7 @@
 		     
 	 </div>
       <div class="form-group myForm-control">      
-        <label>Departure hour*</label>
+        <label>{{'DEPARTURE_HOUR' | translate}}*</label>
              <ng-timepicker  type="text" name="clock" validation="time|required" ng-model="trainticket.transitHourStart" init-time="{{true && trainticket.transitHourStart || '12:00'}}"
              validation-error-to="flightHourStartErrorMessage"/>
          <span id="flightHourStartErrorMessage" class="validation text-danger"></span>
@@ -43,7 +43,7 @@
       <div class="form-group myForm-control"
 		     moment-picker="trainticket.transitDateStop"
 		     format="YYYY-MM-DD">
-		  <label>Arrive date*</label>
+		  <label>{{'ARRIVE_DATE' | translate}}*</label>
 		     <div  class="input-group input-append date">
 					<input class="form-control" name="transitDateStop" validation="date_iso|required"  ng-disabled="true"
 						    validation-error-to="transitDateStopErrorMessage" ng-model="trainticket.transitDateStop"
@@ -55,23 +55,23 @@
 		     
 	 </div>
       <div class="form-group myForm-control">      
-        <label>Arrive hour*</label>
+        <label>{{'ARRIVE_HOUR' | translate}}*</label>
              <ng-timepicker  type="text" name="clock"  validation="time|required" ng-model="trainticket.transitHourStop" init-time="{{true && trainticket.transitHourStop ||  '12:00'}}"
              validation-error-to="flightHourStopErrorMessage"/>
           <span id="flightHourStopErrorMessage" class="validation text-danger"></span>
              
       </div>  
       <div class="form-group myForm-control">
-          <label>Price*</label>
+          <label>{{'PRICE' | translate}}*</label>
           <div  class="input-group input-append">
           <input type="text" name="transitPrice"  ng-model="trainticket.transitPrice" class="form-control" validation="digits_between:2,10|required" 
           validation-error-to="priceErrorMessage"/>
-                <span class="input-group-addon add-on"><span class="glyphicon">$</span></span>
+                <span class="input-group-addon add-on"><span class="glyphicon">{{'CURRENCY_SIGN' | translate}}</span></span>
           </div>
         <span id="priceErrorMessage" class="validation text-danger"></span>
           
       </div>
-      <button class="btn btn-lg btn-primary btn-block myButton" type="submit" ng-disabled="trainTicketSubmitForm.$invalid" ng-show="showButtonFlag">Submit</button>
+      <button class="btn btn-lg btn-primary btn-block myButton" type="submit" ng-disabled="trainTicketSubmitForm.$invalid" ng-show="showButtonFlag">{{'SUBMIT' | translate}}</button>
       
   </form>
 </div>

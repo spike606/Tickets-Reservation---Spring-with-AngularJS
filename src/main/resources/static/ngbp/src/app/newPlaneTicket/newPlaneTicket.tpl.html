@@ -1,24 +1,24 @@
 <div class="row">
   <h1 class="page-header">
-      New Plane Flight
+      {{'NEW_PLANE_FLIGHT' | translate}}
   </h1>
   <form ng-submit="planeTicketSubmit()" name="planeTicketSubmitForm">
       <div class="form-group myForm-control">
-          <label>Flight number*</label>
+          <label>{{'FLIGT_NUMBER' | translate}}*</label>
           <input type="text" name="flightNumber" ng-model="planeticket.flightNumber" class="form-control" validation="min_len:1|max_len:9|alpha_num|required"/>
       </div>
       <div class="form-group myForm-control">
-          <label>From*</label>
+          <label>{{'FROM' | translate}}*</label>
           <input type="text"  name="flightFrom" ng-model="planeticket.flightFrom" class="form-control" validation="min_len:1|max_len:25|alpha_num_spaces|required"/>
       </div>
       <div class="form-group myForm-control">
-          <label>To*</label>
+          <label>{{'TO' | translate}}*</label>
           <input type="text" name="flightTo" ng-model="planeticket.flightTo" class="form-control" validation="min_len:1|max_len:25|alpha_num_spaces|required"/>
       </div>
       <div class="form-group myForm-control"
 		     moment-picker="planeticket.flightDateStart"
 		     format="YYYY-MM-DD">
-		  <label>Departure date*</label>
+		  <label>{{'DEPARTURE_DATE' | translate}}*</label>
 		     <div  class="input-group input-append date">
 					<input class="form-control" ng-disabled="true" name="flightDateStart" validation="date_iso|required"
 						   validation-error-to="flightDateStartErrorMessage" ng-model="planeticket.flightDateStart">		     
@@ -29,7 +29,7 @@
 	 </div>
       
       <div class="form-group myForm-control">      
-        <label>Departure hour*</label>
+        <label>{{'DEPARTURE_HOUR' | translate}}*</label>
              <ng-timepicker  type="text" name="clock" ng-model="planeticket.flightHourStart" init-time="{{true && planeticket.flightHourStart ||  '12:00'}}"
              validation="time|required" validation-error-to="flightHourStartErrorMessage"/>
                           		 <span id="flightHourStartErrorMessage" class="validation text-danger"></span>
@@ -40,7 +40,7 @@
       <div class="form-group myForm-control"
 		     moment-picker="planeticket.flightDateStop"
 		     format="YYYY-MM-DD">
-		  <label>Arrive date*</label>
+		  <label>{{'ARRIVE_DATE' | translate}}*</label>
 		     <div  class="input-group input-append date">
 					<input class="form-control" name="flightDateStop" ng-disabled="true"
 						           ng-model="planeticket.flightDateStop"
@@ -52,23 +52,23 @@
 		     
 	 </div>
       <div class="form-group myForm-control">      
-        <label>Arrive hour*</label>
+        <label>{{'ARRIVE_HOUR' | translate}}*</label>
              <ng-timepicker  type="text" name="clock" ng-model="planeticket.flightHourStop" init-time="{{true && planeticket.flightHourStop ||  '12:00'}}"
              validation="time|required" validation-error-to="flightHourStopErrorMessage"/>
              		 <span id="flightHourStopErrorMessage" class="validation text-danger"></span>
              
       </div> 
       <div class="form-group myForm-control">
-          <label>Price*</label>
+          <label>{{'PRICE' | translate}}*</label>
           <div  class="input-group input-append">
           <input type="text" name="flightPrice" class="form-control" ng-model="planeticket.flightPrice" validation="digits_between:2,10|required"
           validation-error-to="priceErrorMessage"/>
-                <span class="input-group-addon add-on"><span class="glyphicon">$</span></span>
+                <span class="input-group-addon add-on"><span class="glyphicon">{{'CURRENCY_SIGN' | translate}}</span></span>
           </div>
           		 <span id="priceErrorMessage" class="validation text-danger"></span>
           
       </div>
-      <button class="btn btn-lg btn-primary btn-block myButton" type="submit" ng-disabled="planeTicketSubmitForm.$invalid" ng-show="showButtonFlag">Submit</button>
+      <button class="btn btn-lg btn-primary btn-block myButton" type="submit" ng-disabled="planeTicketSubmitForm.$invalid" ng-show="showButtonFlag">{{'SUBMIT' | translate}}</button>
       
   </form>
 </div>

@@ -1,19 +1,19 @@
 <div class="row">
   <h1 class="page-header">
-      Book flight
+      {{'BOOK_FLIGHT' | translate}}
   </h1>
 		 <table class="table table-bordered">
 		    <thead>
 		      <tr>
-		        <th>Flight number</th>
-		        <th>From</th>
-		        <th>To</th>
-		        <th>Departure date</th>
-		        <th>Departure hour</th>
-		        <th>Arrive date</th>
-		        <th>Arrive hour</th>
-		        <th>Price $</th>
-		        <th>Actions</th>
+		        <th>{{'FLIGT_NUMBER' | translate}}</th>
+		        <th>{{'FROM' | translate}}</th>
+		        <th>{{'TO' | translate}}</th>
+		        <th>{{'DEPARTURE_DATE' | translate}}</th>
+		        <th>{{'DEPARTURE_HOUR' | translate}}</th>
+		        <th>{{'ARRIVE_DATE' | translate}}</th>
+		        <th>{{'ARRIVE_HOUR' | translate}}</th>
+		        <th>{{'PRICE' | translate}} {{'CURRENCY_SIGN' | translate}}</th>
+		        <th>{{'ACTIONS' | translate}}</th>
 		      </tr>
 			</thead>
 
@@ -29,7 +29,7 @@
 	            <td>{{planeTicket.flightHourStop}}</td>
 	            <td>{{planeTicket.flightPrice}}</td>
 	            <td>
-                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="bookPlaneTicket(planeTicket.rid)">BOOK</button>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-click="bookPlaneTicket(planeTicket.rid)">{{'BOOK' | translate}}</button>
 				</td>
             	            
 	        </tr>			

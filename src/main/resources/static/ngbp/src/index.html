@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="ngBoilerplate" ng-controller="AppCtrl">
+<html ng-app="ngBoilerplate" ng-controller="AppCtrl" ng-cloak>
   <head>
     <title ng-bind="pageTitle"></title>
 	<meta charset="UTF-8">
@@ -91,19 +91,19 @@
             <li ui-sref-active="active">
               <a href ui-sref="home">
                 <i class="fa fa-home"></i>
-                Home
+                {{'HOME' | translate}}
               </a>
             </li>
             <li ui-sref-active="active">
               <a href ui-sref="about">
                 <i class="fa fa-info-circle"></i>
-                About
+                {{'ABOUT' | translate}}
               </a>
             </li>            
             <li ui-sref-active="active">
               <a href ui-sref="contact">
                 <i class="fa fa-info-circle"></i>
-                Contact
+                {{'CONTACT' | translate}}
               </a>
             </li>
           </ul>
@@ -111,22 +111,22 @@
 	             <ul class="nav navbar-nav navbar-right" >
 	             	<li>
 		              <a ui-sref="login" ng-click="login()">
-		              	<span class="glyphicon glyphicon-log-in"></span>Login
+		              	<span class="glyphicon glyphicon-log-in"></span>{{'LOG_IN' | translate}}
 		              </a>
 		            </li>
 		            <li>
 		              <a ui-sref="register">
-						<span class="glyphicon glyphicon-user"></span>Sign up
+						<span class="glyphicon glyphicon-user"></span>{{'SIGN_UP' | translate}}
 		              </a>
 		            </li>
 				    <li>
-		              <a ng-click="" id="flag">
-						<span class="glyphicon glyphicon-flag"></span>PL
+		              <a ng-click="changeLanguage('pl')" id="flag">
+						<span class="glyphicon glyphicon-flag"></span>{{'PL' | translate}}
 		              </a>
 		            </li> 
 				    <li>
-		              <a ng-click="" id="flag">
-						<span class="glyphicon glyphicon-flag"></span>ENG
+		              <a ng-click="changeLanguage('en')" id="flag">
+						<span class="glyphicon glyphicon-flag"></span>{{'ENG' | translate}}
 		              </a>
 		            </li>           
 		            <li>		          	    
@@ -136,17 +136,17 @@
 	          	 <ul class="nav navbar-nav navbar-right" >
 				    <li>
 		              <a ng-click="logout()" id="logout-click">
-						<span class="glyphicon glyphicon-log-out"></span>Logout
+						<span class="glyphicon glyphicon-log-out"></span>{{'LOG_OUT' | translate}}
 		              </a>
 		            </li> 	          	 
 				    <li>
 		              <a ng-click="" id="flag">
-						<span class="glyphicon glyphicon-flag"></span>PL
+						<span class="glyphicon glyphicon-flag"></span>{{'PL' | translate}}
 		              </a>
 		            </li> 
 				    <li>
 		              <a ng-click="" id="flag">
-						<span class="glyphicon glyphicon-flag"></span>ENG
+						<span class="glyphicon glyphicon-flag"></span>{{'ENG' | translate}}
 		              </a>
 		            </li>   
 		          </ul>		                     
@@ -160,39 +160,39 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
   			<ul class="nav nav-pills nav-stacked">
-					 <li><a ui-sref="newPlaneTicket"><span class="glyphicon glyphicon-chevron-right"></span>addPlane</a></li>
-					 <li><a ui-sref="newTrainTicket"><span class="glyphicon glyphicon-chevron-right"></span> addTrain</a></li>
+					 <li><a ui-sref="newPlaneTicket"><span class="glyphicon glyphicon-chevron-right"></span>{{'NEW_PLANE_TICKET' | translate}}</a></li>
+					 <li><a ui-sref="newTrainTicket"><span class="glyphicon glyphicon-chevron-right"></span> {{'NEW_TRAIN_TICKET' | translate}}</a></li>
 			</ul>
 		    &nbsp;
 		    <ul class="nav nav-pills nav-stacked">			   			
-					 <li><a ui-sref="planeTicketsList"><span class="glyphicon glyphicon-chevron-right"></span>planeTicketsList</a></li>
-					  <li><a ui-sref="trainTicketsList"><span class="glyphicon glyphicon-chevron-right"></span>trainTicketsList</a></li>
+					 <li><a ui-sref="planeTicketsList"><span class="glyphicon glyphicon-chevron-right"></span>{{'PLANE_TICKETS_LIST' | translate}}</a></li>
+					  <li><a ui-sref="trainTicketsList"><span class="glyphicon glyphicon-chevron-right"></span>{{'TRAIN_TICKETS_LIST' | translate}}</a></li>
 			</ul>
 			&nbsp;
 			<ul class="nav nav-pills nav-stacked">					 
-					 <li><a ui-sref="bookPlaneTicket"><span class="glyphicon glyphicon-chevron-right"></span> planeTicketsListBook</a></li>
-				     <li><a ui-sref="bookTrainTicket"><span class="glyphicon glyphicon-chevron-right"></span>trainTicketsListBook</a></li>
+					 <li><a ui-sref="bookPlaneTicket"><span class="glyphicon glyphicon-chevron-right"></span> {{'BOOK_PLANE_TICKET' | translate}}</a></li>
+				     <li><a ui-sref="bookTrainTicket"><span class="glyphicon glyphicon-chevron-right"></span>{{'BOOK_TRAIN_TICKET' | translate}}</a></li>
 			</ul>
 			&nbsp;
 			
 			<ul class="nav nav-pills nav-stacked">		
-					 <li><a ui-sref="bookPlaneTicketOrderList"><span class="glyphicon glyphicon-chevron-right"></span> planeOrdersList</a></li>
-					 <li><a ui-sref="bookTrainTicketOrderList"><span class="glyphicon glyphicon-chevron-right"></span> trainOrdersList</a></li>
+					 <li><a ui-sref="bookPlaneTicketOrderList"><span class="glyphicon glyphicon-chevron-right"></span> {{'BOOK_PLANE_TICKET_ORDER_LIST' | translate}}</a></li>
+					 <li><a ui-sref="bookTrainTicketOrderList"><span class="glyphicon glyphicon-chevron-right"></span> {{'BOOK_TRAIN_TICKET_ORDER_LIST' | translate}}</a></li>
 			</ul>
-			 &nbsp;
-			<ul class="nav nav-pills nav-stacked">					 
-					 <li><a href="userRole.html"><span class="glyphicon glyphicon-chevron-right"></span> userRole</a></li>
-			         <li><a href="user.html"><span class="glyphicon glyphicon-chevron-right"></span> user</a></li>
-    		</ul>
+<!-- 			 &nbsp; -->
+<!-- 			<ul class="nav nav-pills nav-stacked">					  -->
+<!-- 					 <li><a href="userRole.html"><span class="glyphicon glyphicon-chevron-right"></span> {{'LOG_OUT' | translate}}</a></li> -->
+<!-- 			         <li><a href="user.html"><span class="glyphicon glyphicon-chevron-right"></span> {{'LOG_OUT' | translate}}</a></li> -->
+<!--     		</ul> -->
     		&nbsp;		
     		<ul class="nav nav-pills nav-stacked">					 
-    		  	     <li><a ui-sref="usersList"><span class="glyphicon glyphicon-chevron-right"></span> usersList</a></li>
+    		  	     <li><a ui-sref="usersList"><span class="glyphicon glyphicon-chevron-right"></span>  {{'USERS_LIST' | translate}}</a></li>
     		</ul>
-    		    		&nbsp;		
+    		&nbsp;		
     		
     		<ul class="nav nav-pills nav-stacked">					 
-	    			 <li><a href="myPlaneOrders.html"><span class="glyphicon glyphicon-chevron-right"></span>myPlaneOrders</a></li>
-    		  	     <li><a href="myTrainOrders.html"><span class="glyphicon glyphicon-chevron-right"></span> myTrainOrders</a></li>
+	    			 <li><a href="myPlaneOrders.html"><span class="glyphicon glyphicon-chevron-right"></span> {{'MY_PLANE_ORDERS' | translate}}</a></li>
+    		  	     <li><a href="myTrainOrders.html"><span class="glyphicon glyphicon-chevron-right"></span>  {{'MY_TRAIN_ORDERS' | translate}}</a></li>
     		</ul>
     </div>
 	    <div class="col-sm-10 text-left"> 
@@ -227,7 +227,7 @@
    <footer class="footer">
       <div class="container text-center">
         <div class="footer-inner" id="footer-inner">      
-          <p>(c) 2015 TickTwo Ltd. All rights reserved.</p>
+          <p>{{'FOOTER' | translate}}</p>
         </div>
       </div>
 </footer>

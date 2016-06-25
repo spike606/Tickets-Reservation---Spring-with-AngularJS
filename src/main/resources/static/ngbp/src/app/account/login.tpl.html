@@ -15,11 +15,11 @@
    <div class="wrapper">
    
     <form class="form-signin"  name='loginForm' ng-submit="login()">       
-        <h2 class="form-signin-heading">Login</h2>
-          <input type="text" class="form-control" name="login" placeholder="Login" ng-model="account.login"/>
-      <input type="password" class="form-control" name="password" placeholder="Password" ng-model="account.password"/>      
+        <h2 class="form-signin-heading">{{'LOG_IN' | translate}}</h2>
+          <input type="text" class="form-control" name="login" placeholder="{{'LOGIN' | translate}}" ng-model="account.login"/>
+      <input type="password" class="form-control" name="password" placeholder="{{'PASSWORD' | translate}}" ng-model="account.password"/>      
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit" >Log in</button>  
+      <button class="btn btn-lg btn-primary btn-block" type="submit" >{{'LOG_IN' | translate}}</button>  
 
 	</form>
 

@@ -1,47 +1,47 @@
 <div class="row">
   <h1 class="page-header">
-      Book flight
+      {{'BOOK_FLIGHT' | translate}}
   </h1>
   <form ng-submit="makePlaneOrder()" name="makePlaneOrderSubmitForm">
       <div class="form-group">
-          <label>First name*:</label>
+          <label>{{'FIRST_NAME' | translate}}*:</label>
           <input type="text" name="firstname" ng-model="planeTicketOrder.firstname" class="form-control myForm-control" validation="min_len:1|max_len:25|alpha_spaces|required" />
       </div>
       <div class="form-group">
-          <label>Second name:</label>
+          <label>{{'SECOND_NAME' | translate}}:</label>
           <input type="text" name="secondname" ng-model="planeTicketOrder.secondname" class="form-control myForm-control" validation="min_len:1|max_len:25|alpha_spaces" />
       </div>
       <div class="form-group">
-          <label>Last name*:</label>
+          <label>{{'LAST_NAME' | translate}}*:</label>
           <input type="text" name="lastname" ng-model="planeTicketOrder.lastname" class="form-control myForm-control" validation="min_len:1|max_len:25|alpha_spaces|required"/>
       </div>
       <div class="form-group">
-          <label>Country*:</label>
+          <label>{{'COUNTRY' | translate}}*:</label>
           <input type="text" name="country" ng-model="planeTicketOrder.country" class="form-control myForm-control" validation="min_len:1|max_len:25|alpha_spaces|required"/>
       </div>
       <div class="form-group">
-          <label>State*:</label>
+          <label>{{'STATE' | translate}}*:</label>
           <input type="text" name="state"  ng-model="planeTicketOrder.state" class="form-control myForm-control" validation="min_len:1|max_len:25|alpha_num_spaces|required"/>
       </div>
             <div class="form-group">
-          <label>City*:</label>
+          <label>{{'CITY' | translate}}*:</label>
           <input type="text" name="city"  ng-model="planeTicketOrder.city" class="form-control myForm-control" validation="min_len:1|max_len:25|alpha_spaces|required"/>
       </div>
       <div class="form-group">
-          <label>Street*:</label>
+          <label>{{'STREET' | translate}}*:</label>
           <input type="text" name="street" ng-model="planeTicketOrder.street" class="form-control myForm-control" validation="min_len:1|max_len:25|alpha_num_spaces|required"/>
       </div>
       <div class="form-group">
-          <label>Email*:</label>
+          <label>{{'EMAIL' | translate}}*:</label>
           <input type="text"  name="email" ng-model="planeTicketOrder.email" class="form-control myForm-control" validation="email|required"/>
       </div>
       <div class="form-group">
-          <label>Telephone*:</label>
-          <input type="text" name="telephone"  ng-model="planeTicketOrder.telephone" class="form-control myForm-control" validation="pattern=/^\+[0-9]{1,4}\s[0-9]{3}-[0-9]{3}-[0-9]{3}$/:alt=Wrong field|required"/>
+          <label>{{'TELEPHONE' | translate}}*:</label>
+          <input type="text" name="telephone"  ng-model="planeTicketOrder.telephone" class="form-control myForm-control" validation="pattern=/^\+[0-9]{1,4}\s[0-9]{3}-[0-9]{3}-[0-9]{3}$/:alt={{'TELEPHONE_PATTERN' | translate}}|required"/>
       </div>
 
 
-      <button class="btn btn-lg btn-primary btn-block myButton" type="submit" ng-disabled="makePlaneOrderSubmitForm.$invalid" ng-show="showButtonFlag">Submit</button>
+      <button class="btn btn-lg btn-primary btn-block myButton" type="submit" ng-disabled="makePlaneOrderSubmitForm.$invalid" ng-show="showButtonFlag">{{'SUBMIT' | translate}}</button>
       
   </form>
 </div>

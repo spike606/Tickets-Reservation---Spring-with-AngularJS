@@ -30,7 +30,7 @@ angular.module( 'ngBoilerplate', [
 .run( function run () {
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location,sessionService ) {
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location,sessionService, $translate) {
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     if ( angular.isDefined( toState.data.pageTitle ) ) {
       $scope.pageTitle = toState.data.pageTitle ;
@@ -39,6 +39,9 @@ angular.module( 'ngBoilerplate', [
 	$scope.isLoggedIn = sessionService.isLoggedIn;
 	$scope.logout = sessionService.logout;
 	$scope.logoImage = 'logo.png';
+	$scope.changeLanguage = function (langKey) {
+     $translate.use(langKey);
+		};
 });
 
 

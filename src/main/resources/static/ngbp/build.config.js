@@ -76,7 +76,6 @@ module.exports = {
          'vendor/angular-validation-ghiscoding/dist/angular-validation.min.js',
          'vendor/angular-translate/angular-translate.min.js',
          'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
-
          ],
     css: [
           'vendor/css/main.css',
@@ -89,8 +88,9 @@ module.exports = {
 		'vendor/images/plane.jpg',
 		'vendor/images/train.jpg',
 		'vendor/images/logo.png',
-		'vendor/angular-validation-ghiscoding/locales/validation/en.json',
-		'vendor/bootstrap/fonts/*'
+		'vendor/bootstrap/fonts/*',
+		'vendor/i18n/*'
+
     ]
   },
 };

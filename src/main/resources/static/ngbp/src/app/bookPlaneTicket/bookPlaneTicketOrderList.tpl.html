@@ -1,20 +1,20 @@
 <div class="row">
   <h1 class="page-header">
-      List of plane orders
+      {{'LIST_OF_PLANE_ORDERS' | translate}}
   </h1>
 		 <table class="table table-bordered">
 		    <thead>
 		      <tr>
-		        <th>First name</th>
-		        <th>Last name</th>
-		        <th>Country</th>
-		        <th>State</th>
-		        <th>City</th>
-		        <th>Street</th>
-		        <th>Email</th>
-		        <th>Telephone</th>
-		        <th>Flight number</th>
-		        <th>Actions</th>
+		        <th>{{'FIRST_NAME' | translate}}</th>
+		        <th>{{'LAST_NAME' | translate}}</th>
+		        <th>{{'COUNTRY' | translate}}</th>
+		        <th>{{'STATE' | translate}}</th>
+		        <th>{{'CITY' | translate}}</th>
+		        <th>{{'STREET' | translate}}</th>
+		        <th>{{'EMAIL' | translate}}</th>
+		        <th>{{'TELEPHONE' | translate}}</th>
+		        <th>{{'FLIGT_NUMBER' | translate}}</th>
+		        <th>{{'ACTIONS' | translate}}</th>
 		      </tr>
 			</thead>
 
@@ -31,7 +31,7 @@
 	            <td>{{planeTicketOrder.telephone}}</td>
 	            <td>{{planeTicketOrder.planeTicket.flightNumber}}</td>
 	            <td>
-                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="deleteButtonDisabled" ng-click="deletePlaneTicketOrder(planeTicketOrder.rid)">DELETE</button>
+                 <button class="btn btn-xs btn-primary btn-block" type="submit" ng-disabled="deleteButtonDisabled" ng-click="deletePlaneTicketOrder(planeTicketOrder.rid)">{{'DELETE' | translate}}</button>
 				</td>
             	            
 	        </tr>			
