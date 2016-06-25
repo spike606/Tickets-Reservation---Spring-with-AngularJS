@@ -75,7 +75,8 @@ module.exports = {
          'vendor/moment-picker/dist/angular-moment-picker.min.js',
          'vendor/angular-validation-ghiscoding/dist/angular-validation.min.js',
          'vendor/angular-translate/angular-translate.min.js',
-         'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
+         'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
+         'vendor/angular-base64/angular-base64.js'
          ],
     css: [
           'vendor/css/main.css',

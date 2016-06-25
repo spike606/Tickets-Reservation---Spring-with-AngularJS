@@ -1,4 +1,4 @@
-angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.badRequest'])
+angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.badRequest','base64'])
 .config(function($stateProvider){
 	$stateProvider.state('login', {
 		url:'/login',
@@ -34,12 +34,19 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
             }
     });
 })
-.factory("sessionService", function(){
+.factory("sessionService", function($http,$base64){
 	var session = {};
-	session.login = function(data){		
-		alert('user logged in with credentials ' + data.login + " " + data.password);
-		localStorage.setItem("session", data);
-	};
+    session.login = function(data) {
+        return $http.post("/TicketsService/login", "username=" + data.login + "&password=" + data.password, {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        } ).then(function(data) {
+            alert("login successful");
+            localStorage.setItem("session", {});
+        }, function(data) {
+            alert("error logging in");
+        });
+    };
+
 	session.logout = function(data){		
 		localStorage.removeItem("session");
 	};
@@ -89,8 +96,9 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 	$scope.$emit('changeTitle', 'LOG_IN');
 	$scope.login = function(){
 		accountService.doesUserExists($scope.account, function(account){
-			sessionService.login(account);
-			$state.go('home');
+			sessionService.login($scope.account).then(function(){
+				$state.go('home');
+			});
 		},
 		function(){
 			alert("error logging in user");
@@ -105,8 +113,10 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 		$scope.showButtonFlag = false;
 		accountService.register($scope.account,
 				function(returnedData){
-			sessionService.login(returnedData);
-			$state.go('home');
+			sessionService.login($scope.account).then(function(){
+				$state.go('home');			
+			});
+			
 		},
 		function(){
 			$state.go('badRequest');
