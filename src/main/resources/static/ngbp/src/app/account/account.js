@@ -50,7 +50,6 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
         return $http.post("/TicketsService/login", "username=" + data.login + "&password=" + data.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         } ).then(function(data) {
-            console.log(data);
             sessionStorage.setItem("session", {});
             accountService.getMyAccount();
         }, function(data) {

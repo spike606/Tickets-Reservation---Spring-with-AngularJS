@@ -152,8 +152,6 @@ $scope.planeTicketOrder.telephone = $rootScope.accountInfo.firstname;
   $scope.planeTicketOrderList = planeTicketOrderList;
   $scope.planeTicketsList = planeTicketsList;
   $scope.deleteButtonDisabled = false;
-  console.log($scope.planeTicketOrderList);
-  console.log($scope.planeTicketsList);
    for (i = 0; i < $scope.planeTicketOrderList.length; i++) {
 	for(j=0; j < $scope.planeTicketsList.length ; j++){
 		if($scope.planeTicketsList[j].rid == $scope.planeTicketOrderList[i].planeTicketId){

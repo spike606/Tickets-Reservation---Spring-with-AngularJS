@@ -150,8 +150,6 @@ $scope.trainTicketOrder.telephone = $rootScope.accountInfo.firstname;
   $scope.trainTicketOrderList = trainTicketOrderList;
   $scope.trainTicketsList = trainTicketsList;
   $scope.deleteButtonDisabled = false;
-  console.log($scope.trainTicketOrderList);
-  console.log($scope.trainTicketsList);
    for (i = 0; i < $scope.trainTicketOrderList.length; i++) {
 	for(j=0; j < $scope.trainTicketOrderList.length ; j++){
 		if($scope.trainTicketsList[j].rid == $scope.trainTicketOrderList[i].trainTicketId){

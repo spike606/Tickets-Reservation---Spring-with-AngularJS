@@ -25,7 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.context.Context;
 
+import com.myPackage.core.email.EmailHtmlSender;
+import com.myPackage.core.email.EmailSender;
 import com.myPackage.core.entities.Account;
 import com.myPackage.core.entities.PlaneTicket;
 import com.myPackage.core.entities.PlaneTicketOrder;
@@ -67,6 +70,12 @@ public class AccountController {
 	
 	@Autowired
 	TrainTicketOrderService trainTicketOrderService;
+	
+	@Autowired
+	EmailSender emailSender;
+	
+	@Autowired
+	EmailHtmlSender emailHtmlSender;
 	
 	public AccountController() {
 		accountValidator = new AccountValidator();
@@ -136,6 +145,14 @@ public class AccountController {
             Account account = accountService.createAccount(sentAccount.toAccount());
             AccountResource resource = new AccountResourceAsm().toResource(account);
             HttpHeaders headers = new HttpHeaders();
+            
+            Context context = new Context();
+            context.setVariable("title", "Welcome!");
+            context.setVariable("description", "Your account in TickTwo service was created. Thank You!");
+            
+//            		emailHtmlSender.send(account.getEmail(), "Title of email", "email-template", context);
+            		emailHtmlSender.send(account.getEmail(), "Title of email", "email-template", context);
+
             headers.setLocation(URI.create(resource.getLink("self").getHref()));
             return new ResponseEntity<AccountResource>(resource, headers, HttpStatus.CREATED);
         } catch(AccountAlreadyExistsException exception) {
@@ -239,32 +256,32 @@ public class AccountController {
 //            	throw new ConflictException(ex);
 //            }
 //        }
-	@RequestMapping(value = "/{accountId}/planeTicketOrders", method = RequestMethod.GET)
-	public ResponseEntity<PlaneTicketOrderListResource> findAllPlaneTicketOrdersForAccount(@PathVariable Long accountId) {
-        try {
-
-			PlaneTicketOrderList planeTicketOrderList = accountService.findAllPlaneTicketOrdersForAccount(accountId);
-			PlaneTicketOrderListResource planeTicketOrderListResource = new PlaneTicketOrderListResourceAsm().toResource(planeTicketOrderList);
-			return new ResponseEntity<PlaneTicketOrderListResource>(planeTicketOrderListResource, HttpStatus.OK);
-
-        } catch(AccountDoesNotExistException exception)
-        {
-            throw new BadRequestException(exception);
-        }
-		
-	}
-	@RequestMapping(value = "/{accountId}/trainTicketOrders", method = RequestMethod.GET)
-	public ResponseEntity<TrainTicketOrderListResource> findAllTrainTicketOrdersForAccount(@PathVariable Long accountId) {
-        try {
-
-			TrainTicketOrderList trainTicketOrderList = accountService.findAllTrainTicketOrdersForAccount(accountId);
-			TrainTicketOrderListResource planeTicketOrderListResource = new TrainTicketOrderListResourceAsm().toResource(trainTicketOrderList);
-	
-			return new ResponseEntity<TrainTicketOrderListResource>(planeTicketOrderListResource, HttpStatus.OK);
-        } catch(AccountDoesNotExistException exception)
-        {
-            throw new BadRequestException(exception);
-        }
-	}
+//	@RequestMapping(value = "/{accountId}/planeTicketOrders", method = RequestMethod.GET)
+//	public ResponseEntity<PlaneTicketOrderListResource> findAllPlaneTicketOrdersForAccount(@PathVariable Long accountId) {
+//        try {
+//
+//			PlaneTicketOrderList planeTicketOrderList = accountService.findAllPlaneTicketOrdersForAccount(accountId);
+//			PlaneTicketOrderListResource planeTicketOrderListResource = new PlaneTicketOrderListResourceAsm().toResource(planeTicketOrderList);
+//			return new ResponseEntity<PlaneTicketOrderListResource>(planeTicketOrderListResource, HttpStatus.OK);
+//
+//        } catch(AccountDoesNotExistException exception)
+//        {
+//            throw new BadRequestException(exception);
+//        }
+//		
+//	}
+//	@RequestMapping(value = "/{accountId}/trainTicketOrders", method = RequestMethod.GET)
+//	public ResponseEntity<TrainTicketOrderListResource> findAllTrainTicketOrdersForAccount(@PathVariable Long accountId) {
+//        try {
+//
+//			TrainTicketOrderList trainTicketOrderList = accountService.findAllTrainTicketOrdersForAccount(accountId);
+//			TrainTicketOrderListResource planeTicketOrderListResource = new TrainTicketOrderListResourceAsm().toResource(trainTicketOrderList);
+//	
+//			return new ResponseEntity<TrainTicketOrderListResource>(planeTicketOrderListResource, HttpStatus.OK);
+//        } catch(AccountDoesNotExistException exception)
+//        {
+//            throw new BadRequestException(exception);
+//        }
+//	}
 
 }
