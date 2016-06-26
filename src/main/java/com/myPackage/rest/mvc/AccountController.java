@@ -13,6 +13,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,13 +105,22 @@ public class AccountController {
 		}
     }
 	
+	@RequestMapping(value = "/myAccount",method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+	public ResponseEntity<AccountResource> getMyAccount() {
+		AccountResource res;
 
-	@RequestMapping(value = "/{accountId}", method = RequestMethod.GET)
-	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<AccountResource> getAccount(@PathVariable Long accountId) {
 		try {
-			Account account = accountService.findAccount(accountId);
-			AccountResource res = new AccountResourceAsm().toResource(account);
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(!(auth instanceof AnonymousAuthenticationToken) && principal instanceof UserDetails) {//if user is logged in - has auth
+				 UserDetails details = (UserDetails)principal;	
+				 Account loggedIn = accountService.findAccountByLogin(details.getUsername());
+						Account account = accountService.findAccount(loggedIn.getId());
+						res = new AccountResourceAsm().toResource(account);
+			}else{
+				 throw new AccountDoesNotExistException(); 
+			}
 			return new ResponseEntity<AccountResource>(res, HttpStatus.OK);
 
 		} catch (AccountDoesNotExistException exception) {

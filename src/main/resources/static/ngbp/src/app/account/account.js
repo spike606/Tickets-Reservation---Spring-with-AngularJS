@@ -44,16 +44,15 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
             }
     });
 })
-.factory("sessionService", function($http,$base64,$state){
+.factory("sessionService", function($http,$base64,$state,accountService){
 	var session = {};
 	session.login = function(data) {
         return $http.post("/TicketsService/login", "username=" + data.login + "&password=" + data.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         } ).then(function(data) {
-//            alert("login successful");
-//            console.log(data);
+            console.log(data);
             sessionStorage.setItem("session", {});
-            
+            accountService.getMyAccount();
         }, function(data) {
 //            alert("Error logging in");
             sessionStorage.setItem("invalidLogin", true);
@@ -62,8 +61,10 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
     };
     session.logout = function(data) {
         return $http.post("/TicketsService/logout","").then(function(data) {
-//            alert("logut successful");
+            sessionStorage.removeItem("role");
             sessionStorage.removeItem("session", {});
+            accountService.clearMyAccount();
+
     $state.go('home');			
         }, function(data) {
             alert("Error logging out");
@@ -79,11 +80,21 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 	return session;
 	
 })
-.factory("accountService", function($resource){
+.factory("accountService", function($resource, $rootScope){
 	var service = {};
 	service.register = function(account, success, failure){
 		var Account = $resource('/TicketsService/rest/accounts');
 		Account.save({},account,success,failure);
+	};
+	service.getMyAccount = function(){
+		var Account = $resource('/TicketsService/rest/accounts/myAccount');
+        return Account.get().$promise.then(function(data) {
+        $rootScope.accountRole = data.accountRole;
+//            return data;
+          });
+	};
+	service.clearMyAccount = function(){
+        $rootScope.accountRole = {};
 	};
 	service.registerAdmin = function(account, success, failure){
 		var Account = $resource('/TicketsService/rest/accounts/newAdmin');
@@ -119,7 +130,7 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
     };    
 	return service;
 })
-.controller("LoginCtrl",function($scope, sessionService, $state,accountService){
+.controller("LoginCtrl",function($scope, sessionService, $state,accountService,$rootScope){
 	$scope.$emit('changeTitle', 'LOG_IN');
 	$scope.validLogging = true;
 	$scope.login = function(){
@@ -139,7 +150,7 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 		});
 	};
 })
-.controller("RegisterCtrl",function($scope, sessionService, $state,accountService, ValidationService){
+.controller("RegisterCtrl",function($scope, sessionService, $state,accountService, ValidationService,$rootScope){
 	$scope.$emit('changeTitle', 'SIGN_UP');
 
     var myValidation = new ValidationService();
@@ -162,7 +173,7 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 
 	};
 })
-.controller("RegisterAdminCtrl",function($scope, sessionService, $state,accountService, ValidationService){
+.controller("RegisterAdminCtrl",function($scope, sessionService, $state,accountService, ValidationService,$rootScope){
 	$scope.$emit('changeTitle', 'SIGN_UP_ADMIN');
 
     var myValidation = new ValidationService();
@@ -172,10 +183,8 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 		$scope.showButtonFlag = false;
 		accountService.registerAdmin($scope.account,
 				function(returnedData){
-//			sessionService.login($scope.account).then(function(){
 				$state.go('home');			
-//			});
-			
+		
 		},
 		function(){
 	$scope.userAlreadyExists = true;

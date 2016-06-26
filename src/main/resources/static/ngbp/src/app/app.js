@@ -40,11 +40,12 @@ angular.module( 'ngBoilerplate', [
     });
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location,sessionService, $translate) {
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location,sessionService, $translate,$rootScope) {
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 //    if ( angular.isDefined( toState.data.pageTitle ) ) {
 //      $scope.pageTitle = toState.data.pageTitle ;
 //    }
+//$scope.role = sessionStorage.getItem("role");
   });
 
 	$scope.changeLanguage = function (langKey) {

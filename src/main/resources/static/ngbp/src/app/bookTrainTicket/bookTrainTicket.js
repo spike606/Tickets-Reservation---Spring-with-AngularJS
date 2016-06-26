@@ -135,7 +135,7 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
 .controller( 'bookTrainTicketOrderListCtrl', function bookTrainTicketOrderListCtrl( $scope,$state,trainTicketOrderList,trainTicketsList, trainTicketOrderListService) {
   $scope.$emit('changeTitle', 'BOOK_TRAIN_TICKET_ORDER_LIST');
   $scope.trainTicketOrderList = trainTicketOrderList;
-//  $scope.trainTicketsList = trainTicketsList;
+  $scope.trainTicketsList = trainTicketsList;
   $scope.deleteButtonDisabled = false;
   console.log($scope.trainTicketOrderList);
   console.log($scope.trainTicketsList);
