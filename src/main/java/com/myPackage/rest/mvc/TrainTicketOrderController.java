@@ -26,9 +26,11 @@ import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.TrainTicketOrderService;
 import com.myPackage.core.services.TrainTicketService;
+import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
 import com.myPackage.core.services.exceptions.TrainTicketOrderAlreadyExistsException;
 import com.myPackage.core.services.exceptions.TrainTicketOrderNotFoundException;
 import com.myPackage.core.services.util.TrainTicketOrderList;
+import com.myPackage.rest.exceptions.BadRequestException;
 import com.myPackage.rest.exceptions.ConflictException;
 import com.myPackage.rest.exceptions.NotFoundException;
 import com.myPackage.rest.resources.TrainTicketOrderListResource;
@@ -126,6 +128,23 @@ public class TrainTicketOrderController {
 		} catch (TrainTicketOrderNotFoundException e) {
 			throw new NotFoundException(e);
 		}
+	}
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+	@RequestMapping(value = "/myTrainOrders", method = RequestMethod.GET)
+	public ResponseEntity<TrainTicketOrderListResource> findAllTrainTicketOrdersForAccount() {
+        try {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				UserDetails details = (UserDetails)principal;	
+				Account loggedIn = accountService.findAccountByLogin(details.getUsername());	 
+			TrainTicketOrderList trainTicketOrderList = accountService.findAllTrainTicketOrdersForAccount(loggedIn.getId());
+			TrainTicketOrderListResource planeTicketOrderListResource = new TrainTicketOrderListResourceAsm().toResource(trainTicketOrderList);
+			
+	
+			return new ResponseEntity<TrainTicketOrderListResource>(planeTicketOrderListResource, HttpStatus.OK);
+        } catch(AccountDoesNotExistException exception)
+        {
+            throw new BadRequestException(exception);
+        }
 	}
 //    @RequestMapping(value="/{TrainTicketOrderId}",method = RequestMethod.PUT)
 //    public ResponseEntity<TrainTicketOrderResource> updateTrainTicketOrder(

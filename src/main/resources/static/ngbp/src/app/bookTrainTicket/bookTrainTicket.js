@@ -2,6 +2,7 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
   'ui.router',
   'placeholders',
   'ngBoilerplate.trainTicketsList',
+  'ngBoilerplate.newTrainTicket',
   'ui.bootstrap'
 ])
 
@@ -31,6 +32,27 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
     params: {
         ridparam: null
     }
+  });
+  $stateProvider.state( 'myTrainOrders', {
+    url: '/myTrainOrders',
+    views: {
+      "main": {
+        controller: 'myTrainOrdersCtrl',
+        templateUrl: 'bookTrainTicket/myTrainOrders.tpl.html'
+      }
+    },
+    params: {
+        ridparam: null
+    },
+    resolve: {
+    myTrainTicketOrderList: function(trainTicketOrderListService){
+                return trainTicketOrderListService.getMyTrainTicketOrderList();
+            },
+    trainTicketsList: function(trainTicketsListService){
+            return trainTicketsListService.getTrainTicketsList();
+        }
+        }
+        
   });
   $stateProvider.state( 'bookTrainTicketOrderList', {
     url: '/bookTrainTicketOrderList',
@@ -62,7 +84,7 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
 	};
 	return service;
 })
-.factory("trainTicketOrderListService", function($resource, trainTicketsListService){
+.factory("trainTicketOrderListService", function($resource, trainTicketsListService,trainTicketService){
 	var service = {};
     service.getTrainTicketOrderList = function() {
     var TrainTicketOrderList = $resource("/TicketsService/rest/trainTicketOrders");
@@ -70,6 +92,24 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
     return data.trainTicketOrders;
     });
     };
+    service.getMyTrainTicketOrderList = function() {
+    var TrainTicketOrderList = $resource("/TicketsService/rest/trainTicketOrders/myTrainOrders");
+    return TrainTicketOrderList.get().$promise.then(function(data) {
+    return data.trainTicketOrders;
+    });
+    }; 
+    service.getTicketForMyOrder = function(myOrder) {
+    return trainTicketService.getTrainTicketById(myOrder.trainTicketId).$promise.then(function(data){
+    return data.trainTicket;
+    });
+        }; 
+//    return TrainTicketOrderList.get().$promise.then(function(data) {
+//        trainTicketService.getTrainTicketById(data.trainTicketOrders[i].planeTicketId).$promise.then(function(data){
+//        data.trainTicketOrders[i].planeTicket = data;
+//        });
+//        return data.trainTicketOrders;
+//        });
+//        }; 
     service.deleteTrainTicketOrder = function(rid) {
         var TrainTicketOrder = $resource("/TicketsService/rest/trainTicketOrders/:trainTicketOrderId");
         return TrainTicketOrder.remove({trainTicketOrderId:rid}).$promise;
@@ -107,12 +147,12 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
 .controller( 'bookTrainTicketOrderListCtrl', function bookTrainTicketOrderListCtrl( $scope,$state,trainTicketOrderList,trainTicketsList, trainTicketOrderListService) {
   $scope.$emit('changeTitle', 'BOOK_TRAIN_TICKET_ORDER_LIST');
   $scope.trainTicketOrderList = trainTicketOrderList;
-  $scope.trainTicketsList = trainTicketsList;
+//  $scope.trainTicketsList = trainTicketsList;
   $scope.deleteButtonDisabled = false;
   console.log($scope.trainTicketOrderList);
   console.log($scope.trainTicketsList);
    for (i = 0; i < $scope.trainTicketOrderList.length; i++) {
-	for(j=0; j < $scope.trainTicketsList.length ; j++){
+	for(j=0; j < $scope.trainTicketOrderList.length ; j++){
 		if($scope.trainTicketsList[j].rid == $scope.trainTicketOrderList[i].trainTicketId){
 			$scope.trainTicketOrderList[i].trainTicket = $scope.trainTicketsList[j];
 			break;
@@ -125,5 +165,24 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
         $state.go("bookTrainTicketOrderList",{},{ reload : true });
     });
     };
+})
+.controller( 'myTrainOrdersCtrl', function myTrainOrdersCtrl( $scope,$state,myTrainTicketOrderList,trainTicketsList, trainTicketOrderListService) {
+  $scope.$emit('changeTitle', 'MY_TRAIN_ORDERS');
+  $scope.myTrainTicketOrderList = myTrainTicketOrderList;
+  $scope.trainTicketsList = trainTicketsList;
+//  $scope.deleteButtonDisabled = false;
+  console.log($scope.myTrainTicketOrderList);
+//  console.log($scope.trainTicketsList);
+   for (i = 0; i < $scope.myTrainTicketOrderList.length; i++) {
+	for(j=0; j < $scope.trainTicketsList.length ; j++){
+		if($scope.trainTicketsList[j].rid == $scope.myTrainTicketOrderList[i].trainTicketId){
+			$scope.myTrainTicketOrderList[i].trainTicket = $scope.trainTicketsList[j];
+			break;
+		}
+	}
+	}
+//   $scope.deleteTrainTicketOrder = function(rid) {
+//   $scope.deleteButtonDisabled = true;
+//    };
 })
 ;
