@@ -63,7 +63,7 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
         return $http.post("/TicketsService/logout","").then(function(data) {
             sessionStorage.removeItem("role");
             sessionStorage.removeItem("session", {});
-            accountService.clearMyAccount();
+            accountService.ClearMyAccount();
 
     $state.go('home');			
         }, function(data) {
@@ -89,12 +89,14 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 	service.getMyAccount = function(){
 		var Account = $resource('/TicketsService/rest/accounts/myAccount');
         return Account.get().$promise.then(function(data) {
-        $rootScope.accountRole = data.accountRole;
+        $rootScope.accountInfo = data;
+//        $rootScope.accountRole = data.accountRole;
 //            return data;
           });
 	};
-	service.clearMyAccount = function(){
-        $rootScope.accountRole = {};
+	service.ClearMyAccount = function(){
+        $rootScope.accountInfo = {};
+//            return data;
 	};
 	service.registerAdmin = function(account, success, failure){
 		var Account = $resource('/TicketsService/rest/accounts/newAdmin');

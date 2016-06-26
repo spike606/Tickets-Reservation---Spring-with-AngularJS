@@ -111,8 +111,22 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
   $state.go("bookPlaneTicketOrder",{ridparam : rid}, { reload : true });
   };
 })
-.controller( 'bookPlaneTicketOrderCtrl', function bookPlaneTicketOrderCtrl( $scope,$stateParams,planeTicketOrderService,$state, ValidationService) {
+.controller( 'bookPlaneTicketOrderCtrl', function bookPlaneTicketOrderCtrl( $scope,$stateParams,accountService,planeTicketOrderService,$state, ValidationService,$rootScope) {
   $scope.$emit('changeTitle', 'BOOK_PLANE_TICKET');
+  $scope.planeTicketOrder = {};
+  if(($rootScope.accountInfo.accountRole == 'ADMIN' || $rootScope.accountInfo.accountRole == 'USER') && ($rootScope.accountInfo !== undefined)){
+$scope.planeTicketOrder.firstname = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.secondname = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.lastname = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.country = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.state = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.city = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.street = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.email = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.telephone = $rootScope.accountInfo.firstname;
+}  
+  
+
   var myValidation = new ValidationService();
   $scope.showButtonFlag = true;  
 	if($stateParams.ridparam){
@@ -131,6 +145,7 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
 			$state.go('badRequest');
 		});
   };
+
 })
 .controller( 'bookPlaneTicketOrderListCtrl', function bookPlaneTicketOrderListCtrl( $scope,$state,planeTicketOrderList,planeTicketsList, planeTicketOrderListService) {
   $scope.$emit('changeTitle', 'BOOK_PLANE_TICKET_ORDER_LIST');

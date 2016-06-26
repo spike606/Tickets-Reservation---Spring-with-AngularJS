@@ -159,12 +159,12 @@
 <div class="container">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-  			<ul class="nav nav-pills nav-stacked" ng-show="accountRole=='ADMIN'">
+  			<ul class="nav nav-pills nav-stacked" ng-show="accountInfo.accountRole=='ADMIN'">
 					 <li><a ui-sref="newPlaneTicket"><span class="glyphicon glyphicon-chevron-right"></span>{{'NEW_PLANE_TICKET' | translate}}</a></li>
 					 <li><a ui-sref="newTrainTicket"><span class="glyphicon glyphicon-chevron-right"></span> {{'NEW_TRAIN_TICKET' | translate}}</a></li>
 			</ul>
 		    &nbsp;
-		    <ul class="nav nav-pills nav-stacked" ng-show="accountRole=='ADMIN'">			   			
+		    <ul class="nav nav-pills nav-stacked" ng-show="accountInfo.accountRole=='ADMIN'">			   			
 					 <li><a ui-sref="planeTicketsList"><span class="glyphicon glyphicon-chevron-right"></span>{{'PLANE_TICKETS_LIST' | translate}}</a></li>
 					  <li><a ui-sref="trainTicketsList"><span class="glyphicon glyphicon-chevron-right"></span>{{'TRAIN_TICKETS_LIST' | translate}}</a></li>
 			</ul>
@@ -175,22 +175,22 @@
 			</ul>
 			&nbsp;
 			
-			<ul class="nav nav-pills nav-stacked" ng-show="accountRole=='ADMIN'">		
+			<ul class="nav nav-pills nav-stacked" ng-show="accountInfo.accountRole=='ADMIN'">		
 					 <li><a ui-sref="bookPlaneTicketOrderList"><span class="glyphicon glyphicon-chevron-right"></span> {{'BOOK_PLANE_TICKET_ORDER_LIST' | translate}}</a></li>
 					 <li><a ui-sref="bookTrainTicketOrderList"><span class="glyphicon glyphicon-chevron-right"></span> {{'BOOK_TRAIN_TICKET_ORDER_LIST' | translate}}</a></li>
 			</ul>
 			 &nbsp;
-			<ul class="nav nav-pills nav-stacked" ng-show="accountRole=='ADMIN'">					 
+			<ul class="nav nav-pills nav-stacked" ng-show="accountInfo.accountRole=='ADMIN'">					 
 <!-- 					 <li><a href="userRole.html"><span class="glyphicon glyphicon-chevron-right"></span> {{'LOG_OUT' | translate}}</a></li> -->
 			         <li><a ui-sref="registerAdmin"><span class="glyphicon glyphicon-chevron-right"></span> {{'SIGN_UP_ADMIN' | translate}}</a></li>
     		</ul>
     		&nbsp;		
-    		<ul class="nav nav-pills nav-stacked" ng-show="accountRole=='ADMIN'">					 
+    		<ul class="nav nav-pills nav-stacked" ng-show="accountInfo.accountRole=='ADMIN'">					 
     		  	     <li><a ui-sref="usersList"><span class="glyphicon glyphicon-chevron-right"></span>  {{'USERS_LIST' | translate}}</a></li>
     		</ul>
     		&nbsp;		
     		
-    		<ul class="nav nav-pills nav-stacked" ng-show="accountRole=='USER' || accountRole=='ADMIN'">					 
+    		<ul class="nav nav-pills nav-stacked" ng-show="accountInfo.accountRole=='USER' || accountInfo.accountRole=='ADMIN'">					 
 	    			 <li><a ui-sref="myPlaneOrders"><span class="glyphicon glyphicon-chevron-right"></span> {{'MY_PLANE_ORDERS' | translate}}</a></li>
     		  	     <li><a ui-sref="myTrainOrders"><span class="glyphicon glyphicon-chevron-right"></span>  {{'MY_TRAIN_ORDERS' | translate}}</a></li>
     		</ul>
