@@ -1,6 +1,7 @@
 {
     "ERROR_LOGGING_IN":                 "Niepoprawny login lub hasło!",
     "ERROR_SING_UP":                 	"Użytkownik o podanym loginie już istnieje!",
+    "SIGN_UP_ADMIN":                 	"Dodaj nowego administratora",
     "PASSWORD":                 		"Hasło",
     "LOGIN":                 			"Login",
     "LOG_IN":                 			"Zaloguj",

@@ -130,6 +130,21 @@ public class AccountController {
         }
 		
 	}
+	@RequestMapping(value = "/newAdmin", method = RequestMethod.POST)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public ResponseEntity<AccountResource> createAdminAccount(@Valid @RequestBody AccountResource sentAccount) {
+
+        try {
+            Account account = accountService.createAdminAccount(sentAccount.toAccount());
+            AccountResource resource = new AccountResourceAsm().toResource(account);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(URI.create(resource.getLink("self").getHref()));
+            return new ResponseEntity<AccountResource>(resource, headers, HttpStatus.CREATED);
+        } catch(AccountAlreadyExistsException exception) {
+            throw new ConflictException(exception);
+        }
+		
+	}
 	
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.DELETE)
 	@PreAuthorize("hasAuthority('ADMIN')")

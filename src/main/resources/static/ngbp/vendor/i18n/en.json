@@ -1,6 +1,7 @@
 {
     "ERROR_LOGGING_IN":                 "Invalid login or password!",
     "ERROR_SING_UP":                 	"User already exists!",
+    "SIGN_UP_ADMIN":                 	"Add new admin",
     "PASSWORD":                 		"Password",
     "LOGIN":                 			"Login",
     "LOG_IN":                 			"Log in",

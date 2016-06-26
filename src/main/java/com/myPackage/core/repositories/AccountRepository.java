@@ -9,6 +9,7 @@ public interface AccountRepository {
     public Account findAccountByLogin(String login);
     public List<Account> findAllAccounts();
     public Account createAccount(Account data);
+    public Account createAdminAccount(Account data);
     public Account deleteAccount(Long id);
 
 

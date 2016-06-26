@@ -47,6 +47,13 @@ public class JpaAccountRepository implements AccountRepository{
 
 	@Override
 	public Account createAccount(Account data) {
+		data.setAccountRole("USER");
+		entityManager.persist(data);
+		return data;
+	}
+	@Override
+	public Account createAdminAccount(Account data) {
+		data.setAccountRole("ADMIN");
 		entityManager.persist(data);
 		return data;
 	}

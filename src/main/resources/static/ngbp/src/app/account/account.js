@@ -19,6 +19,16 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 			}
 		}
 	})
+	.state('registerAdmin', {
+		url:'/registerAdmin',
+		views:{
+			'main':{
+				templateUrl:'account/registerAdmin.tpl.html' ,
+				controller: 'RegisterAdminCtrl'
+
+			}
+		}
+	})
     .state('usersList', {
             url:'/usersList',
             views: {
@@ -73,6 +83,10 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 	var service = {};
 	service.register = function(account, success, failure){
 		var Account = $resource('/TicketsService/rest/accounts');
+		Account.save({},account,success,failure);
+	};
+	service.registerAdmin = function(account, success, failure){
+		var Account = $resource('/TicketsService/rest/accounts/newAdmin');
 		Account.save({},account,success,failure);
 	};
 	service.doesUserExists = function (account, success, failure){
@@ -138,6 +152,29 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 			sessionService.login($scope.account).then(function(){
 				$state.go('home');			
 			});
+			
+		},
+		function(){
+	$scope.userAlreadyExists = true;
+    $scope.showButtonFlag = true;
+//			$state.go('badRequest');
+		});
+
+	};
+})
+.controller("RegisterAdminCtrl",function($scope, sessionService, $state,accountService, ValidationService){
+	$scope.$emit('changeTitle', 'SIGN_UP_ADMIN');
+
+    var myValidation = new ValidationService();
+    $scope.showButtonFlag = true;
+	$scope.registerAdmin = function(){
+	$scope.userAlreadyExists = false;
+		$scope.showButtonFlag = false;
+		accountService.registerAdmin($scope.account,
+				function(returnedData){
+//			sessionService.login($scope.account).then(function(){
+				$state.go('home');			
+//			});
 			
 		},
 		function(){

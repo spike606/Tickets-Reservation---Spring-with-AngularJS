@@ -120,6 +120,15 @@ public class AccountServiceImplementation implements AccountService{
         }
         return accountRepository.createAccount(data);
 	}
+	@Override
+	public Account createAdminAccount(Account data) {
+        Account account = accountRepository.findAccountByLogin(data.getLogin());
+        if(account != null)
+        {
+            throw new AccountAlreadyExistsException();
+        }
+        return accountRepository.createAdminAccount(data);
+	}
 
 	@Override
 	public Account findAccountByLogin(String login) {
