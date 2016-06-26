@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,6 +60,7 @@ public class TrainTicketController {
 		binder.setValidator(trainTicketValidator);
 	}
 	@RequestMapping(method = RequestMethod.GET)
+	@PreAuthorize("permitAll")
 	public ResponseEntity<TrainTicketListResource> findAllTrainTickets() {
 		TrainTicketList trainTicketList = trainTicketService.findAllTrainTickets();
 		TrainTicketListResource trainTicketListResource = new TrainTicketListResourceAsm().toResource(trainTicketList);
@@ -66,6 +68,7 @@ public class TrainTicketController {
 	}
 
 	@RequestMapping(value = "/{TrainTicketId}", method = RequestMethod.GET)
+	@PreAuthorize("permitAll")
 	public ResponseEntity<TrainTicketResource> getTrainTicket(@PathVariable Long TrainTicketId) {
 		try{TrainTicket TrainTicket = trainTicketService.findTrainTicket(TrainTicketId);
 			TrainTicketResource TrainTicketResource = new TrainTicketResourceAsm().toResource(TrainTicket);
@@ -77,6 +80,7 @@ public class TrainTicketController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<TrainTicketResource> createTrainTicket(@Valid @RequestBody TrainTicketResource sentTrainTicket) {
 		try {
 			TrainTicket	createdTrainTicket = trainTicketService.createTrainTicket(sentTrainTicket.toTrainTicket());
@@ -90,6 +94,7 @@ public class TrainTicketController {
 	}
 
 	@RequestMapping(value = "/{TrainTicketId}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<TrainTicketResource> deleteTrainTicket(@PathVariable Long TrainTicketId) {
 
 		try {
@@ -117,6 +122,7 @@ public class TrainTicketController {
 	}
 
 	@RequestMapping(value = "/{TrainTicketId}", method = RequestMethod.PUT)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<TrainTicketResource> updateTrainTicket(@PathVariable Long TrainTicketId,
 			@Valid @RequestBody TrainTicketResource sentTrainTicket) {
 		try {

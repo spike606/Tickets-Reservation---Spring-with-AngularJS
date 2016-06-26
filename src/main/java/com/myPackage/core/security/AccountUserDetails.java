@@ -1,29 +1,37 @@
 package com.myPackage.core.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import com.myPackage.core.entities.Account;
+import com.myPackage.core.entities.AccountRole;
+import com.myPackage.core.services.AccountService;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+import java.util.Set;
 
 public class AccountUserDetails implements UserDetails {
 	
-    private final Account account;
+    private Account account;
+
 
     public AccountUserDetails(Account account) {
         this.account = account;
     }
-
+    public AccountUserDetails() {
+    }
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         GrantedAuthority authority = new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return "USER";
+            	String role = account.getAccountRole();
+            	return role;
             }
         };
 

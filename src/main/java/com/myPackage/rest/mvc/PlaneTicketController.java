@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,6 +62,7 @@ public class PlaneTicketController {
 		binder.setValidator(planeTicketValidator);
 	}
 	@RequestMapping(method = RequestMethod.GET)
+	@PreAuthorize("permitAll")
 	public ResponseEntity<PlaneTicketListResource> findAllPlaneTickets() {
 		PlaneTicketList planeTicketList = planeTicketService.findAllPlaneTickets();
 		PlaneTicketListResource planeTicketListResource = new PlaneTicketListResourceAsm().toResource(planeTicketList);
@@ -68,6 +70,7 @@ public class PlaneTicketController {
 	}
 
 	@RequestMapping(value = "/{planeTicketId}", method = RequestMethod.GET)
+	@PreAuthorize("permitAll")
 	public ResponseEntity<PlaneTicketResource> getPlaneTicket(@PathVariable Long planeTicketId) {
 		try {
 			PlaneTicket planeTicket = planeTicketService.findPlaneTicket(planeTicketId);
@@ -79,6 +82,7 @@ public class PlaneTicketController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<PlaneTicketResource> createPlaneTicket(@Valid @RequestBody PlaneTicketResource sentPlaneTicket) {
 		try {
 			PlaneTicket createdPlaneTicket = planeTicketService.createPlaneTicket(sentPlaneTicket.toPlaneTicket());
@@ -92,6 +96,7 @@ public class PlaneTicketController {
 	}
 
 	@RequestMapping(value = "/{planeTicketId}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<PlaneTicketResource> deletePlaneTicket(@PathVariable Long planeTicketId) {
 
 		try {
@@ -119,6 +124,7 @@ public class PlaneTicketController {
 	}
 
 	@RequestMapping(value = "/{planeTicketId}", method = RequestMethod.PUT)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<PlaneTicketResource> updatePlaneTicket(@PathVariable Long planeTicketId,
 			@Valid @RequestBody PlaneTicketResource sentPlaneTicket) {
 		try {

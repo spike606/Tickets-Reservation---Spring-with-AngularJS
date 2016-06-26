@@ -3,6 +3,8 @@ package com.myPackage.rest.mvc;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myPackage.core.entities.Account;
+import com.myPackage.core.entities.PlaneTicket;
+import com.myPackage.core.entities.PlaneTicketOrder;
+import com.myPackage.core.entities.TrainTicketOrder;
 import com.myPackage.core.services.AccountService;
+import com.myPackage.core.services.PlaneTicketOrderService;
+import com.myPackage.core.services.TrainTicketOrderService;
 import com.myPackage.core.services.exceptions.AccountAlreadyExistsException;
 import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
-
+import com.myPackage.core.services.exceptions.PlaneTicketNotFoundException;
 import com.myPackage.core.services.util.AccountList;
 import com.myPackage.core.services.util.PlaneTicketOrderList;
 import com.myPackage.core.services.util.TrainTicketOrderList;
@@ -33,10 +41,12 @@ import com.myPackage.rest.exceptions.NotFoundException;
 import com.myPackage.rest.resources.AccountListResource;
 import com.myPackage.rest.resources.AccountResource;
 import com.myPackage.rest.resources.PlaneTicketOrderListResource;
+import com.myPackage.rest.resources.PlaneTicketResource;
 import com.myPackage.rest.resources.TrainTicketOrderListResource;
 import com.myPackage.rest.resources.asm.AccountListResourceAsm;
 import com.myPackage.rest.resources.asm.AccountResourceAsm;
 import com.myPackage.rest.resources.asm.PlaneTicketOrderListResourceAsm;
+import com.myPackage.rest.resources.asm.PlaneTicketResourceAsm;
 import com.myPackage.rest.resources.asm.TrainTicketOrderListResourceAsm;
 import com.myPackage.rest.validators.AccountValidator;
 
@@ -48,7 +58,12 @@ public class AccountController {
 
 	AccountValidator accountValidator;
 
-
+	@Autowired
+	PlaneTicketOrderService planeTicketOrderService;
+	
+	@Autowired
+	TrainTicketOrderService trainTicketOrderService;
+	
 	public AccountController() {
 		accountValidator = new AccountValidator();
 	}
@@ -64,6 +79,7 @@ public class AccountController {
 	}
 	
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AccountListResource> findAllAccounts(@RequestParam(value="login", required = false) String login) {
 		try {
 
@@ -87,6 +103,7 @@ public class AccountController {
 	
 
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<AccountResource> getAccount(@PathVariable Long accountId) {
 		try {
 			Account account = accountService.findAccount(accountId);
@@ -99,6 +116,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
+	@PreAuthorize("permitAll")
 	public ResponseEntity<AccountResource> createAccount(@Valid @RequestBody AccountResource sentAccount) {
 
         try {
@@ -114,8 +132,40 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<AccountResource> deleteAccount(@PathVariable("accountId") Long accountId) {
 		try {
+			
+			// delete orders for account
+			List<PlaneTicketOrder> planeTicketOrderList2 = planeTicketOrderService.findAllPlaneTicketOrders()
+					.getPlaneTicketOrders();
+			for (Iterator it3 = planeTicketOrderList2.iterator(); it3.hasNext();) {
+				PlaneTicketOrder planeTicketOrder2 = (PlaneTicketOrder) it3.next();
+
+				if(planeTicketOrder2.getOwner() != null){
+					if (planeTicketOrder2.getOwner().getId().longValue() == accountId.longValue()) {
+
+						planeTicketOrderService.deletePlaneTicketOrder(planeTicketOrder2.getId());
+
+					}
+				}
+
+
+			}
+			List<TrainTicketOrder> trainTicketOrderList2 = trainTicketOrderService.findAllTrainTicketOrders()
+					.getTrainTicketOrders();
+			for (Iterator it3 = trainTicketOrderList2.iterator(); it3.hasNext();) {
+				TrainTicketOrder trainTicketOrder2 = (TrainTicketOrder) it3.next();
+				if (trainTicketOrder2.getOwner() != null) {
+
+					if (trainTicketOrder2.getOwner().getId().longValue() == accountId.longValue()) {
+
+						trainTicketOrderService.deleteTrainTicketOrder(trainTicketOrder2.getId());
+
+					}
+				}
+
+			}			
 			Account account = accountService.deleteAccount(accountId);
 			AccountResource res = new AccountResourceAsm().toResource(account);
 			return new ResponseEntity<AccountResource>(res, HttpStatus.OK);

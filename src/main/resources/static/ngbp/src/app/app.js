@@ -46,14 +46,15 @@ angular.module( 'ngBoilerplate', [
 //      $scope.pageTitle = toState.data.pageTitle ;
 //    }
   });
-	$scope.isLoggedIn = sessionService.isLoggedIn;
-	$scope.logout = sessionService.logout;
-	$scope.logoImage = 'logo.png';
+
 	$scope.changeLanguage = function (langKey) {
     $translate.use(langKey);
      $scope.$emit('changeTitle');
 
 		};
+	$scope.isLoggedIn = sessionService.isLoggedIn;
+	$scope.logout = sessionService.logout;
+	$scope.logoImage = 'logo.png';
 });
 
 

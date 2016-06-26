@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -69,12 +70,14 @@ public class TrainTicketOrderController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<TrainTicketOrderListResource> findAllTrainTicketOrders() {
 		TrainTicketOrderList trainTicketOrderList = trainTicketOrderService.findAllTrainTicketOrders();
 		TrainTicketOrderListResource trainTicketOrderListResource = new TrainTicketOrderListResourceAsm().toResource(trainTicketOrderList);
 		return new ResponseEntity<TrainTicketOrderListResource>(trainTicketOrderListResource, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/{TrainTicketOrderId}", method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<TrainTicketOrderResource> getTrainTicketOrder(@PathVariable Long TrainTicketOrderId) {
 		try{
 			TrainTicketOrder trainTicketOrder = trainTicketOrderService.findTrainTicketOrder(TrainTicketOrderId);
@@ -86,6 +89,7 @@ public class TrainTicketOrderController {
 		}
 	}
 	@RequestMapping(method = RequestMethod.POST)
+	@PreAuthorize("permitAll")
 	public ResponseEntity<TrainTicketOrderResource> createTrainTicketOrder(@Valid @RequestBody TrainTicketOrderResource sentTrainTicketOrder) {
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -112,6 +116,7 @@ public class TrainTicketOrderController {
 	}
 
 	@RequestMapping(value = "/{TrainTicketOrderId}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<TrainTicketOrderResource> deleteTrainTicketOrder(@PathVariable Long TrainTicketOrderId) {
 		try {
 			TrainTicketOrder trainTicketOrder = trainTicketOrderService.deleteTrainTicketOrder(TrainTicketOrderId);

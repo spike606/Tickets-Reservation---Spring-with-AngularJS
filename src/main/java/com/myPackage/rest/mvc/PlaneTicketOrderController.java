@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -67,6 +68,7 @@ public class PlaneTicketOrderController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<PlaneTicketOrderListResource> findAllPlaneTicketOrders() {
 		PlaneTicketOrderList planeTicketOrderList = planeTicketOrderService.findAllPlaneTicketOrders();
 		PlaneTicketOrderListResource planeTicketOrderListResource = new PlaneTicketOrderListResourceAsm().toResource(planeTicketOrderList);
@@ -74,6 +76,7 @@ public class PlaneTicketOrderController {
 	}
 
 	@RequestMapping(value = "/{planeTicketOrderId}", method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<PlaneTicketOrderResource> getPlaneTicketOrder(@PathVariable Long planeTicketOrderId) {
 		try {
 			PlaneTicketOrder planeTicketOrder = planeTicketOrderService.findPlaneTicketOrder(planeTicketOrderId);
@@ -85,6 +88,7 @@ public class PlaneTicketOrderController {
 		}
 	}
 	@RequestMapping(method = RequestMethod.POST)
+	@PreAuthorize("permitAll")
 	public ResponseEntity<PlaneTicketOrderResource> createPlaneTicketOrder(@Valid @RequestBody PlaneTicketOrderResource sentPlaneTicketOrder) {
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -115,6 +119,7 @@ public class PlaneTicketOrderController {
 	}
 
 	@RequestMapping(value = "/{planeTicketOrderId}", method = RequestMethod.DELETE)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<PlaneTicketOrderResource> deletePlaneTicketOrder(@PathVariable Long planeTicketOrderId) {
 		try {
 			PlaneTicketOrder planeTicketOrder = planeTicketOrderService.deletePlaneTicketOrder(planeTicketOrderId);

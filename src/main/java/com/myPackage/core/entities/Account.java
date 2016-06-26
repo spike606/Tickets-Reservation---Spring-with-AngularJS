@@ -30,9 +30,10 @@ public class Account {
 	private String login;
 	private String password;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<AccountRole> accountRole = new HashSet<AccountRole>(0);
-	
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	private Set<AccountRole> accountRole = new HashSet<AccountRole>(0);
+	private String accountRole;
+
 	public Long getId() {
 		return id;
 	}
@@ -105,11 +106,12 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Set<AccountRole> getAccountRole() {
+	public String getAccountRole() {
 		return accountRole;
 	}
-	public void setAccountRole(Set<AccountRole> accountRole) {
+	public void setAccountRole(String accountRole) {
 		this.accountRole = accountRole;
 	}
+
 	
 }

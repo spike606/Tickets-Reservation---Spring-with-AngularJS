@@ -23,9 +23,20 @@ public class AccountResource  extends ResourceSupport{
 
 	private String login;
 	private String password;
+	private String accountRole;
 
 	private Long rid;
 	
+	
+	
+	public String getAccountRole() {
+		return accountRole;
+	}
+
+	public void setAccountRole(String accountRole) {
+		this.accountRole = accountRole;
+	}
+
 	public String getFirstname() {
 		return firstname;
 	}

@@ -1,14 +1,18 @@
 package com.myPackage.core.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
@@ -34,17 +38,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()
 		.exceptionHandling()
 			.authenticationEntryPoint(entryPointUnauthorizedHandler)
-			.and()
+			.and()			
 		.formLogin()
 			.successHandler(authenticationSuccess)
 			.failureHandler(authenticationFailure)
+			.permitAll()
 		.and()
 		.authorizeRequests()
-		.antMatchers("/**")
-		.permitAll()
+		.antMatchers("/").permitAll()
+		.antMatchers("/assets/").permitAll()
+//		.antMatchers("/account/usersList.tpl.html").hasAuthority("ADMIN")
 		.and()
 		.logout().logoutUrl("/logout").logoutSuccessUrl("/")
-			.permitAll();
+			.permitAll()
+		;
 		
 	}
 }

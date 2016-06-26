@@ -34,15 +34,15 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
             }
     });
 })
-.factory("sessionService", function($http,$base64){
+.factory("sessionService", function($http,$base64,$state){
 	var session = {};
-    session.login = function(data) {
+	session.login = function(data) {
         return $http.post("/TicketsService/login", "username=" + data.login + "&password=" + data.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         } ).then(function(data) {
             alert("login successful");
             console.log(data);
-            localStorage.setItem("session", {});
+            sessionStorage.setItem("session", {});
         }, function(data) {
             alert("error logging in");
         });
@@ -50,16 +50,18 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
     session.logout = function(data) {
         return $http.post("/TicketsService/logout","").then(function(data) {
             alert("logut successful");
-            localStorage.removeItem("session", {});
+            sessionStorage.removeItem("session", {});
+    $state.go('home');			
         }, function(data) {
             alert("error logging out in");
+    $state.go('home');			
         });
     };
 //	session.logout = function(data){		
 //		localStorage.removeItem("session");
 //	};
-	session.isLoggedIn = function(){		
-		return localStorage.getItem("session") !== null;
+    session.isLoggedIn = function(){		
+		return sessionStorage.getItem("session") !== null;
 	};
 	return session;
 	
@@ -103,14 +105,14 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 .controller("LoginCtrl",function($scope, sessionService, $state,accountService){
 	$scope.$emit('changeTitle', 'LOG_IN');
 	$scope.login = function(){
-		accountService.doesUserExists($scope.account, function(account){
+//		accountService.doesUserExists($scope.account, function(account){
 			sessionService.login($scope.account).then(function(){
 				$state.go('home');
 			});
-		},
-		function(){
-			alert("error logging in user");
-		});
+//		},
+//		function(){
+//			alert("error logging in user");
+//		});
 	};
 })
 .controller("RegisterCtrl",function($scope, sessionService, $state,accountService, ValidationService){
