@@ -1,4 +1,6 @@
 {
+    "ERROR_LOGGING_IN":                 "Niepoprawny login lub hasło!",
+    "ERROR_SING_UP":                 	"Użytkownik o podanym loginie już istnieje!",
     "PASSWORD":                 		"Hasło",
     "LOGIN":                 			"Login",
     "LOG_IN":                 			"Zaloguj",

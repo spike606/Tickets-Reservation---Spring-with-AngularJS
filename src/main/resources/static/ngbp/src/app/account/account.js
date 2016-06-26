@@ -40,20 +40,23 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
         return $http.post("/TicketsService/login", "username=" + data.login + "&password=" + data.password, {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         } ).then(function(data) {
-            alert("login successful");
-            console.log(data);
+//            alert("login successful");
+//            console.log(data);
             sessionStorage.setItem("session", {});
+            
         }, function(data) {
-            alert("error logging in");
+//            alert("Error logging in");
+            sessionStorage.setItem("invalidLogin", true);
+
         });
     };
     session.logout = function(data) {
         return $http.post("/TicketsService/logout","").then(function(data) {
-            alert("logut successful");
+//            alert("logut successful");
             sessionStorage.removeItem("session", {});
     $state.go('home');			
         }, function(data) {
-            alert("error logging out in");
+            alert("Error logging out");
     $state.go('home');			
         });
     };
@@ -104,22 +107,31 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 })
 .controller("LoginCtrl",function($scope, sessionService, $state,accountService){
 	$scope.$emit('changeTitle', 'LOG_IN');
+	$scope.validLogging = true;
 	$scope.login = function(){
 //		accountService.doesUserExists($scope.account, function(account){
 			sessionService.login($scope.account).then(function(){
-				$state.go('home');
-			});
-//		},
-//		function(){
-//			alert("error logging in user");
-//		});
+    $scope.invalidLogin = sessionStorage.getItem("invalidLogin");
+    sessionStorage.removeItem("invalidLogin");
+    if(!$scope.invalidLogin){
+    $state.go('home');
+    }
+			
+		},
+		function(){
+//			$scope.validLogging = false;
+
+			alert("error logging in user");
+		});
 	};
 })
 .controller("RegisterCtrl",function($scope, sessionService, $state,accountService, ValidationService){
 	$scope.$emit('changeTitle', 'SIGN_UP');
+
     var myValidation = new ValidationService();
     $scope.showButtonFlag = true;
 	$scope.register = function(){
+	$scope.userAlreadyExists = false;
 		$scope.showButtonFlag = false;
 		accountService.register($scope.account,
 				function(returnedData){
@@ -129,7 +141,9 @@ angular.module('ngBoilerplate.account',['ui.router','ngResource','ngBoilerplate.
 			
 		},
 		function(){
-			$state.go('badRequest');
+	$scope.userAlreadyExists = true;
+    $scope.showButtonFlag = true;
+//			$state.go('badRequest');
 		});
 
 	};

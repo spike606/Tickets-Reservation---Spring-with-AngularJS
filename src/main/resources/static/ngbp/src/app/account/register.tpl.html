@@ -48,6 +48,7 @@
           <input type="text" name="street" ng-model="account.street" class="form-control myForm-control" validation="min_len:1|max_len:25|alpha_num_spaces|required"/>
       </div>
       <button class="btn btn-lg btn-primary btn-block myButton" type="submit" ng-disabled="registerSubmitForm.$invalid" ng-show="showButtonFlag">{{'SIGN_UP' | translate}}</button>
+      <span class="validation text-danger" ng-show="userAlreadyExists">{{'ERROR_SING_UP' | translate}}</span>
       
   </form>
 </div>
