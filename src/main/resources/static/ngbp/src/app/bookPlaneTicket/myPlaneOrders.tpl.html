@@ -1,0 +1,37 @@
+<div class="row">
+  <h1 class="page-header">
+      {{'LIST_OF_MY_PLANE_ORDERS' | translate}}
+  </h1>
+		 <table class="table table-bordered">
+		    <thead>
+		      <tr>
+		        <th>{{'FIRST_NAME' | translate}}</th>
+		        <th>{{'LAST_NAME' | translate}}</th>
+		        <th>{{'COUNTRY' | translate}}</th>
+		        <th>{{'STATE' | translate}}</th>
+		        <th>{{'CITY' | translate}}</th>
+		        <th>{{'STREET' | translate}}</th>
+		        <th>{{'EMAIL' | translate}}</th>
+		        <th>{{'TELEPHONE' | translate}}</th>
+		        <th>{{'FLIGHT_NUMBER' | translate}}</th>
+		      </tr>
+			</thead>
+
+			<tbody>
+	        <tr  ng-repeat="planeTicketOrder in myPlaneTicketOrderList | filter:q">
+	            <td>{{planeTicketOrder.firstname}}</td>
+	            <td>{{planeTicketOrder.lastname}}</td>
+	            <td>{{planeTicketOrder.country}}</td>
+	            <td>{{planeTicketOrder.state}}</td>
+	            <td>{{planeTicketOrder.city}}</td>
+	            <td>{{planeTicketOrder.street}}</td>
+	            <td>{{planeTicketOrder.email}}</td>
+	            <td>{{planeTicketOrder.telephone}}</td>
+	            <td>{{planeTicketOrder.planeTicket.flightNumber}}</td>
+          	            
+	        </tr>			
+			</tbody>
+ 		 </table>
+</div>
+
+

@@ -98,18 +98,6 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
     return data.trainTicketOrders;
     });
     }; 
-    service.getTicketForMyOrder = function(myOrder) {
-    return trainTicketService.getTrainTicketById(myOrder.trainTicketId).$promise.then(function(data){
-    return data.trainTicket;
-    });
-        }; 
-//    return TrainTicketOrderList.get().$promise.then(function(data) {
-//        trainTicketService.getTrainTicketById(data.trainTicketOrders[i].planeTicketId).$promise.then(function(data){
-//        data.trainTicketOrders[i].planeTicket = data;
-//        });
-//        return data.trainTicketOrders;
-//        });
-//        }; 
     service.deleteTrainTicketOrder = function(rid) {
         var TrainTicketOrder = $resource("/TicketsService/rest/trainTicketOrders/:trainTicketOrderId");
         return TrainTicketOrder.remove({trainTicketOrderId:rid}).$promise;
@@ -170,9 +158,6 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
   $scope.$emit('changeTitle', 'MY_TRAIN_ORDERS');
   $scope.myTrainTicketOrderList = myTrainTicketOrderList;
   $scope.trainTicketsList = trainTicketsList;
-//  $scope.deleteButtonDisabled = false;
-  console.log($scope.myTrainTicketOrderList);
-//  console.log($scope.trainTicketsList);
    for (i = 0; i < $scope.myTrainTicketOrderList.length; i++) {
 	for(j=0; j < $scope.trainTicketsList.length ; j++){
 		if($scope.trainTicketsList[j].rid == $scope.myTrainTicketOrderList[i].trainTicketId){
@@ -181,8 +166,5 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
 		}
 	}
 	}
-//   $scope.deleteTrainTicketOrder = function(rid) {
-//   $scope.deleteButtonDisabled = true;
-//    };
 })
 ;

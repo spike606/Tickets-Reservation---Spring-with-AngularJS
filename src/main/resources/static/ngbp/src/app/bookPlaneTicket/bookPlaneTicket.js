@@ -32,6 +32,27 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
         ridparam: null
     }
   });
+  $stateProvider.state( 'myPlaneOrders', {
+    url: '/myPlaneOrders',
+    views: {
+      "main": {
+        controller: 'myPlaneOrdersCtrl',
+        templateUrl: 'bookPlaneTicket/myPlaneOrders.tpl.html'
+      }
+    },
+    params: {
+        ridparam: null
+    },
+    resolve: {
+    myPlaneTicketOrderList: function(planeTicketOrderListService){
+                return planeTicketOrderListService.getMyPlaneTicketOrderList();
+            },
+    planeTicketsList: function(planeTicketsListService){
+            return planeTicketsListService.getPlaneTicketsList();
+        }
+        }
+        
+  });
   $stateProvider.state( 'bookPlaneTicketOrderList', {
     url: '/bookPlaneTicketOrderList',
     views: {
@@ -71,6 +92,12 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
     return data.planeTicketOrders;
     });
     };
+    service.getMyPlaneTicketOrderList = function() {
+    var PlaneTicketOrderList = $resource("/TicketsService/rest/planeTicketOrders/myPlaneOrders");
+    return PlaneTicketOrderList.get().$promise.then(function(data) {
+    return data.planeTicketOrders;
+    });
+    };    
     service.deletePlaneTicketOrder = function(rid) {
         var PlaneTicketOrder = $resource("/TicketsService/rest/planeTicketOrders/:planeTicketOrderId");
         return PlaneTicketOrder.remove({planeTicketOrderId:rid}).$promise;
@@ -126,5 +153,18 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
         $state.go("bookPlaneTicketOrderList",{},{ reload : true });
     });
     };
+})
+.controller( 'myPlaneOrdersCtrl', function myPlaneOrdersCtrl( $scope,$state,myPlaneTicketOrderList,planeTicketsList, planeTicketOrderListService) {
+  $scope.$emit('changeTitle', 'MY_TRAIN_ORDERS');
+  $scope.myPlaneTicketOrderList = myPlaneTicketOrderList;
+  $scope.planeTicketsList = planeTicketsList;
+   for (i = 0; i < $scope.myPlaneTicketOrderList.length; i++) {
+	for(j=0; j < $scope.planeTicketsList.length ; j++){
+		if($scope.planeTicketsList[j].rid == $scope.myPlaneTicketOrderList[i].planeTicketId){
+			$scope.myPlaneTicketOrderList[i].planeTicket = $scope.planeTicketsList[j];
+			break;
+		}
+	}
+	}
 })
 ;

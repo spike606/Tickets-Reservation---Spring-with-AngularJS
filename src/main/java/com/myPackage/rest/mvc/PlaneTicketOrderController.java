@@ -26,9 +26,11 @@ import com.myPackage.core.entities.PlaneTicketOrder;
 import com.myPackage.core.services.AccountService;
 import com.myPackage.core.services.PlaneTicketOrderService;
 import com.myPackage.core.services.PlaneTicketService;
+import com.myPackage.core.services.exceptions.AccountDoesNotExistException;
 import com.myPackage.core.services.exceptions.PlaneTicketOrderAlreadyExistsException;
 import com.myPackage.core.services.exceptions.PlaneTicketOrderNotFoundException;
 import com.myPackage.core.services.util.PlaneTicketOrderList;
+import com.myPackage.rest.exceptions.BadRequestException;
 import com.myPackage.rest.exceptions.ConflictException;
 import com.myPackage.rest.exceptions.NotFoundException;
 import com.myPackage.rest.resources.PlaneTicketOrderListResource;
@@ -129,6 +131,23 @@ public class PlaneTicketOrderController {
 		} catch (PlaneTicketOrderNotFoundException e) {
 			throw new NotFoundException(e);
 		}
+	}
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+	@RequestMapping(value = "/myPlaneOrders", method = RequestMethod.GET)
+	public ResponseEntity<PlaneTicketOrderListResource> findAllPlaneTicketOrdersForAccount() {
+        try {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				UserDetails details = (UserDetails)principal;	
+				Account loggedIn = accountService.findAccountByLogin(details.getUsername());	 
+			PlaneTicketOrderList planeTicketOrderList = accountService.findAllPlaneTicketOrdersForAccount(loggedIn.getId());
+			PlaneTicketOrderListResource planeTicketOrderListResource = new PlaneTicketOrderListResourceAsm().toResource(planeTicketOrderList);
+			
+	
+			return new ResponseEntity<PlaneTicketOrderListResource>(planeTicketOrderListResource, HttpStatus.OK);
+        } catch(AccountDoesNotExistException exception)
+        {
+            throw new BadRequestException(exception);
+        }
 	}
 //    @RequestMapping(value="/{planeTicketOrderId}",method = RequestMethod.PUT)
 //    public ResponseEntity<PlaneTicketOrderResource> updatePlaneTicketOrder(
