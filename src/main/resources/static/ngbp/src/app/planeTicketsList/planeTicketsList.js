@@ -30,7 +30,7 @@ angular.module( 'ngBoilerplate.planeTicketsList', [
     };
     service.getPlaneTicketById = function(rid) {
         var PlaneTicket = $resource("/TicketsService/rest/planeTickets/:planeTicketId");
-        return PlaneTicket.get({planeTicketId:rid});
+        return PlaneTicket.get({planeTicketId:rid}).$promise;
     };
     service.deletePlaneTicket = function(rid) {
         var PlaneTicket = $resource("/TicketsService/rest/planeTickets/:planeTicketId");

@@ -32,10 +32,6 @@ angular.module( 'ngBoilerplate.newTrainTicket', [
 		var TrainTicket = $resource('/TicketsService/rest/trainTickets');
 		TrainTicket.save({},trainTicket,success,failure);
 	};
-    service.getTrainTicketById = function(rid) {
-        var TrainTicket = $resource("/TicketsService/rest/trainTickets/:trainTicketId");
-        return TrainTicket.get({trainTicketId:rid}).$promise;
-    };
 	return service;
 })
 .factory('updateTrainTicketService', function ($resource) {

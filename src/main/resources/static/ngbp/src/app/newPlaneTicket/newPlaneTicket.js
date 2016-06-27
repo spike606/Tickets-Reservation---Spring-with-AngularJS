@@ -33,10 +33,6 @@ angular.module( 'ngBoilerplate.newPlaneTicket', [
 		var PlaneTicket = $resource('/TicketsService/rest/planeTickets');
 		PlaneTicket.save({},planeTicket,success,failure);
 	};
-    service.getPlaneTicketById = function(rid) {
-        var PlaneTicket = $resource("/TicketsService/rest/planeTickets/:planeTicketId");
-        return PlaneTicket.get({planeTicketId:rid}).$promise;
-    };
 	return service;
 })
 .factory('updatePlaneTicketService', function ($resource) {
