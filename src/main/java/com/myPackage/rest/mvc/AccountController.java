@@ -150,7 +150,6 @@ public class AccountController {
             context.setVariable("title", "Welcome!");
             context.setVariable("description", "Your account in TickTwo service was created. Thank You!");
             
-//            		emailHtmlSender.send(account.getEmail(), "Title of email", "email-template", context);
             		emailHtmlSender.send(account.getEmail(), "Title of email", "email-template", context);
 
             headers.setLocation(URI.create(resource.getLink("self").getHref()));
