@@ -15,13 +15,13 @@ public class AccountValidator implements Validator {
 	private Pattern pattern;
 	private Matcher matcher;
 
-	private static final String LOGIN_PATTERN = "[a-zA-Z0-9]{1,15}";
+	private static final String LOGIN_PATTERN = "[a-zA-Z0-9żźćńółęąśŻŹĆĄŚĘŁÓŃ]{1,15}";
 	private static final String PASSWORD_PATTERN = "[a-zA-Z0-9_!£$#%^&*@?<>+]{1,25}";
-	private static final String NAME_PATTERN = "[a-zA-Z\\s]{1,25}";
-	private static final String COUNTRY_PATTERN = "[a-zA-Z\\s]{1,25}";
-	private static final String STATE_PATTERN = "[a-zA-Z0-9\\s]{1,25}";
-	private static final String CITY_PATTERN = "[a-zA-Z\\s]{1,25}";
-	private static final String STREET_PATTERN = "[a-zA-Z0-9\\s]{1,25}";
+	private static final String NAME_PATTERN = "[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ\\s]{1,25}";
+	private static final String COUNTRY_PATTERN = "[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ\\s]{1,25}";
+	private static final String STATE_PATTERN = "[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9\\s]{1,25}";
+	private static final String CITY_PATTERN = "[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ\\s]{1,25}";
+	private static final String STREET_PATTERN = "[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9\\s]{1,25}";
 	private static final String PHONE_PATTERN = "\\+[0-9]{1,4}\\s[0-9]{3}-[0-9]{3}-[0-9]{3}";
     private final static String EMAIL_PATTERN = "(?!\\.)(?!.*\\.{2})[a-zA-Z0-9._\\%!#\\$&'\\*+-/=\\?\\[\\]\\^`\\{\\|\\}~]+(?<!\\.)@(?!-)[a-zA-Z0-9-]+(?<!-).[A-Za-z]{2,4}";//negative lookahead for ..
 

@@ -116,14 +116,14 @@ angular.module( 'ngBoilerplate.bookTrainTicket', [
   $scope.trainTicketOrder = {};
   if(($rootScope.accountInfo.accountRole == 'ADMIN' || $rootScope.accountInfo.accountRole == 'USER') && ($rootScope.accountInfo !== undefined)){
 $scope.trainTicketOrder.firstname = $rootScope.accountInfo.firstname;
-$scope.trainTicketOrder.secondname = $rootScope.accountInfo.firstname;
-$scope.trainTicketOrder.lastname = $rootScope.accountInfo.firstname;
-$scope.trainTicketOrder.country = $rootScope.accountInfo.firstname;
-$scope.trainTicketOrder.state = $rootScope.accountInfo.firstname;
-$scope.trainTicketOrder.city = $rootScope.accountInfo.firstname;
-$scope.trainTicketOrder.street = $rootScope.accountInfo.firstname;
-$scope.trainTicketOrder.email = $rootScope.accountInfo.firstname;
-$scope.trainTicketOrder.telephone = $rootScope.accountInfo.firstname;
+$scope.trainTicketOrder.secondname = $rootScope.accountInfo.secondname;
+$scope.trainTicketOrder.lastname = $rootScope.accountInfo.lastname;
+$scope.trainTicketOrder.country = $rootScope.accountInfo.country;
+$scope.trainTicketOrder.state = $rootScope.accountInfo.state;
+$scope.trainTicketOrder.city = $rootScope.accountInfo.city;
+$scope.trainTicketOrder.street = $rootScope.accountInfo.street;
+$scope.trainTicketOrder.email = $rootScope.accountInfo.email;
+$scope.trainTicketOrder.telephone = $rootScope.accountInfo.telephone;
 }  
   
   var myValidation = new ValidationService();

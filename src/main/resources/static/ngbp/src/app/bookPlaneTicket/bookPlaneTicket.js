@@ -116,14 +116,14 @@ angular.module( 'ngBoilerplate.bookPlaneTicket', [
   $scope.planeTicketOrder = {};
   if(($rootScope.accountInfo.accountRole == 'ADMIN' || $rootScope.accountInfo.accountRole == 'USER') && ($rootScope.accountInfo !== undefined)){
 $scope.planeTicketOrder.firstname = $rootScope.accountInfo.firstname;
-$scope.planeTicketOrder.secondname = $rootScope.accountInfo.firstname;
-$scope.planeTicketOrder.lastname = $rootScope.accountInfo.firstname;
-$scope.planeTicketOrder.country = $rootScope.accountInfo.firstname;
-$scope.planeTicketOrder.state = $rootScope.accountInfo.firstname;
-$scope.planeTicketOrder.city = $rootScope.accountInfo.firstname;
-$scope.planeTicketOrder.street = $rootScope.accountInfo.firstname;
-$scope.planeTicketOrder.email = $rootScope.accountInfo.firstname;
-$scope.planeTicketOrder.telephone = $rootScope.accountInfo.firstname;
+$scope.planeTicketOrder.secondname = $rootScope.accountInfo.secondname;
+$scope.planeTicketOrder.lastname = $rootScope.accountInfo.lastname;
+$scope.planeTicketOrder.country = $rootScope.accountInfo.country;
+$scope.planeTicketOrder.state = $rootScope.accountInfo.state;
+$scope.planeTicketOrder.city = $rootScope.accountInfo.city;
+$scope.planeTicketOrder.street = $rootScope.accountInfo.street;
+$scope.planeTicketOrder.email = $rootScope.accountInfo.email;
+$scope.planeTicketOrder.telephone = $rootScope.accountInfo.telephone;
 }  
   
 

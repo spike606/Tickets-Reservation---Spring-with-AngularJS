@@ -138,7 +138,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	@PreAuthorize("permitAll")
+//	@PreAuthorize("permitAll")
 	public ResponseEntity<AccountResource> createAccount(@Valid @RequestBody AccountResource sentAccount) {
 
         try {
